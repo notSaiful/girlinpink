@@ -217,7 +217,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                     Secure Your Reservation
                   </h1>
                   <p className="text-sm text-[#69464C] mt-1 font-sans">
-                    Batch 01 allocation is strictly limited to 150 sets per print edition. Complimentary campus shipping across India.
+                    Batch 01 allocation is strictly limited to 150 sets per print edition. Pre-orders close strictly on <strong>September 20th at 11:59 PM</strong>. Complimentary campus shipping across India.
                   </p>
                 </div>
 

@@ -46,17 +46,24 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
         <div className="flex items-center justify-between h-20 sm:h-24">
           
           {/* Brand Mark */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <button 
               onClick={() => handleNavClick('home')} 
-              className="group text-left flex items-baseline gap-2.5 py-2"
+              className="group text-left flex items-center gap-3 py-2"
             >
-              <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition">
-                girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
-              </span>
-              <span className="hidden lg:inline text-xs tracking-wider uppercase text-[#A8727C] font-sans font-medium">
-                bedding collection
-              </span>
+              <img 
+                src="/logo.png" 
+                alt="girlinpink logo" 
+                className="w-9 h-9 sm:w-11 sm:h-11 object-contain rounded-full p-0.5 bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
+              />
+              <div className="flex items-baseline gap-2">
+                <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition">
+                  girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
+                </span>
+                <span className="hidden lg:inline text-xs tracking-wider uppercase text-[#A8727C] font-sans font-medium">
+                  bedding collection
+                </span>
+              </div>
             </button>
           </div>
 

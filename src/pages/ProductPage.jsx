@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { LAUNCH_PRINTS, SIZES, TIERS } from '../data/preorderData';
 import { TestimonialsSection } from '../components/TestimonialsSection';
+import { useCountdown } from '../hooks/useCountdown';
 
 export const ProductPage = ({ onNavigate }) => {
   const { setSelectedPrint, setSelectedSize, setSelectedTier, selectedPrint, getPrintStats } = useCart();
+  const timeLeft = useCountdown();
 
   const [selectedPrintId, setSelectedPrintId] = useState(() => {
     if (selectedPrint?.id) return selectedPrint.id;
@@ -282,8 +284,19 @@ export const ProductPage = ({ onNavigate }) => {
               </div>
             </div>
 
+            {/* September 20th Deadline Countdown Banner */}
+            <div className="flex items-center justify-between p-3 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] text-xs font-sans text-[#7E3846]">
+              <div className="flex items-center gap-2 font-medium">
+                <span className="text-sm">⏰</span>
+                <span>Pre-Orders Close Sept 20th:</span>
+              </div>
+              <div className="font-mono font-semibold text-[#9E2B42] bg-white px-2.5 py-0.5 rounded-lg border border-[#F5CCD6] shadow-2xs">
+                {timeLeft.isExpired ? 'Batch 01 Closed' : timeLeft.formatted}
+              </div>
+            </div>
+
             {/* Primary Call to Action Button - Consistent Pink */}
-            <div className="pt-4 border-t border-[#F8D2DA] space-y-3">
+            <div className="pt-2 space-y-3">
               {currentStats.isSoldOut ? (
                 <button
                   disabled

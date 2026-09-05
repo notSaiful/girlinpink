@@ -6,7 +6,12 @@ export const Footer = ({ onNavigate }) => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-6">
         
         {/* Top: Brand & Refined Subtitle */}
-        <div className="text-center space-y-1.5 pb-6 border-b border-[#F7D5DC]">
+        <div className="text-center space-y-2 pb-6 border-b border-[#F7D5DC] flex flex-col items-center">
+          <img 
+            src="/logo.png" 
+            alt="girlinpink logo" 
+            className="w-12 h-12 object-contain rounded-full p-1 bg-white border border-[#F6D5DC] shadow-xs" 
+          />
           <div className="font-serif text-2xl font-bold tracking-tight text-[#2D1C20]">
             girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
           </div>
