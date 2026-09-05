@@ -38,7 +38,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
       <div className="bg-[#FFE8ED] border-b border-[#F5CCD6] text-[#8C3847] px-4 sm:px-6 py-2.5 text-center text-xs sm:text-[13px] font-medium tracking-wide">
         <span className="font-serif italic font-medium">Batch 01 Autumn Drop:</span>
         <span className="font-sans ml-2">
-          Strictly limited to 150 orders each • {roseStats.remaining} Rose & {blueStats.remaining} Sky Blue remaining ♡
+          Strictly limited to 150 orders each • A few sets left in each print ♡
         </span>
       </div>
 

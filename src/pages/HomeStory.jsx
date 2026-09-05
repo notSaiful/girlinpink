@@ -34,13 +34,13 @@ export const HomeStory = ({ onNavigate }) => {
   return (
     <div className="w-full">
       
+      {/* Moving Promotional Marquee Strip & September 20th Countdown Timer (Below Header) */}
+      <PromotionalBannerStrip onNavigate={onNavigate} onExplore={scrollToCarousel} />
+
       {/* 1. Full-Screen Hero */}
       <FullScreenHero onExplore={scrollToCarousel} />
 
-      {/* 2. Moving Promotional Marquee Strip & September 20th Countdown Timer (Below Hero) */}
-      <PromotionalBannerStrip onNavigate={onNavigate} onExplore={scrollToCarousel} />
-
-      {/* 3. The Launch Prints Product Carousel */}
+      {/* 2. The Launch Prints Product Carousel */}
       <ProductCarousel onNavigate={onNavigate} />
 
       {/* 3. Real Room Transformations (Testimonials) */}

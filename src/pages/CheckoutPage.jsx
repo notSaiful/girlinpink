@@ -472,7 +472,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                         ? 'bg-red-50 text-red-700 border-red-200' 
                         : 'bg-[#FFE8EE] text-[#9E2B42] border-[#F5CCD6]'
                     }`}>
-                      {printStats.isSoldOut ? 'Sold Out (150/150)' : `${printStats.remaining} of 150 left`}
+                      {printStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'A few sets left'}
                     </span>
                   </div>
 

@@ -87,14 +87,14 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
                     ? 'bg-rose-100 text-rose-800 border-rose-200' 
                     : 'bg-white text-[#8C3847] border-[#F5CCD6]'
                 }`}>
-                  🌸 French Rose: {roseStats.isSoldOut ? 'Sold Out' : `${roseStats.remaining} of 150 left`}
+                  🌸 French Rose: {roseStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'A few sets left'}
                 </span>
                 <span className={`px-2.5 py-1 rounded-full border text-[11px] font-medium ${
                   blueStats.isSoldOut 
                     ? 'bg-sky-100 text-sky-800 border-sky-200' 
                     : 'bg-white text-[#2B5B7E] border-[#CFE0ED]'
                 }`}>
-                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Sold Out' : `${blueStats.remaining} of 150 left`}
+                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'A few sets left'}
                 </span>
               </div>
             </div>

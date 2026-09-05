@@ -103,7 +103,7 @@ export const ProductPage = ({ onNavigate }) => {
               <div className={`absolute top-3.5 right-3.5 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-sans tracking-wide ${
                 currentStats.isSoldOut ? 'bg-rose-950/90 font-medium' : 'bg-[#7A2A38]/85'
               }`}>
-                {currentStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : `${currentStats.remaining} of 150 sets remaining`}
+                {currentStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'Only a few sets left'}
               </div>
             </div>
 
@@ -232,7 +232,7 @@ export const ProductPage = ({ onNavigate }) => {
                             ? 'bg-rose-100 text-rose-800 font-semibold' 
                             : 'bg-white/80 text-[#8C5E68] border border-[#F5CCD6]'
                         }`}>
-                          {pStats.isSoldOut ? 'Sold Out' : `${pStats.remaining} of 150 left`}
+                          {pStats.isSoldOut ? 'Sold Out' : 'A few left'}
                         </span>
                       </button>
                     );

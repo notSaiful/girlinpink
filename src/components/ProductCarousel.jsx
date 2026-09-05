@@ -118,8 +118,8 @@ export const ProductCarousel = ({ onNavigate }) => {
               {getPrintStats
                 ? (getPrintStats(current.title).isSoldOut 
                     ? 'Sold Out (150/150 Reserved)' 
-                    : `${getPrintStats(current.title).remaining} of 150 sets left`)
-                : current.badge}
+                    : 'A few sets left')
+                : 'A few sets left'}
             </div>
 
             {/* Bottom Style Tag */}
