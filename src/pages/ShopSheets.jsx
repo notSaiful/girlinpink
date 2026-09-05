@@ -46,7 +46,7 @@ export const ShopSheets = ({ onNavigate }) => {
               </div>
 
               <div className="absolute top-3 right-3 bg-nearblack/75 backdrop-blur-sm px-2.5 py-1 rounded-lg text-white text-[10px] font-sans">
-                19 sets left
+                Drops Sept 9th
               </div>
             </div>
 
@@ -124,7 +124,7 @@ export const ShopSheets = ({ onNavigate }) => {
               </div>
 
               <div className="absolute top-3 right-3 bg-nearblack/75 backdrop-blur-sm px-2.5 py-1 rounded-lg text-white text-[10px] font-sans">
-                14 sets left
+                Drops Sept 9th
               </div>
             </div>
 

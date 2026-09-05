@@ -94,14 +94,14 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
                     ? 'bg-rose-100 text-rose-800 border-rose-300 font-semibold' 
                     : 'bg-white text-[#8C3847] border-[#F5CCD6]'
                 }`}>
-                  🌸 French Rose: {roseStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : '150 Allocations at Launch'}
+                  🌸 French Rose: {roseStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : !timeLeft.isExpired ? '150 Allocations at Launch' : 'A few sets left'}
                 </span>
                 <span className={`px-2.5 py-1 rounded-full border text-[11px] font-medium ${
                   blueStats.isSoldOut 
                     ? 'bg-sky-100 text-sky-800 border-sky-300 font-semibold' 
                     : 'bg-white text-[#2B5B7E] border-[#CFE0ED]'
                 }`}>
-                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : '150 Allocations at Launch'}
+                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : !timeLeft.isExpired ? '150 Allocations at Launch' : 'A few sets left'}
                 </span>
               </div>
             </div>

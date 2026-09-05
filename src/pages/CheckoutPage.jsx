@@ -507,7 +507,11 @@ export const CheckoutPage = ({ onNavigate }) => {
                         ? 'bg-red-50 text-red-700 border-red-200 font-semibold' 
                         : 'bg-[#FFE8EE] text-[#9E2B42] border-[#F5CCD6]'
                     }`}>
-                      {printStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : 'A few sets left'}
+                      {printStats.isSoldOut 
+                        ? 'Out of Stock (150/150 Reserved)' 
+                        : !timeLeft.isExpired 
+                          ? 'Drops Sept 9th' 
+                          : 'A few sets left'}
                     </span>
                   </div>
 

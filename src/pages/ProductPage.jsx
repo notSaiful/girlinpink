@@ -104,7 +104,11 @@ export const ProductPage = ({ onNavigate }) => {
               <div className={`absolute top-3.5 right-3.5 backdrop-blur-md px-3 py-1 rounded-full text-xs font-sans tracking-wide z-20 ${
                 currentStats.isSoldOut ? 'bg-rose-950/95 font-semibold text-rose-100 shadow-sm' : 'bg-[#7A2A38]/85 text-white'
               }`}>
-                {currentStats.isSoldOut ? 'Out of Stock' : 'Only a few sets left'}
+                {currentStats.isSoldOut
+                  ? 'Out of Stock'
+                  : !timeLeft.isExpired
+                    ? 'Drops Sept 9th'
+                    : 'Only a few sets left'}
               </div>
 
               {/* Out of Stock Photo Overlay */}
@@ -243,9 +247,13 @@ export const ProductPage = ({ onNavigate }) => {
                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans ${
                           pStats.isSoldOut 
                             ? 'bg-rose-100 text-rose-800 font-semibold border border-rose-300' 
-                            : 'bg-white/80 text-[#8C5E68] border border-[#F5CCD6]'
+                            : 'bg-white/80 text-[#8C3847] border border-[#F5CCD6]'
                         }`}>
-                          {pStats.isSoldOut ? 'Out of Stock' : 'A few left'}
+                          {pStats.isSoldOut 
+                            ? 'Out of Stock' 
+                            : !timeLeft.isExpired 
+                              ? 'Sept 9th' 
+                              : 'A few left'}
                         </span>
                       </button>
                     );

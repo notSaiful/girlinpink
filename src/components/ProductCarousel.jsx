@@ -119,7 +119,9 @@ export const ProductCarousel = ({ onNavigate }) => {
             }`}>
               {(getPrintStats && getPrintStats(current.title).isSoldOut)
                 ? 'Out of Stock'
-                : 'A few sets left'}
+                : !timeLeft.isExpired
+                  ? 'Drops Sept 9th'
+                  : 'A few sets left'}
             </div>
 
             {/* Out of Stock Photo Overlay */}

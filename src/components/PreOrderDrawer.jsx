@@ -240,7 +240,7 @@ export const PreOrderDrawer = () => {
                             </span>
                           </div>
                           <div className="text-[10px] text-muted">
-                            {p.availableSets} sets left
+                            Drops Sept 9th
                           </div>
                         </button>
                       );
