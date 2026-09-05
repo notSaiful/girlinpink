@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FDF9FA;
+    background-image:
+      /* Micro canvas thread texture */
+      radial-gradient(rgba(242, 175, 188, 0.12) 0.5px, transparent 0.5px),
+      /* Delicate canvas warp & weft cross-threads */
+      repeating-linear-gradient(0deg, rgba(235, 165, 178, 0.02) 0px, rgba(235, 165, 178, 0.02) 1px, transparent 1px, transparent 3px),
+      repeating-linear-gradient(90deg, rgba(235, 165, 178, 0.02) 0px, rgba(235, 165, 178, 0.02) 1px, transparent 1px, transparent 3px),
+      /* Gentle, light petal pink gingham bands */
+      linear-gradient(0deg, rgba(242, 175, 188, 0.13) 50%, transparent 50%),
+      /* Vertical light petal pink gingham bands */
+      linear-gradient(90deg, rgba(242, 175, 188, 0.13) 50%, transparent 50%);
+    background-size: 6px 6px, 3px 3px, 3px 3px, 40px 40px, 40px 40px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+    color: #24201E;
+    font-family: 'Work Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.02em;
+    color: #24201E;
+  }
+}
+
+/* Reusable Canvas Pink Gingham Class */
+.bg-pink-gingham-canvas {
+  background-color: #FDF9FA;
+  background-image:
+    radial-gradient(rgba(242, 175, 188, 0.12) 0.5px, transparent 0.5px),
+    repeating-linear-gradient(0deg, rgba(235, 165, 178, 0.02) 0px, rgba(235, 165, 178, 0.02) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(235, 165, 178, 0.02) 0px, rgba(235, 165, 178, 0.02) 1px, transparent 1px, transparent 3px),
+    linear-gradient(0deg, rgba(242, 175, 188, 0.13) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(242, 175, 188, 0.13) 50%, transparent 50%);
+  background-size: 6px 6px, 3px 3px, 3px 3px, 40px 40px, 40px 40px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+}
+
+/* Woven Gingham Check Background Patterns */
+.bg-gingham-rose {
+  background-color: #FAF8F5;
+  background-image: 
+    linear-gradient(45deg, rgba(194, 120, 120, 0.28) 25%, transparent 25%, transparent 75%, rgba(194, 120, 120, 0.28) 75%, rgba(194, 120, 120, 0.28)),
+    linear-gradient(45deg, rgba(194, 120, 120, 0.28) 25%, transparent 25%, transparent 75%, rgba(194, 120, 120, 0.28) 75%, rgba(194, 120, 120, 0.28));
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.bg-gingham-rose-dense {
+  background-color: #FAF8F5;
+  background-image: 
+    linear-gradient(90deg, rgba(194, 120, 120, 0.22) 50%, transparent 50%),
+    linear-gradient(rgba(194, 120, 120, 0.22) 50%, transparent 50%);
+  background-size: 24px 24px;
+}
+
+.bg-gingham-sage-dense {
+  background-color: #FAF8F5;
+  background-image: 
+    linear-gradient(90deg, rgba(122, 143, 120, 0.22) 50%, transparent 50%),
+    linear-gradient(rgba(122, 143, 120, 0.22) 50%, transparent 50%);
+  background-size: 24px 24px;
+}
+
+/* Subtle Warm Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E7E1D8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D8D0C5;
+}
