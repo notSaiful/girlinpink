@@ -11,6 +11,7 @@ export const CartProvider = ({ children }) => {
   const [isDepositOnly, setIsDepositOnly] = useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState(null);
+  // Live order counts tracked per print edition (capped at 150 each)
   const [orderCounts, setOrderCounts] = useState({
     'The French Rose Gingham': 0,
     'The Sky Blue Gingham': 0
