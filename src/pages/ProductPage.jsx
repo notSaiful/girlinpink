@@ -95,16 +95,28 @@ export const ProductPage = ({ onNavigate }) => {
               />
 
               {/* Photo Caption Pill */}
-              <div className="absolute bottom-3.5 left-3.5 bg-[#FFF8F9]/95 backdrop-blur-md px-3 py-1 rounded-full border border-[#F7D5DC] text-xs font-sans text-[#7E3846] shadow-xs">
+              <div className="absolute bottom-3.5 left-3.5 bg-[#FFF8F9]/95 backdrop-blur-md px-3 py-1 rounded-full border border-[#F7D5DC] text-xs font-sans text-[#7E3846] shadow-xs z-20">
                 {galleryImages[safeActiveIndex].label}
               </div>
 
               {/* Batch Remaining Badge (Strict 150 Limit) */}
-              <div className={`absolute top-3.5 right-3.5 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-sans tracking-wide ${
-                currentStats.isSoldOut ? 'bg-rose-950/90 font-medium' : 'bg-[#7A2A38]/85'
+              <div className={`absolute top-3.5 right-3.5 backdrop-blur-md px-3 py-1 rounded-full text-xs font-sans tracking-wide z-20 ${
+                currentStats.isSoldOut ? 'bg-rose-950/95 font-semibold text-rose-100 shadow-sm' : 'bg-[#7A2A38]/85 text-white'
               }`}>
-                {currentStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'Only a few sets left'}
+                {currentStats.isSoldOut ? 'Out of Stock' : 'Only a few sets left'}
               </div>
+
+              {/* Out of Stock Photo Overlay */}
+              {currentStats.isSoldOut && (
+                <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center z-10">
+                  <span className="px-5 py-2 rounded-full bg-rose-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase border border-rose-800 shadow-md">
+                    Out of Stock
+                  </span>
+                  <span className="text-[11px] text-white/90 font-sans mt-1.5 font-medium">
+                    Batch 01 allocation full (150/150 reserved)
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Thumbnails Row */}
@@ -229,10 +241,10 @@ export const ProductPage = ({ onNavigate }) => {
                         </div>
                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans ${
                           pStats.isSoldOut 
-                            ? 'bg-rose-100 text-rose-800 font-semibold' 
+                            ? 'bg-rose-100 text-rose-800 font-semibold border border-rose-300' 
                             : 'bg-white/80 text-[#8C5E68] border border-[#F5CCD6]'
                         }`}>
-                          {pStats.isSoldOut ? 'Sold Out' : 'A few left'}
+                          {pStats.isSoldOut ? 'Out of Stock' : 'A few left'}
                         </span>
                       </button>
                     );
@@ -302,7 +314,7 @@ export const ProductPage = ({ onNavigate }) => {
                   disabled
                   className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
                 >
-                  <span>Allocation Full (150/150 Reserved) 🔒</span>
+                  <span>Out of Stock (150/150 Reserved) 🔒</span>
                 </button>
               ) : (
                 <button
@@ -316,7 +328,7 @@ export const ProductPage = ({ onNavigate }) => {
 
               <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#8C5E68] text-center font-sans">
                 {currentStats.isSoldOut ? (
-                  <span className="text-[#B05063] font-medium">Batch 01 capacity reached. Please choose another edition above.</span>
+                  <span className="text-[#B05063] font-medium">This edition is currently out of stock. Please choose another edition above.</span>
                 ) : (
                   <>
                     <span>100% Refund Guarantee</span>

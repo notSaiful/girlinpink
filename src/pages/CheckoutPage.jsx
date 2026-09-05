@@ -225,7 +225,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                   <div className="p-4 rounded-2xl bg-[#FFF1F4] border border-[#E8A5B2] text-xs text-[#9E2B42] space-y-2 font-sans shadow-xs">
                     <div className="font-semibold flex items-center gap-2">
                       <span>⚠️</span>
-                      <span>Batch 01 Sold Out for {selectedPrint?.name} (150/150 Reserved)</span>
+                      <span>Out of Stock: {selectedPrint?.name} (150/150 Reserved)</span>
                     </div>
                     <p className="text-[#69464C] leading-relaxed">
                       All 150 allocations for this bedding set in Batch 01 have already been secured. Please select our other available print edition to pre-order.
@@ -422,7 +422,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                         disabled
                         className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
                       >
-                        <span>Allocation Full (150/150 Reserved) 🔒</span>
+                        <span>Out of Stock (150/150 Reserved) 🔒</span>
                       </button>
                     ) : (
                       <button
@@ -469,10 +469,10 @@ export const CheckoutPage = ({ onNavigate }) => {
                     </span>
                     <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${
                       printStats.isSoldOut 
-                        ? 'bg-red-50 text-red-700 border-red-200' 
+                        ? 'bg-red-50 text-red-700 border-red-200 font-semibold' 
                         : 'bg-[#FFE8EE] text-[#9E2B42] border-[#F5CCD6]'
                     }`}>
-                      {printStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'A few sets left'}
+                      {printStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : 'A few sets left'}
                     </span>
                   </div>
 

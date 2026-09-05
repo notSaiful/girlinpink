@@ -84,17 +84,17 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs font-sans">
                 <span className={`px-2.5 py-1 rounded-full border text-[11px] font-medium ${
                   roseStats.isSoldOut 
-                    ? 'bg-rose-100 text-rose-800 border-rose-200' 
+                    ? 'bg-rose-100 text-rose-800 border-rose-300 font-semibold' 
                     : 'bg-white text-[#8C3847] border-[#F5CCD6]'
                 }`}>
-                  🌸 French Rose: {roseStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'A few sets left'}
+                  🌸 French Rose: {roseStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : 'A few sets left'}
                 </span>
                 <span className={`px-2.5 py-1 rounded-full border text-[11px] font-medium ${
                   blueStats.isSoldOut 
-                    ? 'bg-sky-100 text-sky-800 border-sky-200' 
+                    ? 'bg-sky-100 text-sky-800 border-sky-300 font-semibold' 
                     : 'bg-white text-[#2B5B7E] border-[#CFE0ED]'
                 }`}>
-                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : 'A few sets left'}
+                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : 'A few sets left'}
                 </span>
               </div>
             </div>
@@ -162,13 +162,22 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
               </div>
 
               {/* Fast Action CTA */}
-              <button
-                onClick={handleAction}
-                className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
-              >
-                <span>Reserve Pre-Order — ₹390 Deposit</span>
-                <span className="text-xs">♡</span>
-              </button>
+              {(roseStats.isSoldOut && blueStats.isSoldOut) ? (
+                <button
+                  disabled
+                  className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-xs sm:text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
+                >
+                  <span>Out of Stock (All Editions Reserved) 🔒</span>
+                </button>
+              ) : (
+                <button
+                  onClick={handleAction}
+                  className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <span>Reserve Pre-Order — ₹390 Deposit</span>
+                  <span className="text-xs">♡</span>
+                </button>
+              )}
 
               <div className="text-[11px] text-[#8C5E68] font-sans text-center">
                 100% Unconditional Refund Anytime Before Campus Dispatch

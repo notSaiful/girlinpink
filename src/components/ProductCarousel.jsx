@@ -110,20 +110,30 @@ export const ProductCarousel = ({ onNavigate }) => {
             />
 
             {/* Live Sets Remaining Badge (out of 150 limit) */}
-            <div className={`absolute top-3.5 right-3.5 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-sans tracking-wide ${
+            <div className={`absolute top-3.5 right-3.5 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-sans tracking-wide z-20 ${
               (getPrintStats ? getPrintStats(current.title).isSoldOut : false)
-                ? 'bg-rose-950/90 font-medium'
+                ? 'bg-rose-950/95 font-semibold text-rose-100 shadow-sm'
                 : 'bg-[#7A2A38]/85'
             }`}>
-              {getPrintStats
-                ? (getPrintStats(current.title).isSoldOut 
-                    ? 'Sold Out (150/150 Reserved)' 
-                    : 'A few sets left')
+              {(getPrintStats && getPrintStats(current.title).isSoldOut)
+                ? 'Out of Stock'
                 : 'A few sets left'}
             </div>
 
+            {/* Out of Stock Photo Overlay */}
+            {(getPrintStats && getPrintStats(current.title).isSoldOut) && (
+              <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center z-10">
+                <span className="px-5 py-2 rounded-full bg-rose-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase border border-rose-800 shadow-md">
+                  Out of Stock
+                </span>
+                <span className="text-[11px] text-white/90 font-sans mt-1.5 font-medium">
+                  Batch 01 allocation full (150/150 reserved)
+                </span>
+              </div>
+            )}
+
             {/* Bottom Style Tag */}
-            <div className="absolute bottom-3.5 left-3.5 bg-[#FFF8F9]/95 backdrop-blur-sm px-3 py-1 rounded-full border border-[#F7D5DC] text-xs font-sans text-[#7E3846] shadow-xs">
+            <div className="absolute bottom-3.5 left-3.5 bg-[#FFF8F9]/95 backdrop-blur-sm px-3 py-1 rounded-full border border-[#F7D5DC] text-xs font-sans text-[#7E3846] shadow-xs z-20">
               {current.tag}
             </div>
           </div>
@@ -132,8 +142,12 @@ export const ProductCarousel = ({ onNavigate }) => {
           <div className="flex flex-col justify-between space-y-6">
             <div>
               {/* Category Tag */}
-              <div className={`inline-block px-3 py-1 rounded-full text-xs font-medium border mb-3 ${current.tagColor}`}>
-                {current.tag}
+              <div className={`inline-block px-3 py-1 rounded-full text-xs font-medium border mb-3 ${
+                (getPrintStats && getPrintStats(current.title).isSoldOut)
+                  ? 'bg-rose-100 text-rose-800 border-rose-300 font-semibold'
+                  : current.tagColor
+              }`}>
+                {(getPrintStats && getPrintStats(current.title).isSoldOut) ? 'Out of Stock' : current.tag}
               </div>
 
               {/* Title */}
@@ -171,13 +185,13 @@ export const ProductCarousel = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* Single Primary Action Button - Consistently Pink or Sold Out */}
+              {/* Single Primary Action Button - Consistently Pink or Out of Stock */}
               {(getPrintStats && getPrintStats(current.title).isSoldOut) ? (
                 <button
                   disabled
-                  className="px-6 py-3.5 rounded-full bg-stone-300 text-stone-600 text-xs font-medium tracking-wide cursor-not-allowed flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-full bg-[#F3CCD5] text-[#8C5E68] border border-[#E8B2BD] text-xs font-medium tracking-wide cursor-not-allowed flex items-center gap-2"
                 >
-                  <span>Allocation Full (150/150)</span>
+                  <span>Out of Stock</span>
                   <span>🔒</span>
                 </button>
               ) : (

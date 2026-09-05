@@ -3,8 +3,21 @@ import { useCart } from '../context/CartContext';
 
 export const Header = ({ currentPage = 'home', onNavigate }) => {
   const { meta, getPrintStats } = useCart();
-  const roseStats = getPrintStats ? getPrintStats('rose') : { remaining: 150 };
-  const blueStats = getPrintStats ? getPrintStats('blue') : { remaining: 150 };
+  const roseStats = getPrintStats ? getPrintStats('rose') : { remaining: 150, isSoldOut: false };
+  const blueStats = getPrintStats ? getPrintStats('blue') : { remaining: 150, isSoldOut: false };
+
+  const getAnnouncementText = () => {
+    if (roseStats.isSoldOut && blueStats.isSoldOut) {
+      return 'Batch 01 All Editions Out of Stock (150/150 Reserved) 🔒';
+    }
+    if (roseStats.isSoldOut) {
+      return 'French Rose is Out of Stock • Sky Blue has a few sets left ♡';
+    }
+    if (blueStats.isSoldOut) {
+      return 'Sky Blue is Out of Stock • French Rose has a few sets left ♡';
+    }
+    return 'Strictly limited to 150 orders each • A few sets left in each print ♡';
+  };
 
   const handleNavClick = (targetId) => {
     if (['about', 'contact', 'refund', 'shipping', 'terms', 'privacy'].includes(targetId)) {
@@ -38,7 +51,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
       <div className="bg-[#FFE8ED] border-b border-[#F5CCD6] text-[#8C3847] px-4 sm:px-6 py-2.5 text-center text-xs sm:text-[13px] font-medium tracking-wide">
         <span className="font-serif italic font-medium">Batch 01 Autumn Drop:</span>
         <span className="font-sans ml-2">
-          Strictly limited to 150 orders each • A few sets left in each print ♡
+          {getAnnouncementText()}
         </span>
       </div>
 
