@@ -14,10 +14,18 @@ export const CheckoutPage = ({ onNavigate }) => {
     amountToPayNow,
     balanceDueLater,
     meta,
-    setConfirmedOrder
+    setConfirmedOrder,
+    getPrintStats,
+    refreshCounts,
+    MAX_CAPACITY_PER_SET
   } = useCart();
 
+  const printStats = getPrintStats 
+    ? getPrintStats(selectedPrint?.name) 
+    : { reserved: 0, remaining: 150, isSoldOut: false };
+
   const [step, setStep] = useState('checkout'); // 'checkout' | 'processing' | 'confirmed'
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -36,6 +44,13 @@ export const CheckoutPage = ({ onNavigate }) => {
 
   const handlePay = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
+
+    if (printStats.isSoldOut) {
+      setErrorMessage(`Batch 01 pre-order allocation for ${selectedPrint?.name || 'this edition'} is full (150/150 reserved). Please select another set.`);
+      return;
+    }
+
     setStep('processing');
 
     const receipt = {
@@ -47,12 +62,22 @@ export const CheckoutPage = ({ onNavigate }) => {
       amountPaid: amountToPayNow,
       balanceDue: balanceDueLater,
       customer: formData,
-      deliveryWindow: 'October 05 – October 12, 2026'
+      deliveryWindow: 'October 05 – October 12, 2026',
+      allocationNumber: (printStats.reserved || 0) + 1
     };
 
-    // Save pre-order to Supabase (and local backup)
+    // Save pre-order to Supabase (and local backup) with 150 capacity limit enforcement
     try {
-      await savePreOrder(receipt);
+      const res = await savePreOrder(receipt);
+      if (res && res.capacityReached) {
+        setErrorMessage(res.error || `Batch 01 pre-order limit of 150 sets has been reached.`);
+        setStep('checkout');
+        if (refreshCounts) await refreshCounts();
+        return;
+      }
+      if (refreshCounts) {
+        await refreshCounts();
+      }
     } catch (err) {
       console.warn('Could not persist pre-order to Supabase:', err);
     }
@@ -132,6 +157,11 @@ export const CheckoutPage = ({ onNavigate }) => {
               </div>
 
               <div className="flex justify-between">
+                <span className="text-[#8C5E68]">Batch Allocation:</span>
+                <span className="font-medium text-[#2D1C20]">Batch 01 (Set #{orderReceipt.allocationNumber || 1} of 150)</span>
+              </div>
+
+              <div className="flex justify-between">
                 <span className="text-[#8C5E68]">Delivery Window:</span>
                 <span className="font-medium text-[#2D1C20]">{orderReceipt.deliveryWindow}</span>
               </div>
@@ -187,9 +217,35 @@ export const CheckoutPage = ({ onNavigate }) => {
                     Secure Your Reservation
                   </h1>
                   <p className="text-sm text-[#69464C] mt-1 font-sans">
-                    Batch 01 allocation is limited to 150 sets. Complimentary campus shipping across India.
+                    Batch 01 allocation is strictly limited to 150 sets per print edition. Complimentary campus shipping across India.
                   </p>
                 </div>
+
+                {printStats.isSoldOut && (
+                  <div className="p-4 rounded-2xl bg-[#FFF1F4] border border-[#E8A5B2] text-xs text-[#9E2B42] space-y-2 font-sans shadow-xs">
+                    <div className="font-semibold flex items-center gap-2">
+                      <span>⚠️</span>
+                      <span>Batch 01 Sold Out for {selectedPrint?.name} (150/150 Reserved)</span>
+                    </div>
+                    <p className="text-[#69464C] leading-relaxed">
+                      All 150 allocations for this bedding set in Batch 01 have already been secured. Please select our other available print edition to pre-order.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => onNavigate && onNavigate('product')}
+                      className="mt-1 px-4 py-2 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-xs"
+                    >
+                      Choose Another Print Pattern ←
+                    </button>
+                  </div>
+                )}
+
+                {errorMessage && (
+                  <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-700 font-sans shadow-xs flex items-start gap-2">
+                    <span className="shrink-0 text-sm">⚠️</span>
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
 
                 <form onSubmit={handlePay} className="space-y-6">
                   
@@ -360,20 +416,30 @@ export const CheckoutPage = ({ onNavigate }) => {
 
                   {/* Primary Checkout CTA */}
                   <div className="pt-2 space-y-3">
-                    <button
-                      type="submit"
-                      disabled={step === 'processing'}
-                      className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:-translate-y-0.5 active:scale-[0.99] disabled:opacity-75 flex items-center justify-center gap-2"
-                    >
-                      {step === 'processing' ? (
-                        <span>Connecting to Razorpay...</span>
-                      ) : (
-                        <>
-                          <span>Pay ₹{amountToPayNow} Pre-Order Deposit via Razorpay</span>
-                          <span className="text-xs">♡</span>
-                        </>
-                      )}
-                    </button>
+                    {printStats.isSoldOut ? (
+                      <button
+                        type="button"
+                        disabled
+                        className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
+                      >
+                        <span>Allocation Full (150/150 Reserved) 🔒</span>
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        disabled={step === 'processing'}
+                        className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:-translate-y-0.5 active:scale-[0.99] disabled:opacity-75 flex items-center justify-center gap-2"
+                      >
+                        {step === 'processing' ? (
+                          <span>Connecting to Razorpay...</span>
+                        ) : (
+                          <>
+                            <span>Pay ₹{amountToPayNow} Pre-Order Deposit via Razorpay</span>
+                            <span className="text-xs">♡</span>
+                          </>
+                        )}
+                      </button>
+                    )}
 
                     <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#8C5E68] text-center font-sans">
                       <span>100% Refund Guarantee</span>
@@ -397,8 +463,17 @@ export const CheckoutPage = ({ onNavigate }) => {
                     <span className="text-[10px] font-hand text-[#8C6D3B] tracking-wider">order packet preview ♡</span>
                   </div>
 
-                  <div className="text-xs font-medium uppercase tracking-wider text-[#DD6B80] mb-3 font-sans">
-                    Order Summary ♡
+                  <div className="flex items-center justify-between mb-3 font-sans">
+                    <span className="text-xs font-medium uppercase tracking-wider text-[#DD6B80]">
+                      Order Summary ♡
+                    </span>
+                    <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${
+                      printStats.isSoldOut 
+                        ? 'bg-red-50 text-red-700 border-red-200' 
+                        : 'bg-[#FFE8EE] text-[#9E2B42] border-[#F5CCD6]'
+                    }`}>
+                      {printStats.isSoldOut ? 'Sold Out (150/150)' : `${printStats.remaining} of 150 left`}
+                    </span>
                   </div>
 
                   {/* Product Photo */}

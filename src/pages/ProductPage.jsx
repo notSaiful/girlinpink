@@ -4,7 +4,7 @@ import { LAUNCH_PRINTS, SIZES, TIERS } from '../data/preorderData';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 
 export const ProductPage = ({ onNavigate }) => {
-  const { setSelectedPrint, setSelectedSize, setSelectedTier, selectedPrint } = useCart();
+  const { setSelectedPrint, setSelectedSize, setSelectedTier, selectedPrint, getPrintStats } = useCart();
 
   const [selectedPrintId, setSelectedPrintId] = useState(() => {
     if (selectedPrint?.id) return selectedPrint.id;
@@ -31,6 +31,10 @@ export const ProductPage = ({ onNavigate }) => {
   const currentSize = SIZES.find(s => s.id === selectedSizeId) || SIZES[0];
   const currentTier = TIERS[0]; // Strictly Complete Bedding Kit
 
+  const currentStats = getPrintStats 
+    ? getPrintStats(currentPrint.name) 
+    : { remaining: 150, isSoldOut: false, reserved: 0, capacity: 150 };
+
   const basePrice = Math.round(currentTier.price * currentSize.multiplier);
   const depositPrice = Math.round(currentTier.depositPrice * currentSize.multiplier);
   const balanceDueLater = basePrice - depositPrice;
@@ -50,6 +54,7 @@ export const ProductPage = ({ onNavigate }) => {
   };
 
   const handleReserveClick = () => {
+    if (currentStats.isSoldOut) return;
     if (setSelectedPrint) setSelectedPrint(currentPrint);
     if (setSelectedSize) setSelectedSize(currentSize);
     if (setSelectedTier) setSelectedTier(currentTier);
@@ -92,9 +97,11 @@ export const ProductPage = ({ onNavigate }) => {
                 {galleryImages[safeActiveIndex].label}
               </div>
 
-              {/* Batch Remaining Badge */}
-              <div className="absolute top-3.5 right-3.5 bg-[#7A2A38]/85 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-sans tracking-wide">
-                {currentPrint.availableSets} sets remaining
+              {/* Batch Remaining Badge (Strict 150 Limit) */}
+              <div className={`absolute top-3.5 right-3.5 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-sans tracking-wide ${
+                currentStats.isSoldOut ? 'bg-rose-950/90 font-medium' : 'bg-[#7A2A38]/85'
+              }`}>
+                {currentStats.isSoldOut ? 'Sold Out (150/150 Reserved)' : `${currentStats.remaining} of 150 sets remaining`}
               </div>
             </div>
 
@@ -199,23 +206,35 @@ export const ProductPage = ({ onNavigate }) => {
                   <span className="text-[#8C5E68] text-xs">{currentPrint.paletteName}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {LAUNCH_PRINTS.map(p => (
-                    <button
-                      key={p.id}
-                      onClick={() => handlePrintChange(p.id)}
-                      className={`p-3 rounded-2xl border text-left transition flex items-center gap-2.5 ${
-                        selectedPrintId === p.id 
-                          ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
-                          : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
-                      }`}
-                    >
-                      <span 
-                        className="w-3.5 h-3.5 rounded-full border border-stone-300 shrink-0" 
-                        style={{ backgroundColor: p.checkColor }}
-                      />
-                      <span className="text-xs font-medium">{p.name.replace('The ', '')}</span>
-                    </button>
-                  ))}
+                  {LAUNCH_PRINTS.map(p => {
+                    const pStats = getPrintStats ? getPrintStats(p.name) : { remaining: 150, isSoldOut: false };
+                    return (
+                      <button
+                        key={p.id}
+                        onClick={() => handlePrintChange(p.id)}
+                        className={`p-3 rounded-2xl border text-left transition flex items-center justify-between ${
+                          selectedPrintId === p.id 
+                            ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
+                            : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span 
+                            className="w-3.5 h-3.5 rounded-full border border-stone-300 shrink-0" 
+                            style={{ backgroundColor: p.checkColor }}
+                          />
+                          <span className="text-xs font-medium">{p.name.replace('The ', '')}</span>
+                        </div>
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans ${
+                          pStats.isSoldOut 
+                            ? 'bg-rose-100 text-rose-800 font-semibold' 
+                            : 'bg-white/80 text-[#8C5E68] border border-[#F5CCD6]'
+                        }`}>
+                          {pStats.isSoldOut ? 'Sold Out' : `${pStats.remaining} of 150 left`}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -265,20 +284,35 @@ export const ProductPage = ({ onNavigate }) => {
 
             {/* Primary Call to Action Button - Consistent Pink */}
             <div className="pt-4 border-t border-[#F8D2DA] space-y-3">
-              <button
-                onClick={handleReserveClick}
-                className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
-              >
-                <span>Reserve Pre-Order — ₹{depositPrice} Deposit</span>
-                <span className="text-xs">♡</span>
-              </button>
+              {currentStats.isSoldOut ? (
+                <button
+                  disabled
+                  className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
+                >
+                  <span>Allocation Full (150/150 Reserved) 🔒</span>
+                </button>
+              ) : (
+                <button
+                  onClick={handleReserveClick}
+                  className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <span>Reserve Pre-Order — ₹{depositPrice} Deposit</span>
+                  <span className="text-xs">♡</span>
+                </button>
+              )}
 
               <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#8C5E68] text-center font-sans">
-                <span>100% Refund Guarantee</span>
-                <span>•</span>
-                <span>Free Campus Dispatch</span>
-                <span>•</span>
-                <span>Secured by Razorpay</span>
+                {currentStats.isSoldOut ? (
+                  <span className="text-[#B05063] font-medium">Batch 01 capacity reached. Please choose another edition above.</span>
+                ) : (
+                  <>
+                    <span>100% Refund Guarantee</span>
+                    <span>•</span>
+                    <span>Free Campus Dispatch</span>
+                    <span>•</span>
+                    <span>Secured by Razorpay</span>
+                  </>
+                )}
               </div>
             </div>
 

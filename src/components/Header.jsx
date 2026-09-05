@@ -2,7 +2,9 @@ import React from 'react';
 import { useCart } from '../context/CartContext';
 
 export const Header = ({ currentPage = 'home', onNavigate }) => {
-  const { meta } = useCart();
+  const { meta, getPrintStats } = useCart();
+  const roseStats = getPrintStats ? getPrintStats('rose') : { remaining: 150 };
+  const blueStats = getPrintStats ? getPrintStats('blue') : { remaining: 150 };
 
   const handleNavClick = (targetId) => {
     if (['about', 'contact', 'refund', 'shipping', 'terms', 'privacy'].includes(targetId)) {
@@ -35,7 +37,9 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
       {/* Refined Girly Announcement Strip with comfortable padding */}
       <div className="bg-[#FFE8ED] border-b border-[#F5CCD6] text-[#8C3847] px-4 sm:px-6 py-2.5 text-center text-xs sm:text-[13px] font-medium tracking-wide">
         <span className="font-serif italic font-medium">Batch 01 Autumn Drop:</span>
-        <span className="font-sans ml-2">150 sets loomed • {meta.capacity - meta.reservedCount} sets remaining for campus dispatch ♡</span>
+        <span className="font-sans ml-2">
+          Strictly limited to 150 orders each • {roseStats.remaining} Rose & {blueStats.remaining} Sky Blue remaining ♡
+        </span>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">

@@ -16,10 +16,74 @@ export const supabase = isSupabaseConfigured()
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
+export const MAX_CAPACITY_PER_SET = 150;
+
 /**
- * Save a new pre-order reservation to Supabase (with localStorage fallback)
+ * Fetch live pre-order counts per bedding set from Supabase & localStorage
+ */
+export const fetchPrintOrderCounts = async () => {
+  const counts = {
+    'The French Rose Gingham': 0,
+    'The Sky Blue Gingham': 0
+  };
+
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('preorders')
+        .select('print_name');
+
+      if (!error && Array.isArray(data)) {
+        data.forEach(row => {
+          const name = row.print_name || '';
+          if (name.includes('Rose')) {
+            counts['The French Rose Gingham'] = (counts['The French Rose Gingham'] || 0) + 1;
+          } else if (name.includes('Blue')) {
+            counts['The Sky Blue Gingham'] = (counts['The Sky Blue Gingham'] || 0) + 1;
+          }
+        });
+        return counts;
+      }
+    } catch (err) {
+      console.warn('Could not query pre-order counts from Supabase:', err);
+    }
+  }
+
+  // Fallback to localStorage count if offline
+  try {
+    const local = JSON.parse(localStorage.getItem('gp_preorders') || '[]');
+    local.forEach(row => {
+      const name = row.print_name || '';
+      if (name.includes('Rose')) {
+        counts['The French Rose Gingham'] = (counts['The French Rose Gingham'] || 0) + 1;
+      } else if (name.includes('Blue')) {
+        counts['The Sky Blue Gingham'] = (counts['The Sky Blue Gingham'] || 0) + 1;
+      }
+    });
+  } catch (e) {}
+
+  return counts;
+};
+
+/**
+ * Save a new pre-order reservation to Supabase (with 150-order capacity limit check)
  */
 export const savePreOrder = async (orderReceipt) => {
+  // 1. Verify capacity before saving
+  const currentCounts = await fetchPrintOrderCounts();
+  const printKey = (orderReceipt.print || '').includes('Blue')
+    ? 'The Sky Blue Gingham'
+    : 'The French Rose Gingham';
+
+  if ((currentCounts[printKey] || 0) >= MAX_CAPACITY_PER_SET) {
+    return {
+      success: false,
+      capacityReached: true,
+      error: `Batch 01 allocation for ${printKey} has reached the 150 order limit.`,
+      savedLocally: false
+    };
+  }
+
   const payload = {
     order_id: orderReceipt.orderId,
     print_name: orderReceipt.print,
@@ -41,7 +105,7 @@ export const savePreOrder = async (orderReceipt) => {
     created_at: new Date().toISOString()
   };
 
-  // Always back up in localStorage
+  // Back up in localStorage
   try {
     const existing = JSON.parse(localStorage.getItem('gp_preorders') || '[]');
     existing.unshift(payload);
@@ -50,7 +114,7 @@ export const savePreOrder = async (orderReceipt) => {
     console.warn('Could not save order to localStorage fallback:', err);
   }
 
-  // If Supabase is configured, push directly to database
+  // Push to Supabase
   if (supabase) {
     try {
       const { data, error } = await supabase
@@ -69,7 +133,7 @@ export const savePreOrder = async (orderReceipt) => {
     }
   }
 
-  return { success: true, data: payload, savedLocally: true, note: 'Saved locally. Provide VITE_SUPABASE_URL to sync to cloud database.' };
+  return { success: true, data: payload, savedLocally: true };
 };
 
 /**
@@ -93,3 +157,4 @@ export const checkSupabaseConnection = async () => {
     return { connected: false, error: err.message };
   }
 };
+

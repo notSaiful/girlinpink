@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { LAUNCH_PRINTS } from '../data/preorderData';
 
 export const ProductCarousel = ({ onNavigate }) => {
-  const { setSelectedPrint } = useCart();
+  const { setSelectedPrint, getPrintStats } = useCart();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -109,9 +109,17 @@ export const ProductCarousel = ({ onNavigate }) => {
               className="w-full h-full object-cover object-center transition-all duration-500"
             />
 
-            {/* Sets Remaining Badge */}
-            <div className="absolute top-3.5 right-3.5 bg-[#7A2A38]/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-sans tracking-wide">
-              {current.badge}
+            {/* Live Sets Remaining Badge (out of 150 limit) */}
+            <div className={`absolute top-3.5 right-3.5 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-sans tracking-wide ${
+              (getPrintStats ? getPrintStats(current.title).isSoldOut : false)
+                ? 'bg-rose-950/90 font-medium'
+                : 'bg-[#7A2A38]/85'
+            }`}>
+              {getPrintStats
+                ? (getPrintStats(current.title).isSoldOut 
+                    ? 'Sold Out (150/150 Reserved)' 
+                    : `${getPrintStats(current.title).remaining} of 150 sets left`)
+                : current.badge}
             </div>
 
             {/* Bottom Style Tag */}
@@ -163,14 +171,24 @@ export const ProductCarousel = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* Single Primary Action Button - Consistently Pink */}
-              <button
-                onClick={() => handleChoosePrint(current.printData)}
-                className="px-6 py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
-              >
-                <span>Customize & Pre-Order</span>
-                <span className="text-xs">♡</span>
-              </button>
+              {/* Single Primary Action Button - Consistently Pink or Sold Out */}
+              {(getPrintStats && getPrintStats(current.title).isSoldOut) ? (
+                <button
+                  disabled
+                  className="px-6 py-3.5 rounded-full bg-stone-300 text-stone-600 text-xs font-medium tracking-wide cursor-not-allowed flex items-center gap-2"
+                >
+                  <span>Allocation Full (150/150)</span>
+                  <span>🔒</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleChoosePrint(current.printData)}
+                  className="px-6 py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                >
+                  <span>Customize & Pre-Order</span>
+                  <span className="text-xs">♡</span>
+                </button>
+              )}
             </div>
 
           </div>
