@@ -5,7 +5,7 @@ import { useCountdown } from '../hooks/useCountdown';
 // Curated promotional highlights tailored strictly to our ICP (college girls, dorm life, hostel cots, cute aesthetic)
 const PROMO_ITEMS = [
   { icon: '🌸', text: 'Strictly 150 Sets Per Print Edition', highlight: 'Batch 01 Small-Batch' },
-  { icon: '⏰', text: 'Pre-Orders Open September 9th', highlight: 'Launch Countdown' },
+  { icon: '⏰', text: 'Pre-Orders Open September 9th, 8:00 PM', highlight: 'Launch Countdown' },
   { icon: '🧸', text: '360° Deep Elastic Fitted Sheet', highlight: 'Never Pops Off Hostel Cots' },
   { icon: '☁️', text: '100% Washed Percale Cotton', highlight: 'Breathable & Zero Microfiber Sweat' },
   { icon: '🎀', text: 'Free Canvas Tote Bag Included', highlight: 'With Complete Bedding Kit' },
@@ -66,7 +66,7 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
           {/* Top Scrapbook Washi Tape Strip */}
           <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 bg-[#FADADD]/95 backdrop-blur-xs border border-dashed border-[#E5A8B4] rounded-xs shadow-2xs rotate-0.5 z-10 flex items-center gap-2">
             <span className="text-[11px] font-hand text-[#8C3847] font-semibold tracking-wider">
-              batch 01 pre-launch • pre-orders open september 9th 12:00 am ♡
+              batch 01 pre-launch • pre-orders open september 9th 8:00 pm ♡
             </span>
           </div>
 
@@ -76,7 +76,7 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
             <div className="text-center lg:text-left space-y-1.5 max-w-lg">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#F5CCD6] text-[11px] font-medium uppercase tracking-wider text-[#C2546A]">
                 <span className="w-2 h-2 rounded-full bg-[#DD6B80] animate-ping" />
-                <span>Pre-Launch: Orders Open Sept 9th</span>
+                <span>Pre-Launch: Orders Open Sept 9th, 8 PM</span>
               </div>
               
               <h3 className="font-serif text-2xl sm:text-3xl text-[#2D1C20] font-normal tracking-tight">
@@ -84,7 +84,7 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
               </h3>
               
               <p className="text-xs sm:text-sm text-[#69464C] leading-relaxed font-sans">
-                We are currently in <strong>pre-launch</strong>! Pre-orders officially unlock on <strong>September 9th</strong> to custom-loom our natural washed cotton for October campus move-in. Strictly capped at 150 sets per print.
+                We are currently in <strong>pre-launch</strong>! Pre-orders officially unlock on <strong>September 9th at 8:00 PM IST</strong> to custom-loom our natural washed cotton for October campus move-in. Strictly capped at 150 sets per print.
               </p>
 
               {/* Real-time remaining allocation pill */}
@@ -181,7 +181,7 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
                   onClick={handleAction}
                   className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <span>Explore Bedding Kit — Drops Sept 9th</span>
+                  <span>Explore Bedding Kit — Drops Sept 9th, 8 PM</span>
                   <span className="text-xs">⏰</span>
                 </button>
               ) : (
@@ -195,7 +195,7 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
               )}
 
               <div className="text-[11px] text-[#8C5E68] font-sans text-center">
-                Pre-Orders Unlock September 9th • Strictly 150 Orders Per Print Edition
+                Pre-Orders Unlock September 9th at 8:00 PM IST • Strictly 150 Orders Per Print Edition
               </div>
 
             </div>

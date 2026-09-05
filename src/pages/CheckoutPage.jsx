@@ -50,7 +50,7 @@ export const CheckoutPage = ({ onNavigate }) => {
     setErrorMessage('');
 
     if (!timeLeft.isExpired) {
-      setErrorMessage('Pre-orders are currently locked during pre-launch. Checkout will officially open on September 9th.');
+      setErrorMessage('Pre-orders are currently locked during pre-launch. Checkout will officially open on September 9th at 8:00 PM IST.');
       return;
     }
 
@@ -225,7 +225,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                     Secure Your Reservation
                   </h1>
                   <p className="text-sm text-[#69464C] mt-1 font-sans">
-                    Batch 01 allocation is strictly limited to 150 sets per print edition. Pre-orders officially unlock on <strong>September 9th</strong>. Complimentary campus shipping across India.
+                    Batch 01 allocation is strictly limited to 150 sets per print edition. Pre-orders officially unlock on <strong>September 9th at 8:00 PM IST</strong>. Complimentary campus shipping across India.
                   </p>
                 </div>
 
@@ -233,10 +233,10 @@ export const CheckoutPage = ({ onNavigate }) => {
                   <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-xs text-[#8C3847] space-y-2.5 font-sans shadow-xs">
                     <div className="font-semibold flex items-center gap-2 text-sm text-[#9E2B42]">
                       <span>⏰</span>
-                      <span>Pre-Launch Mode: Pre-Orders Open September 9th</span>
+                      <span>Pre-Launch Mode: Pre-Orders Open September 9th, 8:00 PM</span>
                     </div>
                     <p className="text-[#69464C] leading-relaxed">
-                      We are currently in pre-launch! Pre-order reservations for Batch 01 will officially go live on <strong>September 9th at 12:00 AM IST</strong>. Until then, you can explore the collection, customize dimensions, and preview what comes in your kit.
+                      We are currently in pre-launch! Pre-order reservations for Batch 01 will officially go live on <strong>September 9th at 8:00 PM IST</strong>. Until then, you can explore the collection, customize dimensions, and preview what comes in your kit.
                     </p>
                     <button
                       type="button"
@@ -457,7 +457,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                         disabled
                         className="w-full py-4 rounded-full bg-[#F6CCD5] text-[#8C3847] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#EAA8B6]"
                       >
-                        <span>Pre-Orders Unlock September 9th 🔒</span>
+                        <span>Pre-Orders Unlock September 9th, 8:00 PM 🔒</span>
                       </button>
                     ) : (
                       <button

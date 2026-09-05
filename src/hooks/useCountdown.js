@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Pre-launch countdown target: September 9th, 2026 at 00:00:00 IST
-export const TARGET_LAUNCH_DATE_STR = '2026-09-09T00:00:00+05:30';
-export const TARGET_LAUNCH_LABEL = 'September 9, 2026';
+// Pre-launch countdown target: September 9th, 2026 at 20:00:00 IST (8:00 PM)
+export const TARGET_LAUNCH_DATE_STR = '2026-09-09T20:00:00+05:30';
+export const TARGET_LAUNCH_LABEL = 'September 9, 2026 at 8:00 PM IST';
 
 // Aliases for compatibility
 export const TARGET_CUTOFF_DATE_STR = TARGET_LAUNCH_DATE_STR;

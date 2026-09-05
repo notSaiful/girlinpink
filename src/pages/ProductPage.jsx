@@ -309,7 +309,7 @@ export const ProductPage = ({ onNavigate }) => {
             <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] text-xs font-sans text-[#7E3846]">
               <div className="flex items-center gap-2 font-medium">
                 <span className="text-sm">⏰</span>
-                <span>Pre-Orders Open September 9th:</span>
+                <span>Pre-Orders Open September 9th, 8:00 PM:</span>
               </div>
               <div className="font-mono font-semibold text-[#9E2B42] bg-white px-3 py-1 rounded-lg border border-[#F5CCD6] shadow-2xs">
                 {timeLeft.isExpired ? 'Pre-Orders Live!' : timeLeft.formatted}
@@ -331,7 +331,7 @@ export const ProductPage = ({ onNavigate }) => {
                     disabled
                     className="w-full py-4 rounded-full bg-[#F6CCD5] text-[#8C3847] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#EAA8B6] shadow-2xs"
                   >
-                    <span>Pre-Orders Open September 9th 🔒</span>
+                    <span>Pre-Orders Open September 9th, 8 PM 🔒</span>
                   </button>
 
                   <div className="p-4 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-center space-y-1.5">
@@ -339,7 +339,7 @@ export const ProductPage = ({ onNavigate }) => {
                       Batch 01 Pre-Launch in Progress ♡
                     </div>
                     <p className="text-[11px] font-sans text-[#8C5E68]">
-                      Orders strictly unlock on September 9th at 12:00 AM IST. Strictly capped at 150 allocations per print.
+                      Orders strictly unlock on September 9th at 8:00 PM IST. Strictly capped at 150 allocations per print.
                     </p>
                   </div>
                 </div>
@@ -357,7 +357,7 @@ export const ProductPage = ({ onNavigate }) => {
                 {currentStats.isSoldOut ? (
                   <span className="text-[#B05063] font-medium">This edition is currently out of stock. Please choose another edition above.</span>
                 ) : !timeLeft.isExpired ? (
-                  <span className="text-[#8C3847] font-medium">Pre-orders unlock September 9th • 100% Refund Guarantee</span>
+                  <span className="text-[#8C3847] font-medium">Pre-orders unlock September 9th at 8 PM • 100% Refund Guarantee</span>
                 ) : (
                   <>
                     <span>100% Refund Guarantee</span>

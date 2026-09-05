@@ -11,12 +11,12 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
       return 'Batch 01 All Editions Out of Stock (150/150 Reserved) 🔒';
     }
     if (roseStats.isSoldOut) {
-      return 'French Rose is Out of Stock • Sky Blue Opens Sept 9th ♡';
+      return 'French Rose is Out of Stock • Sky Blue Opens Sept 9th, 8 PM ♡';
     }
     if (blueStats.isSoldOut) {
-      return 'Sky Blue is Out of Stock • French Rose Opens Sept 9th ♡';
+      return 'Sky Blue is Out of Stock • French Rose Opens Sept 9th, 8 PM ♡';
     }
-    return 'Pre-Orders Open September 9th • Strictly 150 allocations per print ♡';
+    return 'Pre-Orders Open September 9th, 8:00 PM • Strictly 150 allocations per print ♡';
   };
 
   const handleNavClick = (targetId) => {
@@ -103,7 +103,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
               onClick={() => handleNavClick('reserve')}
               className="px-6 py-2.5 sm:py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
             >
-              <span>Pre-Orders Sept 9th</span>
+              <span>Pre-Orders Sept 9th, 8 PM</span>
               <span className="text-xs">⏰</span>
             </button>
           </div>
