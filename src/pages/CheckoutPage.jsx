@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { useCountdown } from '../hooks/useCountdown';
 import { savePreOrder } from '../lib/supabase';
 
 export const CheckoutPage = ({ onNavigate }) => {
@@ -19,6 +20,8 @@ export const CheckoutPage = ({ onNavigate }) => {
     refreshCounts,
     MAX_CAPACITY_PER_SET
   } = useCart();
+
+  const timeLeft = useCountdown();
 
   const printStats = getPrintStats 
     ? getPrintStats(selectedPrint?.name) 
@@ -45,6 +48,11 @@ export const CheckoutPage = ({ onNavigate }) => {
   const handlePay = async (e) => {
     e.preventDefault();
     setErrorMessage('');
+
+    if (!timeLeft.isExpired) {
+      setErrorMessage('Pre-orders are currently locked during pre-launch. Checkout will officially open on September 9th.');
+      return;
+    }
 
     if (printStats.isSoldOut) {
       setErrorMessage(`Batch 01 pre-order allocation for ${selectedPrint?.name || 'this edition'} is full (150/150 reserved). Please select another set.`);
@@ -217,9 +225,28 @@ export const CheckoutPage = ({ onNavigate }) => {
                     Secure Your Reservation
                   </h1>
                   <p className="text-sm text-[#69464C] mt-1 font-sans">
-                    Batch 01 allocation is strictly limited to 150 sets per print edition. Pre-orders close strictly on <strong>September 20th at 11:59 PM</strong>. Complimentary campus shipping across India.
+                    Batch 01 allocation is strictly limited to 150 sets per print edition. Pre-orders officially unlock on <strong>September 9th</strong>. Complimentary campus shipping across India.
                   </p>
                 </div>
+
+                {!timeLeft.isExpired && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-xs text-[#8C3847] space-y-2.5 font-sans shadow-xs">
+                    <div className="font-semibold flex items-center gap-2 text-sm text-[#9E2B42]">
+                      <span>⏰</span>
+                      <span>Pre-Launch Mode: Pre-Orders Open September 9th</span>
+                    </div>
+                    <p className="text-[#69464C] leading-relaxed">
+                      We are currently in pre-launch! Pre-order reservations for Batch 01 will officially go live on <strong>September 9th at 12:00 AM IST</strong>. Until then, you can explore the collection, customize dimensions, and preview what comes in your kit.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => onNavigate && onNavigate('product')}
+                      className="mt-1 px-4 py-2 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-xs inline-flex items-center gap-2"
+                    >
+                      <span>Explore Collection & Preview Dimensions ←</span>
+                    </button>
+                  </div>
+                )}
 
                 {printStats.isSoldOut && (
                   <div className="p-4 rounded-2xl bg-[#FFF1F4] border border-[#E8A5B2] text-xs text-[#9E2B42] space-y-2 font-sans shadow-xs">
@@ -423,6 +450,14 @@ export const CheckoutPage = ({ onNavigate }) => {
                         className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
                       >
                         <span>Out of Stock (150/150 Reserved) 🔒</span>
+                      </button>
+                    ) : !timeLeft.isExpired ? (
+                      <button
+                        type="button"
+                        disabled
+                        className="w-full py-4 rounded-full bg-[#F6CCD5] text-[#8C3847] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#EAA8B6]"
+                      >
+                        <span>Pre-Orders Unlock September 9th 🔒</span>
                       </button>
                     ) : (
                       <button

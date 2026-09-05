@@ -23,13 +23,13 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
   // Curated promotional highlights tailored strictly to our ICP (college girls, dorm life, hostel cots, cute aesthetic)
   const promoItems = [
     { icon: '🌸', text: 'Strictly 150 Sets Per Print Edition', highlight: 'Batch 01 Small-Batch' },
-    { icon: '⏰', text: 'Pre-Orders Close September 20th', highlight: '11:59 PM Final Cutoff' },
+    { icon: '⏰', text: 'Pre-Orders Open September 9th', highlight: 'Launch Countdown' },
     { icon: '🧸', text: '360° Deep Elastic Fitted Sheet', highlight: 'Never Pops Off Hostel Cots' },
     { icon: '☁️', text: '100% Washed Percale Cotton', highlight: 'Breathable & Zero Microfiber Sweat' },
     { icon: '🎀', text: 'Free Canvas Tote Bag Included', highlight: 'With Complete Bedding Kit' },
     { icon: '💌', text: '100% Unconditional Refund Guarantee', highlight: 'If Hostel Allotment Changes' },
     { icon: '🚚', text: 'Free Campus Dispatch', highlight: 'Direct to Your University Hostel Gate' },
-    { icon: '♡', text: 'Pay Only ₹390 Deposit Today', highlight: 'Balance Due at Dispatch' },
+    { icon: '♡', text: 'Pay Only ₹390 Deposit at Launch', highlight: 'Balance Due at Dispatch' },
     { icon: '🧺', text: 'Pre-Shrunk & Enzyme Softened', highlight: 'Tough on Hostel Laundry' }
   ];
 
@@ -52,32 +52,32 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
         </div>
       </div>
 
-      {/* 2. ORDER CUTOFF COUNTDOWN TIMER BAR (SEPTEMBER 20TH DEADLINE) */}
+      {/* 2. ORDER LAUNCH COUNTDOWN TIMER BAR (SEPTEMBER 9TH PRE-LAUNCH) */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="relative bg-[#FFF2F5] rounded-3xl border border-[#F8D2DA] p-6 sm:p-8 shadow-[0_8px_30px_rgba(242,175,188,0.18)]">
           
           {/* Top Scrapbook Washi Tape Strip */}
           <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 bg-[#FADADD]/95 backdrop-blur-xs border border-dashed border-[#E5A8B4] rounded-xs shadow-2xs rotate-0.5 z-10 flex items-center gap-2">
             <span className="text-[11px] font-hand text-[#8C3847] font-semibold tracking-wider">
-              batch 01 order deadline • september 20th 11:59 pm ♡
+              batch 01 pre-launch • pre-orders open september 9th 12:00 am ♡
             </span>
           </div>
 
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
             
-            {/* Left: Deadline & ICP Context */}
+            {/* Left: Pre-Launch & ICP Context */}
             <div className="text-center lg:text-left space-y-1.5 max-w-lg">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#F5CCD6] text-[11px] font-medium uppercase tracking-wider text-[#C2546A]">
                 <span className="w-2 h-2 rounded-full bg-[#DD6B80] animate-ping" />
-                <span>Orders Close September 20th</span>
+                <span>Pre-Launch: Orders Open Sept 9th</span>
               </div>
               
               <h3 className="font-serif text-2xl sm:text-3xl text-[#2D1C20] font-normal tracking-tight">
-                Batch 01 Pre-Orders Close Soon
+                Batch 01 Pre-Orders Drop Soon
               </h3>
               
               <p className="text-xs sm:text-sm text-[#69464C] leading-relaxed font-sans">
-                We only accept orders until <strong>September 20th at 11:59 PM</strong> to custom-loom our natural washed percale cotton for October campus move-in. Strictly capped at 150 sets per print.
+                We are currently in <strong>pre-launch</strong>! Pre-orders officially unlock on <strong>September 9th</strong> to custom-loom our natural washed cotton for October campus move-in. Strictly capped at 150 sets per print.
               </p>
 
               {/* Real-time remaining allocation pill */}
@@ -87,14 +87,14 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
                     ? 'bg-rose-100 text-rose-800 border-rose-300 font-semibold' 
                     : 'bg-white text-[#8C3847] border-[#F5CCD6]'
                 }`}>
-                  🌸 French Rose: {roseStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : 'A few sets left'}
+                  🌸 French Rose: {roseStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : '150 Allocations at Launch'}
                 </span>
                 <span className={`px-2.5 py-1 rounded-full border text-[11px] font-medium ${
                   blueStats.isSoldOut 
                     ? 'bg-sky-100 text-sky-800 border-sky-300 font-semibold' 
                     : 'bg-white text-[#2B5B7E] border-[#CFE0ED]'
                 }`}>
-                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : 'A few sets left'}
+                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : '150 Allocations at Launch'}
                 </span>
               </div>
             </div>
@@ -169,6 +169,14 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
                 >
                   <span>Out of Stock (All Editions Reserved) 🔒</span>
                 </button>
+              ) : !timeLeft.isExpired ? (
+                <button
+                  onClick={handleAction}
+                  className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <span>Explore Bedding Kit — Drops Sept 9th</span>
+                  <span className="text-xs">⏰</span>
+                </button>
               ) : (
                 <button
                   onClick={handleAction}
@@ -180,7 +188,7 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
               )}
 
               <div className="text-[11px] text-[#8C5E68] font-sans text-center">
-                100% Unconditional Refund Anytime Before Campus Dispatch
+                Pre-Orders Unlock September 9th • Strictly 150 Orders Per Print Edition
               </div>
 
             </div>

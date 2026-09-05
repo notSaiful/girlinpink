@@ -34,7 +34,7 @@ export const HomeStory = ({ onNavigate }) => {
   return (
     <div className="w-full">
       
-      {/* Moving Promotional Marquee Strip & September 20th Countdown Timer (Below Header) */}
+      {/* Moving Promotional Marquee Strip & September 9th Launch Countdown Timer (Below Header) */}
       <PromotionalBannerStrip onNavigate={onNavigate} onExplore={scrollToCarousel} />
 
       {/* 1. Full-Screen Hero */}

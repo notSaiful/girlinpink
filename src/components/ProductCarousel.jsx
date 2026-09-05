@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { useCountdown } from '../hooks/useCountdown';
 import { LAUNCH_PRINTS } from '../data/preorderData';
 
 export const ProductCarousel = ({ onNavigate }) => {
   const { setSelectedPrint, getPrintStats } = useCart();
+  const timeLeft = useCountdown();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -193,6 +195,14 @@ export const ProductCarousel = ({ onNavigate }) => {
                 >
                   <span>Out of Stock</span>
                   <span>🔒</span>
+                </button>
+              ) : !timeLeft.isExpired ? (
+                <button
+                  onClick={() => handleChoosePrint(current.printData)}
+                  className="px-6 py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                >
+                  <span>Preview & Customize (Drops Sept 9th)</span>
+                  <span className="text-xs">⏰</span>
                 </button>
               ) : (
                 <button

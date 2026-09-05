@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 
-// Hard cutoff date: September 20th at 11:59:59 PM IST
-export const TARGET_CUTOFF_DATE_STR = '2026-09-20T23:59:59+05:30';
-export const TARGET_CUTOFF_LABEL = 'September 20, 2026';
+// Pre-launch countdown target: September 9th, 2026 at 00:00:00 IST
+export const TARGET_LAUNCH_DATE_STR = '2026-09-09T00:00:00+05:30';
+export const TARGET_LAUNCH_LABEL = 'September 9, 2026';
 
-export const useCountdown = (targetDate = TARGET_CUTOFF_DATE_STR) => {
+// Aliases for compatibility
+export const TARGET_CUTOFF_DATE_STR = TARGET_LAUNCH_DATE_STR;
+export const TARGET_CUTOFF_LABEL = TARGET_LAUNCH_LABEL;
+
+export const useCountdown = (targetDate = TARGET_LAUNCH_DATE_STR) => {
   const calculateTimeLeft = () => {
     const target = new Date(targetDate).getTime();
     const now = new Date().getTime();
@@ -18,7 +22,9 @@ export const useCountdown = (targetDate = TARGET_CUTOFF_DATE_STR) => {
         minutes: 0,
         seconds: 0,
         isExpired: true,
-        formatted: 'Orders Closed'
+        isPreLaunch: false,
+        isLive: true,
+        formatted: 'Pre-Orders Live!'
       };
     }
 
@@ -34,6 +40,8 @@ export const useCountdown = (targetDate = TARGET_CUTOFF_DATE_STR) => {
       minutes,
       seconds,
       isExpired: false,
+      isPreLaunch: true,
+      isLive: false,
       formatted: `${days}d ${hours}h ${minutes}m ${seconds}s`
     };
   };
