@@ -10,7 +10,7 @@ export const Footer = ({ onNavigate }) => {
           <img 
             src="/logo.png" 
             alt="girlinpink logo" 
-            className="w-12 h-12 object-contain rounded-full p-1 bg-white border border-[#F6D5DC] shadow-xs" 
+            className="w-14 h-14 object-contain p-1.5 rounded-2xl bg-white border border-[#F6D5DC] shadow-xs mb-1" 
           />
           <div className="font-serif text-2xl font-bold tracking-tight text-[#2D1C20]">
             girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>

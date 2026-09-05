@@ -54,7 +54,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
               <img 
                 src="/logo.png" 
                 alt="girlinpink logo" 
-                className="w-9 h-9 sm:w-11 sm:h-11 object-contain rounded-full p-0.5 bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
+                className="w-10 h-10 sm:w-12 sm:h-12 object-contain p-1 rounded-2xl bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
               />
               <div className="flex items-baseline gap-2">
                 <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition">
