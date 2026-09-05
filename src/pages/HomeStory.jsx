@@ -1,6 +1,6 @@
 import React from 'react';
 import { FullScreenHero } from '../components/FullScreenHero';
-import { PromotionalBannerStrip } from '../components/PromotionalBannerStrip';
+import { PromotionalMarquee, PreLaunchTimerSection } from '../components/PromotionalBannerStrip';
 import { ProductCarousel } from '../components/ProductCarousel';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 
@@ -34,13 +34,16 @@ export const HomeStory = ({ onNavigate }) => {
   return (
     <div className="w-full">
       
-      {/* Moving Promotional Marquee Strip & September 9th Launch Countdown Timer (Below Header) */}
-      <PromotionalBannerStrip onNavigate={onNavigate} onExplore={scrollToCarousel} />
+      {/* Moving Promotional Marquee Strip (Below Header) */}
+      <PromotionalMarquee />
 
       {/* 1. Full-Screen Hero */}
       <FullScreenHero onExplore={scrollToCarousel} />
 
-      {/* 2. The Launch Prints Product Carousel */}
+      {/* 2. September 9th Launch Countdown Timer Section (Below Hero Section) */}
+      <PreLaunchTimerSection onNavigate={onNavigate} onExplore={scrollToCarousel} />
+
+      {/* 3. The Launch Prints Product Carousel */}
       <ProductCarousel onNavigate={onNavigate} />
 
       {/* 3. Real Room Transformations (Testimonials) */}

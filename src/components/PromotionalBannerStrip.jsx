@@ -1,8 +1,46 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
-import { useCountdown, TARGET_CUTOFF_LABEL } from '../hooks/useCountdown';
+import { useCountdown } from '../hooks/useCountdown';
 
-export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
+// Curated promotional highlights tailored strictly to our ICP (college girls, dorm life, hostel cots, cute aesthetic)
+const PROMO_ITEMS = [
+  { icon: '🌸', text: 'Strictly 150 Sets Per Print Edition', highlight: 'Batch 01 Small-Batch' },
+  { icon: '⏰', text: 'Pre-Orders Open September 9th', highlight: 'Launch Countdown' },
+  { icon: '🧸', text: '360° Deep Elastic Fitted Sheet', highlight: 'Never Pops Off Hostel Cots' },
+  { icon: '☁️', text: '100% Washed Percale Cotton', highlight: 'Breathable & Zero Microfiber Sweat' },
+  { icon: '🎀', text: 'Free Canvas Tote Bag Included', highlight: 'With Complete Bedding Kit' },
+  { icon: '💌', text: '100% Unconditional Refund Guarantee', highlight: 'If Hostel Allotment Changes' },
+  { icon: '🚚', text: 'Free Campus Dispatch', highlight: 'Direct to Your University Hostel Gate' },
+  { icon: '♡', text: 'Pay Only ₹390 Deposit at Launch', highlight: 'Balance Due at Dispatch' },
+  { icon: '🧺', text: 'Pre-Shrunk & Enzyme Softened', highlight: 'Tough on Hostel Laundry' }
+];
+
+/**
+ * 1. Continuous Moving Promotional Marquee Strip (Positioned directly below Header)
+ */
+export const PromotionalMarquee = () => {
+  return (
+    <div className="w-full bg-[#FFE8ED] border-b border-[#F5CCD6] py-3 text-xs sm:text-sm font-medium text-[#8C3847] shadow-2xs overflow-hidden">
+      <div className="animate-marquee flex items-center whitespace-nowrap">
+        {[...PROMO_ITEMS, ...PROMO_ITEMS].map((item, idx) => (
+          <div key={idx} className="flex items-center gap-2 mx-5 sm:mx-8 shrink-0">
+            <span className="text-base sm:text-lg">{item.icon}</span>
+            <span className="font-serif tracking-tight text-[#2D1C20]">{item.text}</span>
+            <span className="text-[11px] font-sans px-2 py-0.5 rounded-full bg-white/80 border border-[#F2CCD6] text-[#A84A5C]">
+              {item.highlight}
+            </span>
+            <span className="text-xs text-[#DD6B80] ml-3">♡</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/**
+ * 2. Order Launch Countdown Timer Bar (Positioned below Hero Section)
+ */
+export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
   const { getPrintStats } = useCart();
   const timeLeft = useCountdown();
 
@@ -20,40 +58,9 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
     }
   };
 
-  // Curated promotional highlights tailored strictly to our ICP (college girls, dorm life, hostel cots, cute aesthetic)
-  const promoItems = [
-    { icon: '🌸', text: 'Strictly 150 Sets Per Print Edition', highlight: 'Batch 01 Small-Batch' },
-    { icon: '⏰', text: 'Pre-Orders Open September 9th', highlight: 'Launch Countdown' },
-    { icon: '🧸', text: '360° Deep Elastic Fitted Sheet', highlight: 'Never Pops Off Hostel Cots' },
-    { icon: '☁️', text: '100% Washed Percale Cotton', highlight: 'Breathable & Zero Microfiber Sweat' },
-    { icon: '🎀', text: 'Free Canvas Tote Bag Included', highlight: 'With Complete Bedding Kit' },
-    { icon: '💌', text: '100% Unconditional Refund Guarantee', highlight: 'If Hostel Allotment Changes' },
-    { icon: '🚚', text: 'Free Campus Dispatch', highlight: 'Direct to Your University Hostel Gate' },
-    { icon: '♡', text: 'Pay Only ₹390 Deposit at Launch', highlight: 'Balance Due at Dispatch' },
-    { icon: '🧺', text: 'Pre-Shrunk & Enzyme Softened', highlight: 'Tough on Hostel Laundry' }
-  ];
-
   return (
-    <div className="w-full bg-[#FFF9FA] border-b border-[#F6D5DC] overflow-hidden">
-      
-      {/* 1. CONTINUOUS MOVING PROMOTIONAL MARQUEE STRIP */}
-      <div className="relative bg-[#FFE8ED] border-y border-[#F5CCD6] py-3 text-xs sm:text-sm font-medium text-[#8C3847] shadow-2xs overflow-hidden">
-        <div className="animate-marquee flex items-center whitespace-nowrap">
-          {[...promoItems, ...promoItems].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2 mx-5 sm:mx-8 shrink-0">
-              <span className="text-base sm:text-lg">{item.icon}</span>
-              <span className="font-serif tracking-tight text-[#2D1C20]">{item.text}</span>
-              <span className="text-[11px] font-sans px-2 py-0.5 rounded-full bg-white/80 border border-[#F2CCD6] text-[#A84A5C]">
-                {item.highlight}
-              </span>
-              <span className="text-xs text-[#DD6B80] ml-3">♡</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 2. ORDER LAUNCH COUNTDOWN TIMER BAR (SEPTEMBER 9TH PRE-LAUNCH) */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+    <section id="launch-timer-section" className="w-full py-8 sm:py-12 px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto">
         <div className="relative bg-[#FFF2F5] rounded-3xl border border-[#F8D2DA] p-6 sm:p-8 shadow-[0_8px_30px_rgba(242,175,188,0.18)]">
           
           {/* Top Scrapbook Washi Tape Strip */}
@@ -198,6 +205,15 @@ export const PromotionalBannerStrip = ({ onNavigate, onExplore }) => {
         </div>
       </div>
 
-    </div>
+    </section>
+  );
+};
+
+export const PromotionalBannerStrip = (props) => {
+  return (
+    <>
+      <PromotionalMarquee />
+      <PreLaunchTimerSection {...props} />
+    </>
   );
 };
