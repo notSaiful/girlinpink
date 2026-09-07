@@ -205,10 +205,10 @@ export const CheckoutPage = ({ onNavigate }) => {
           </div>
         ) : (
           /* ================= FULL PAGE CHECKOUT ================= */
-          <div className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-6 sm:p-10 shadow-[0_8px_30px_rgba(242,175,188,0.15)] mt-4">
+          <div className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-4 sm:p-10 shadow-[0_8px_30px_rgba(242,175,188,0.15)] mt-4">
             
             {/* Top Washi Tape Strip */}
-            <div className="absolute -top-3.5 left-10 w-44 h-5 bg-[#FADADD]/90 backdrop-blur-xs border border-dashed border-[#E8A5B2]/60 rounded-xs shadow-2xs -rotate-1 z-10 flex items-center justify-center">
+            <div className="absolute -top-3.5 left-6 sm:left-10 w-36 sm:w-44 h-5 bg-[#FADADD]/90 backdrop-blur-xs border border-dashed border-[#E8A5B2]/60 rounded-xs shadow-2xs -rotate-1 z-10 flex items-center justify-center pointer-events-none">
               <span className="text-[10px] font-hand text-[#A85E5E] tracking-wider">batch 01 reservation desk ♡</span>
             </div>
 
@@ -221,7 +221,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                   <span className="text-xs font-medium tracking-widest uppercase text-[#DD6B80] font-sans block mb-1">
                     Pre-Order Allocation ♡
                   </span>
-                  <h1 className="font-serif text-3xl sm:text-4xl text-[#2D1C20] font-normal tracking-tight">
+                  <h1 className="font-serif text-2xl sm:text-4xl text-[#2D1C20] font-normal tracking-tight">
                     Secure Your Reservation
                   </h1>
                   <p className="text-sm text-[#69464C] mt-1 font-sans">
@@ -230,8 +230,8 @@ export const CheckoutPage = ({ onNavigate }) => {
                 </div>
 
                 {!timeLeft.isExpired && (
-                  <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-xs text-[#8C3847] space-y-2.5 font-sans shadow-xs">
-                    <div className="font-semibold flex items-center gap-2 text-sm text-[#9E2B42]">
+                  <div className="p-3.5 sm:p-5 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-xs text-[#8C3847] space-y-2.5 font-sans shadow-xs">
+                    <div className="font-semibold flex items-center gap-2 text-xs sm:text-sm text-[#9E2B42]">
                       <span>⏰</span>
                       <span>Pre-Launch Mode: Pre-Orders Open September 9th, 8:00 PM</span>
                     </div>
@@ -381,7 +381,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                         />
                       </div>
 
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <label className="text-xs text-[#69464C] font-medium block mb-1">
                             City & State *
@@ -421,12 +421,12 @@ export const CheckoutPage = ({ onNavigate }) => {
                       step 03 • deposit allocation ♡
                     </div>
 
-                    <div className="font-serif text-sm font-medium text-[#2D1C20] flex items-center justify-between">
+                    <div className="font-serif text-sm font-medium text-[#2D1C20] flex flex-wrap items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-[#DDEBF5] text-[#456885] text-xs flex items-center justify-center font-sans font-bold">3</span>
+                        <span className="w-5 h-5 rounded-full bg-[#DDEBF5] text-[#456885] text-xs flex items-center justify-center font-sans font-bold shrink-0">3</span>
                         <span>Pre-Order Reservation Deposit</span>
                       </div>
-                      <span className="text-xs font-semibold text-[#DD6B80] bg-[#FFE8EE] px-2.5 py-1 rounded-full border border-[#F5CCD6]">
+                      <span className="text-xs font-semibold text-[#DD6B80] bg-[#FFE8EE] px-2.5 py-1 rounded-full border border-[#F5CCD6] shrink-0">
                         ₹{amountToPayNow} Due Today
                       </span>
                     </div>

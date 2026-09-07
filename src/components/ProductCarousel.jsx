@@ -92,15 +92,15 @@ export const ProductCarousel = ({ onNavigate }) => {
 
       {/* Main Carousel Card Container */}
       <div 
-        className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-6 sm:p-10 shadow-[0_8px_30px_rgba(242,175,188,0.15)]"
+        className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-4 sm:p-10 shadow-[0_8px_30px_rgba(242,175,188,0.15)]"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Scrapbook Washi Tape Tab */}
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 sm:w-44 h-5 bg-[#FADADD]/85 backdrop-blur-xs border border-dashed border-[#E5A8B4]/70 rounded-xs shadow-2xs rotate-0.5 pointer-events-none z-10" />
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 sm:w-44 h-5 bg-[#FADADD]/85 backdrop-blur-xs border border-dashed border-[#E5A8B4]/70 rounded-xs shadow-2xs rotate-0.5 pointer-events-none z-10" />
 
         {/* Carousel Slide Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 items-center">
           
           {/* Slide Photo */}
           <div className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-square bg-stone-100 border border-[#F8D2DA] shadow-sm">
@@ -112,7 +112,7 @@ export const ProductCarousel = ({ onNavigate }) => {
             />
 
             {/* Live Sets Remaining Badge (out of 150 limit) */}
-            <div className={`absolute top-3.5 right-3.5 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-sans tracking-wide z-20 ${
+            <div className={`absolute top-2.5 sm:top-3.5 right-2.5 sm:right-3.5 backdrop-blur-md text-white px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs font-sans tracking-wide z-20 ${
               (getPrintStats ? getPrintStats(current.title).isSoldOut : false)
                 ? 'bg-rose-950/95 font-semibold text-rose-100 shadow-sm'
                 : 'bg-[#7A2A38]/85'
@@ -127,17 +127,17 @@ export const ProductCarousel = ({ onNavigate }) => {
             {/* Out of Stock Photo Overlay */}
             {(getPrintStats && getPrintStats(current.title).isSoldOut) && (
               <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center z-10">
-                <span className="px-5 py-2 rounded-full bg-rose-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase border border-rose-800 shadow-md">
+                <span className="px-4 py-1.5 rounded-full bg-rose-950 text-white text-xs sm:text-sm font-semibold tracking-wider uppercase border border-rose-800 shadow-md">
                   Out of Stock
                 </span>
-                <span className="text-[11px] text-white/90 font-sans mt-1.5 font-medium">
+                <span className="text-[10px] sm:text-[11px] text-white/90 font-sans mt-1.5 font-medium">
                   Batch 01 allocation full (150/150 reserved)
                 </span>
               </div>
             )}
 
             {/* Bottom Style Tag */}
-            <div className="absolute bottom-3.5 left-3.5 bg-[#FFF8F9]/95 backdrop-blur-sm px-3 py-1 rounded-full border border-[#F7D5DC] text-xs font-sans text-[#7E3846] shadow-xs z-20">
+            <div className="absolute bottom-2.5 sm:bottom-3.5 left-2.5 sm:left-3.5 bg-[#FFF8F9]/95 backdrop-blur-sm px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border border-[#F7D5DC] text-[11px] sm:text-xs font-sans text-[#7E3846] shadow-xs z-20">
               {current.tag}
             </div>
           </div>
@@ -179,7 +179,7 @@ export const ProductCarousel = ({ onNavigate }) => {
             </div>
 
             {/* Price & Action Area */}
-            <div className="pt-4 border-t border-[#F8D2DA] flex flex-wrap items-center justify-between gap-4">
+            <div className="pt-4 border-t border-[#F8D2DA] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
               <div>
                 <div className="font-serif text-2xl sm:text-3xl font-normal text-[#2D1C20]">
                   {current.price}
@@ -193,7 +193,7 @@ export const ProductCarousel = ({ onNavigate }) => {
               {(getPrintStats && getPrintStats(current.title).isSoldOut) ? (
                 <button
                   disabled
-                  className="px-6 py-3.5 rounded-full bg-[#F3CCD5] text-[#8C5E68] border border-[#E8B2BD] text-xs font-medium tracking-wide cursor-not-allowed flex items-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#F3CCD5] text-[#8C5E68] border border-[#E8B2BD] text-xs font-medium tracking-wide cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   <span>Out of Stock</span>
                   <span>🔒</span>
@@ -201,15 +201,16 @@ export const ProductCarousel = ({ onNavigate }) => {
               ) : !timeLeft.isExpired ? (
                 <button
                   onClick={() => handleChoosePrint(current.printData)}
-                  className="px-6 py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                  className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <span>Preview & Customize (Drops Sept 9th)</span>
+                  <span className="hidden sm:inline">Preview & Customize (Drops Sept 9th)</span>
+                  <span className="sm:hidden">Customize Kit (Drops Sept 9)</span>
                   <span className="text-xs">⏰</span>
                 </button>
               ) : (
                 <button
                   onClick={() => handleChoosePrint(current.printData)}
-                  className="px-6 py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
                 >
                   <span>Customize & Pre-Order</span>
                   <span className="text-xs">♡</span>

@@ -170,7 +170,7 @@ export const ProductPage = ({ onNavigate }) => {
             </div>
 
             {/* Pre-Order Pricing Card */}
-            <div className="p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
               <div>
                 <span className="text-[11px] text-[#8C5E68] block uppercase tracking-wider font-sans font-medium">
                   Pre-Order Reservation Deposit
@@ -187,7 +187,7 @@ export const ProductPage = ({ onNavigate }) => {
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#FFE8EE] border border-[#F5CCD6] text-left sm:text-right text-xs font-sans text-[#7A2A38] space-y-1">
+              <div className="w-full sm:w-auto p-3 sm:p-3.5 rounded-xl bg-[#FFE8EE] border border-[#F5CCD6] text-left sm:text-right text-xs font-sans text-[#7A2A38] space-y-0.5 sm:space-y-1">
                 <div className="font-medium">Remaining Balance: ₹{balanceDueLater}</div>
                 <div className="text-[11px] text-[#8C5E68]">Due upon campus dispatch in October 2026</div>
               </div>
@@ -288,30 +288,30 @@ export const ProductPage = ({ onNavigate }) => {
             </div>
 
             {/* Inclusions Checklist - The Complete Kit */}
-            <div className="p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] space-y-2.5 text-xs text-[#69464C]">
-              <div className="font-medium text-[#7E3846] tracking-wide uppercase text-[11px] font-sans flex items-center justify-between">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] space-y-2.5 text-xs text-[#69464C]">
+              <div className="font-medium text-[#7E3846] tracking-wide uppercase text-[11px] font-sans flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                 <span>What Arrives in Your Complete Kit:</span>
-                <span className="text-[#8C3847] bg-[#FFE8ED] px-2.5 py-0.5 rounded-full border border-[#F5CCD6] normal-case text-[11px] font-medium">
+                <span className="text-[#8C3847] bg-[#FFE8ED] px-2.5 py-0.5 rounded-full border border-[#F5CCD6] normal-case text-[11px] font-medium self-start sm:self-auto">
                   Full 4-Piece Set + Tote
                 </span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 font-sans">
                 {currentTier.includes.map((inc, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C27878] mt-1.5 shrink-0" />
-                    <span>{inc}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#DD6B80] mt-1.5 shrink-0" />
+                    <span className="leading-snug">{inc}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* September 9th Pre-Orders Launch Countdown Banner */}
-            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] text-xs font-sans text-[#7E3846]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] text-xs font-sans text-[#7E3846]">
               <div className="flex items-center gap-2 font-medium">
                 <span className="text-sm">⏰</span>
                 <span>Pre-Orders Open September 9th, 8:00 PM:</span>
               </div>
-              <div className="font-mono font-semibold text-[#9E2B42] bg-white px-3 py-1 rounded-lg border border-[#F5CCD6] shadow-2xs">
+              <div className="font-mono font-semibold text-[#9E2B42] bg-white px-2.5 py-1 rounded-lg border border-[#F5CCD6] shadow-2xs self-stretch sm:self-auto text-center">
                 {timeLeft.isExpired ? 'Pre-Orders Live!' : timeLeft.formatted}
               </div>
             </div>

@@ -55,22 +55,22 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-20 sm:h-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-16 sm:h-24 gap-2">
           
           {/* Brand Mark */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
             <button 
               onClick={() => handleNavClick('home')} 
-              className="group text-left flex items-center gap-3 py-2"
+              className="group text-left flex items-center gap-2 sm:gap-3 py-1.5 min-w-0"
             >
               <img 
                 src="/logo.png" 
                 alt="girlinpink logo" 
-                className="w-10 h-10 sm:w-12 sm:h-12 object-contain p-1 rounded-2xl bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
+                className="w-8 h-8 sm:w-12 sm:h-12 object-contain p-0.5 sm:p-1 rounded-xl sm:rounded-2xl bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
               />
-              <div className="flex items-baseline gap-2">
-                <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition">
+              <div className="flex items-baseline gap-1.5 sm:gap-2 min-w-0">
+                <span className="font-serif text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition truncate">
                   girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
                 </span>
                 <span className="hidden lg:inline text-xs tracking-wider uppercase text-[#A8727C] font-sans font-medium">
@@ -98,12 +98,13 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
           </nav>
 
           {/* Primary Action Button */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <button
               onClick={() => handleNavClick('reserve')}
-              className="px-6 py-2.5 sm:py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-2"
+              className="px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
             >
-              <span>Pre-Orders Sept 9th, 8 PM</span>
+              <span className="hidden sm:inline">Pre-Orders Sept 9th, 8 PM</span>
+              <span className="sm:hidden">Drops Sept 9, 8 PM</span>
               <span className="text-xs">⏰</span>
             </button>
           </div>
@@ -111,12 +112,12 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
         </div>
 
         {/* Mobile Navigation Strip with generous breathing room */}
-        <div className="md:hidden flex items-center justify-start pb-3.5 gap-2 overflow-x-auto no-scrollbar border-t border-[#F7D5DC] pt-2.5">
+        <div className="md:hidden flex items-center justify-start pb-3 gap-2 overflow-x-auto no-scrollbar border-t border-[#F7D5DC] pt-2 px-1">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap transition ${
+              className={`px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap shrink-0 transition ${
                 currentPage === item.id
                   ? 'bg-[#FCD2DB] text-[#7A2A38] font-medium shadow-2xs'
                   : 'text-[#6E4249] hover:bg-[#FEE9EE]'
