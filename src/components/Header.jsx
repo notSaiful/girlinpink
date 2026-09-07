@@ -55,38 +55,33 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-16 sm:h-24 gap-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-3">
           
-          {/* Brand Mark */}
-          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+          {/* Brand Mark - Guaranteed 100% Visible & Never Truncated on Mobile or Desktop */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button 
               onClick={() => handleNavClick('home')} 
-              className="group text-left flex items-center gap-2 sm:gap-3 py-1.5 min-w-0"
+              className="group text-left flex items-center gap-2 sm:gap-2.5 py-1.5 shrink-0"
             >
               <img 
                 src="/logo.png" 
                 alt="girlinpink logo" 
-                className="w-8 h-8 sm:w-12 sm:h-12 object-contain p-0.5 sm:p-1 rounded-xl sm:rounded-2xl bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
+                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-11 lg:h-11 object-contain p-0.5 sm:p-1 rounded-xl sm:rounded-2xl bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
               />
-              <div className="flex items-baseline gap-1.5 sm:gap-2 min-w-0">
-                <span className="font-serif text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition truncate">
-                  girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
-                </span>
-                <span className="hidden lg:inline text-xs tracking-wider uppercase text-[#A8727C] font-sans font-medium">
-                  bedding collection
-                </span>
-              </div>
+              <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition whitespace-nowrap shrink-0">
+                girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
+              </span>
             </button>
           </div>
 
-          {/* Razorpay Compliance Navigation Links with spacious gap */}
-          <nav className="hidden md:flex items-center gap-2 lg:gap-3">
+          {/* Razorpay Compliance Navigation Links with comfortable spacing */}
+          <nav className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`px-4 py-2 rounded-full text-xs lg:text-[13px] tracking-wide transition-all duration-150 ${
+                className={`px-3 py-1.5 rounded-full text-xs lg:text-[13px] tracking-wide transition-all duration-150 whitespace-nowrap ${
                   currentPage === item.id
                     ? 'bg-[#FCD2DB] text-[#7A2A38] font-medium shadow-xs'
                     : 'text-[#6E4249] hover:text-[#2D1C20] hover:bg-[#FEE9EE] font-normal'
@@ -101,7 +96,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <button
               onClick={() => handleNavClick('reserve')}
-              className="px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
+              className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0"
             >
               <span className="hidden sm:inline">Pre-Orders Sept 9th, 8 PM</span>
               <span className="sm:hidden">Drops Sept 9, 8 PM</span>
@@ -111,8 +106,8 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
 
         </div>
 
-        {/* Mobile Navigation Strip with generous breathing room */}
-        <div className="md:hidden flex items-center justify-start pb-3 gap-2 overflow-x-auto no-scrollbar border-t border-[#F7D5DC] pt-2 px-1">
+        {/* Mobile & Tablet Navigation Strip */}
+        <div className="xl:hidden flex items-center justify-start sm:justify-center pb-2.5 gap-2 overflow-x-auto no-scrollbar border-t border-[#F7D5DC] pt-2 px-1">
           {navItems.map((item) => (
             <button
               key={item.id}
