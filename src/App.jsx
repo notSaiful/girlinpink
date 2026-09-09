@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { CartProvider } from './context/CartContext';
 import { Header } from './components/Header';
 import { HomeStory } from './pages/HomeStory';
@@ -65,6 +66,9 @@ export function App() {
 
         {/* Compliant Footer with Razorpay Policies */}
         <Footer onNavigate={navigateTo} />
+
+        {/* Vercel Web Analytics */}
+        <Analytics />
 
       </div>
     </CartProvider>
