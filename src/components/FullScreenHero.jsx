@@ -17,7 +17,7 @@ export const FullScreenHero = ({ onExplore }) => {
       {/* Background Hero Image */}
       <img
         src="/hero_aesthetic_desk.jpg"
-        alt="your days are worth remembering, your thoughts deserve a home"
+        alt="your thoughts deserve a home"
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
@@ -31,9 +31,8 @@ export const FullScreenHero = ({ onExplore }) => {
           <span>Small-Batch Handcrafted Stationery • Batch 01</span>
         </div>
 
-        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl text-white font-normal leading-tight drop-shadow-md">
-          your days are worth remembering, <br />
-          <span className="italic font-serif">your thoughts deserve a home.</span>
+        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl text-white font-normal leading-tight drop-shadow-md italic">
+          your thoughts deserve a home.
         </h1>
 
         <p className="mt-4 sm:mt-5 text-sm sm:text-base text-white/90 max-w-xl mx-auto font-sans font-light leading-relaxed drop-shadow-xs">

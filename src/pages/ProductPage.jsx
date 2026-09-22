@@ -29,15 +29,15 @@ export const ProductPage = ({ onNavigate }) => {
   const timeLeft = useCountdown();
 
   const [selectedPrintId, setSelectedPrintId] = useState(() => {
+    if (selectedPrint?.id) return selectedPrint.id;
     try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const editionParam = urlParams.get('edition');
-      if (editionParam && LAUNCH_PRINTS.some(p => p.id === editionParam)) return editionParam;
       const hash = window.location.hash;
       const matched = LAUNCH_PRINTS.find(p => hash.includes(p.id));
       if (matched) return matched.id;
+      const urlParams = new URLSearchParams(window.location.search);
+      const editionParam = urlParams.get('edition');
+      if (editionParam && LAUNCH_PRINTS.some(p => p.id === editionParam)) return editionParam;
     } catch (_) {}
-    if (selectedPrint?.id) return selectedPrint.id;
     return LAUNCH_PRINTS[0].id;
   });
   const [selectedSizeId, setSelectedSizeId] = useState(selectedSize?.id || SIZES[0].id);
@@ -56,30 +56,33 @@ export const ProductPage = ({ onNavigate }) => {
   });
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
-  // Track previous cart print to only sync on external navigation changes
-  const prevCartPrintIdRef = React.useRef(selectedPrint?.id);
+  // Sync state whenever selectedPrint from cart/context changes
   React.useEffect(() => {
-    if (selectedPrint?.id && selectedPrint.id !== prevCartPrintIdRef.current) {
-      prevCartPrintIdRef.current = selectedPrint.id;
+    if (selectedPrint?.id) {
       setSelectedPrintId(selectedPrint.id);
       setActiveImageIndex(0);
     }
   }, [selectedPrint?.id]);
 
-  // Sync initial param into cart if initialized from URL
+  // Sync edition whenever hash changes (e.g. #product-vintage_lace)
   React.useEffect(() => {
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const editionParam = urlParams.get('edition');
-      if (editionParam && LAUNCH_PRINTS.some(p => p.id === editionParam)) {
-        const match = LAUNCH_PRINTS.find(p => p.id === editionParam);
-        if (match && setSelectedPrint) {
-          prevCartPrintIdRef.current = match.id;
-          setSelectedPrint(match);
+    const handleHashSync = () => {
+      try {
+        const hash = window.location.hash;
+        const matched = LAUNCH_PRINTS.find(p => hash.includes(p.id));
+        if (matched) {
+          setSelectedPrintId(matched.id);
+          setActiveImageIndex(0);
+          if (setSelectedPrint && selectedPrint?.id !== matched.id) {
+            setSelectedPrint(matched);
+          }
         }
-      }
-    } catch (_) {}
-  }, []);
+      } catch (_) {}
+    };
+    handleHashSync();
+    window.addEventListener('hashchange', handleHashSync);
+    return () => window.removeEventListener('hashchange', handleHashSync);
+  }, [selectedPrint?.id, setSelectedPrint]);
 
   const currentJournal = LAUNCH_PRINTS.find(p => p.id === selectedPrintId) || LAUNCH_PRINTS[0];
   const currentSize = SIZES.find(s => s.id === selectedSizeId) || SIZES[0];

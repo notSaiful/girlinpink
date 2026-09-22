@@ -37,7 +37,9 @@ export const ProductCarousel = ({ onNavigate }) => {
       setSelectedPrint(journal);
     }
     if (onNavigate) {
-      onNavigate('product');
+      onNavigate('product', journal);
+    } else {
+      window.location.hash = `product-${journal?.id || ''}`;
     }
   };
 
@@ -99,11 +101,15 @@ export const ProductCarousel = ({ onNavigate }) => {
           return (
             <div
               key={journal.id}
-              className="journal-card w-[290px] sm:w-[330px] md:w-[350px] shrink-0 snap-start bg-[#FFF9FA] rounded-3xl border border-[#F6D5DC] p-4 sm:p-5 shadow-[0_6px_24px_rgba(240,165,180,0.12)] hover:shadow-[0_12px_32px_rgba(240,165,180,0.22)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+              onClick={() => handleSelectProduct(journal)}
+              className="journal-card w-[290px] sm:w-[330px] md:w-[350px] shrink-0 snap-start bg-[#FFF9FA] rounded-3xl border border-[#F6D5DC] p-4 sm:p-5 shadow-[0_6px_24px_rgba(240,165,180,0.12)] hover:shadow-[0_12px_32px_rgba(240,165,180,0.22)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
               <div>
                 {/* Product Photo with Hover Zoom */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#FDF0F3] border border-[#F7D5DC] mb-4">
+                <div 
+                  onClick={() => handleSelectProduct(journal)}
+                  className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#FDF0F3] border border-[#F7D5DC] mb-4 cursor-pointer"
+                >
                   <img
                     src={journal.editorialImage}
                     alt={journal.name}
@@ -142,7 +148,10 @@ export const ProductCarousel = ({ onNavigate }) => {
                 </div>
 
                 {/* Journal Title */}
-                <h3 className="font-serif text-lg sm:text-xl text-[#2D1C20] font-medium leading-snug group-hover:text-[#C27878] transition line-clamp-1">
+                <h3 
+                  onClick={() => handleSelectProduct(journal)}
+                  className="font-serif text-lg sm:text-xl text-[#2D1C20] font-medium leading-snug group-hover:text-[#DD6B80] transition line-clamp-1 cursor-pointer"
+                >
                   {journal.name}
                 </h3>
 
@@ -182,7 +191,10 @@ export const ProductCarousel = ({ onNavigate }) => {
 
                 {/* Action CTA Button */}
                 <button
-                  onClick={() => handleSelectProduct(journal)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectProduct(journal);
+                  }}
                   className="w-full py-2.5 sm:py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-xs hover:shadow-sm active:scale-98 flex items-center justify-center gap-1.5"
                 >
                   <span>{journal.isPersonalized ? 'Personalize & Buy' : `Buy Now — ₹${journal.price}`}</span>
@@ -192,6 +204,7 @@ export const ProductCarousel = ({ onNavigate }) => {
                 {/* Direct Shopify Link if connected */}
                 {isShopifyConnected() && (
                   <a
+                    onClick={(e) => e.stopPropagation()}
                     href={generateShopifyCartPermalink({
                       quantity: 1,
                       tier: 'Single Journal Edition'

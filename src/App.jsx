@@ -39,9 +39,13 @@ export function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const navigateTo = (pageId) => {
+  const navigateTo = (pageId, journal) => {
     setCurrentPage(pageId);
-    window.location.hash = pageId;
+    if (journal?.id) {
+      window.location.hash = `product-${journal.id}`;
+    } else {
+      window.location.hash = pageId;
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

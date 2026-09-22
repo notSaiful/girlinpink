@@ -1,6 +1,6 @@
 import React from 'react';
 import { FullScreenHero } from '../components/FullScreenHero';
-import { PromotionalMarquee, PreLaunchTimerSection } from '../components/PromotionalBannerStrip';
+import { PromotionalMarquee } from '../components/PromotionalBannerStrip';
 import { ProductCarousel } from '../components/ProductCarousel';
 import { ArchivalPaperLab } from '../components/ArchivalPaperLab';
 import { UnboxingExperience } from '../components/UnboxingExperience';
@@ -42,10 +42,7 @@ export const HomeStory = ({ onNavigate }) => {
       {/* 1. Full-Screen Hero */}
       <FullScreenHero onExplore={scrollToCarousel} />
 
-      {/* 2. Order Launch Countdown Timer Section (Below Hero Section) */}
-      <PreLaunchTimerSection onNavigate={onNavigate} onExplore={scrollToCarousel} />
-
-      {/* 3. The 6 Creative Journals Product Carousel */}
+      {/* 2. The 6 Creative Journals Product Carousel */}
       <ProductCarousel onNavigate={onNavigate} />
 
       {/* 4. The Archival Paper Laboratory (Split Bleed Test & Paper Science) */}
