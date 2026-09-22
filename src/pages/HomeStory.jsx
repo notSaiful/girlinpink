@@ -2,6 +2,8 @@ import React from 'react';
 import { FullScreenHero } from '../components/FullScreenHero';
 import { PromotionalMarquee, PreLaunchTimerSection } from '../components/PromotionalBannerStrip';
 import { ProductCarousel } from '../components/ProductCarousel';
+import { ArchivalPaperLab } from '../components/ArchivalPaperLab';
+import { UnboxingExperience } from '../components/UnboxingExperience';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 import { FAQS } from '../data/preorderData';
 
@@ -47,7 +49,13 @@ export const HomeStory = ({ onNavigate }) => {
       {/* 3. The 6 Creative Journals Product Carousel */}
       <ProductCarousel onNavigate={onNavigate} />
 
-      {/* 4. Real Room Transformations (Testimonials) */}
+      {/* 4. The Archival Paper Laboratory (Split Bleed Test & Paper Science) */}
+      <ArchivalPaperLab onNavigate={onNavigate} />
+
+      {/* 5. Unboxing an Heirloom (Keepsake Box, Brass Clip & Campus Delivery) */}
+      <UnboxingExperience onNavigate={onNavigate} />
+
+      {/* 6. Real Student Dorm Desk Scrapbook (Testimonials) */}
       <TestimonialsSection />
 
       {/* 5. Our Story */}

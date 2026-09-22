@@ -29,6 +29,14 @@ export const ProductPage = ({ onNavigate }) => {
   const timeLeft = useCountdown();
 
   const [selectedPrintId, setSelectedPrintId] = useState(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const editionParam = urlParams.get('edition');
+      if (editionParam && LAUNCH_PRINTS.some(p => p.id === editionParam)) return editionParam;
+      const hash = window.location.hash;
+      const matched = LAUNCH_PRINTS.find(p => hash.includes(p.id));
+      if (matched) return matched.id;
+    } catch (_) {}
     if (selectedPrint?.id) return selectedPrint.id;
     return LAUNCH_PRINTS[0].id;
   });
@@ -38,13 +46,30 @@ export const ProductPage = ({ onNavigate }) => {
   const [customName, setCustomName] = useState(personalization || 'Eleanor');
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  // Sync if selectedPrint in cart changes from external navigation
+  // Track previous cart print to only sync on external navigation changes
+  const prevCartPrintIdRef = React.useRef(selectedPrint?.id);
   React.useEffect(() => {
-    if (selectedPrint?.id && selectedPrint.id !== selectedPrintId) {
+    if (selectedPrint?.id && selectedPrint.id !== prevCartPrintIdRef.current) {
+      prevCartPrintIdRef.current = selectedPrint.id;
       setSelectedPrintId(selectedPrint.id);
       setActiveImageIndex(0);
     }
   }, [selectedPrint?.id]);
+
+  // Sync initial param into cart if initialized from URL
+  React.useEffect(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const editionParam = urlParams.get('edition');
+      if (editionParam && LAUNCH_PRINTS.some(p => p.id === editionParam)) {
+        const match = LAUNCH_PRINTS.find(p => p.id === editionParam);
+        if (match && setSelectedPrint) {
+          prevCartPrintIdRef.current = match.id;
+          setSelectedPrint(match);
+        }
+      }
+    } catch (_) {}
+  }, []);
 
   const currentJournal = LAUNCH_PRINTS.find(p => p.id === selectedPrintId) || LAUNCH_PRINTS[0];
   const currentSize = SIZES.find(s => s.id === selectedSizeId) || SIZES[0];
@@ -68,7 +93,10 @@ export const ProductPage = ({ onNavigate }) => {
     setSelectedPrintId(printId);
     setActiveImageIndex(0);
     const chosen = LAUNCH_PRINTS.find(p => p.id === printId);
-    if (chosen && setSelectedPrint) setSelectedPrint(chosen);
+    if (chosen && setSelectedPrint) {
+      prevCartPrintIdRef.current = chosen.id;
+      setSelectedPrint(chosen);
+    }
   };
 
   const handleSizeChange = (sId) => {
@@ -303,7 +331,7 @@ export const ProductPage = ({ onNavigate }) => {
 
               {/* 2. Bespoke Personalization Input (if applicable) */}
               {currentJournal.isPersonalized && (
-                <div className="p-4 rounded-2xl bg-[#FFF2F5] border border-[#F7CCD6] space-y-2">
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF2F5] border border-[#F7CCD6] space-y-3">
                   <div className="flex items-center justify-between text-xs font-sans">
                     <span className="font-medium text-[#2D1C20] flex items-center gap-1.5">
                       <span>🪡</span>
@@ -311,24 +339,39 @@ export const ProductPage = ({ onNavigate }) => {
                     </span>
                     <span className="text-[11px] text-[#A85E5E] font-hand">included in edition ♡</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <input
                       type="text"
                       value={customName}
                       onChange={handleNameChange}
                       placeholder="e.g. Eleanor"
-                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-[#F5CCD6] text-xs sm:text-sm font-serif text-[#2D1C20] focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80]"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-[#F5CCD6] text-xs sm:text-sm font-serif text-[#2D1C20] focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80] shadow-2xs"
                       maxLength={16}
                     />
-                    <div className="px-3 py-2 rounded-xl bg-white/80 border border-[#F5CCD6] text-xs font-hand text-[#8C3847] shrink-0">
-                      Preview: “{customName || 'Your Name'}”
+
+                    {/* Live Metallic Foil Shimmer Preview Plaque */}
+                    <div className="px-4 py-2.5 rounded-xl bg-[#231A1E] border border-[#D4AF37]/50 shadow-sm shrink-0 flex items-center justify-center gap-2">
+                      <span className="text-[10px] uppercase tracking-wider text-amber-200/70 font-sans font-medium">
+                        {currentJournal.id.includes('katakana') ? 'Rose-Gold Foil:' : 'Gilded Foil:'}
+                      </span>
+                      <span className={`${currentJournal.id.includes('katakana') ? 'foil-rose-shimmer' : 'foil-gold-shimmer'} font-serif text-sm tracking-widest font-semibold`}>
+                        {customName || 'Your Name'}
+                      </span>
+                      <span className="text-[10px] text-amber-300/80 animate-pulse">✨</span>
                     </div>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-[#8C5E68] font-sans">
-                    {currentJournal.id.includes('katakana') 
-                      ? 'Our linguistic team will convert your name into authentic Japanese Katakana before hot-stamping in rose-gold foil.' 
-                      : 'Hand-embroidered in cursive dusty rose thread across your journal cover.'}
-                  </p>
+
+                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-[#8C5E68] font-sans">
+                    <span>
+                      {currentJournal.id.includes('katakana') 
+                        ? 'Our linguistic team will convert your name into authentic Japanese Katakana before hot-stamping in rose-gold foil.' 
+                        : 'Hand-embroidered in cursive thread and hot-stamped with metallic foil highlights across your journal cover.'}
+                    </span>
+                    <span className="shrink-0 text-[10px] font-hand text-[#B05063]">
+                      hand-stamped in batch 01 ♡
+                    </span>
+                  </div>
                 </div>
               )}
 

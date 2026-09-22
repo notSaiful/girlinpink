@@ -47,7 +47,7 @@ export function App() {
 
   return (
     <CartProvider>
-      <div className="min-h-screen bg-pink-gingham-canvas text-nearblack flex flex-col font-sans selection:bg-rose selection:text-white overflow-x-hidden w-full max-w-full">
+      <div className="min-h-screen bg-dot-grid-canvas text-nearblack flex flex-col font-sans selection:bg-[#DD6B80] selection:text-white overflow-x-hidden w-full max-w-full">
         
         {/* Navigation Bar */}
         <Header currentPage={currentPage} onNavigate={navigateTo} />
