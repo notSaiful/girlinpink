@@ -1,31 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export const ArchivalPaperLab = ({ onNavigate }) => {
-  const [activeTab, setActiveTab] = useState('cotton');
-
-  const paperSpecs = {
-    cotton: {
-      name: '150 GSM Handmade Cotton Rag',
-      foundIn: 'Dragonfly Botanical Leather & Vintage Lace Junk Journal',
-      features: [
-        'Raw, hand-torn deckle edges with rich tactile tooth',
-        'Handles wet fountain pens, gouache washes, and pressed floral gluing',
-        'Crafted from 100% recycled cotton textile fibers with zero chemical bleaches',
-        'Zero bleed-through to the reverse side of every sheet'
-      ]
-    },
-    ivory: {
-      name: '120–130 GSM Daiei Japanese Ivory Paper',
-      foundIn: 'Katakana Cherry Blossom & Embroidered Linen Journal',
-      features: [
-        'Silky, glass-smooth pen glide engineered for fast lecture notes and calligraphy',
-        'Warm, eye-friendly ivory tint that prevents study eye strain under desk lamps',
-        'Acid-free archival formulation guaranteed for 100+ years of memory keeping',
-        'Micro-structured fibers prevent ink spidering and line spreading'
-      ]
-    }
-  };
-
+export const ArchivalPaperLab = ({ onNavigate } = {}) => {
   return (
     <section id="paper-lab" className="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
       
@@ -47,7 +22,7 @@ export const ArchivalPaperLab = ({ onNavigate }) => {
       </div>
 
       {/* Main Split Test Card */}
-      <div className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-4 sm:p-8 shadow-[0_8px_30px_rgba(240,165,180,0.12)] mb-10">
+      <div className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-4 sm:p-8 shadow-[0_8px_30px_rgba(240,165,180,0.12)]">
         
         {/* Washi Tag */}
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-44 h-5 bg-[#FADADD]/90 backdrop-blur-xs border border-dashed border-[#E5A8B4] rounded-xs shadow-2xs rotate-0.5 z-10 flex items-center justify-center pointer-events-none">
@@ -103,77 +78,6 @@ export const ArchivalPaperLab = ({ onNavigate }) => {
             </div>
           </div>
 
-        </div>
-
-      </div>
-
-      {/* Interactive Paper Substrate Switcher */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#FFF1F4] border border-[#FAD2DB]">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-          <div>
-            <h3 className="font-serif text-xl sm:text-2xl text-[#2D1C20] font-medium">
-              Explore Our Two Archival Paper Substrates
-            </h3>
-            <p className="text-xs text-[#69464C] font-sans mt-1">
-              Select a paper type to inspect its physical properties and binding pairings.
-            </p>
-          </div>
-
-          <div className="flex gap-2 shrink-0">
-            <button
-              onClick={() => setActiveTab('cotton')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition ${
-                activeTab === 'cotton'
-                  ? 'bg-[#DD6B80] text-white font-medium shadow-xs'
-                  : 'bg-white text-[#69464C] border border-[#F5CCD6] hover:bg-[#FFE8ED]'
-              }`}
-            >
-              150 GSM Cotton Rag
-            </button>
-            <button
-              onClick={() => setActiveTab('ivory')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition ${
-                activeTab === 'ivory'
-                  ? 'bg-[#DD6B80] text-white font-medium shadow-xs'
-                  : 'bg-white text-[#69464C] border border-[#F5CCD6] hover:bg-[#FFE8ED]'
-              }`}
-            >
-              120 GSM Japanese Ivory
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-2xl bg-white border border-[#F7CCD6]">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#DD6B80] font-sans block mb-1">
-              Paired With:
-            </span>
-            <div className="font-serif text-base text-[#2D1C20]">
-              {paperSpecs[activeTab].foundIn}
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-white border border-[#F7CCD6] space-y-1.5">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-[#DD6B80] font-sans block mb-1">
-              Paper Highlights:
-            </span>
-            {paperSpecs[activeTab].features.map((feat, i) => (
-              <div key={i} className="flex items-start gap-2 text-xs font-sans text-[#69464C]">
-                <span className="text-[#DD6B80] shrink-0">✦</span>
-                <span>{feat}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom Button */}
-        <div className="mt-6 text-center">
-          <button
-            onClick={() => onNavigate && onNavigate('products')}
-            className="inline-flex items-center gap-2 text-xs font-sans font-medium text-[#8C3847] hover:text-[#2D1C20] underline underline-offset-4 transition"
-          >
-            <span>Choose Your Preferred Paper Weight in All 6 Editions →</span>
-          </button>
         </div>
 
       </div>
