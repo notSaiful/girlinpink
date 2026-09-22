@@ -2,17 +2,17 @@ import React from 'react';
 import { useCart } from '../context/CartContext';
 import { useCountdown } from '../hooks/useCountdown';
 
-// Curated promotional highlights tailored strictly to our ICP (creative college girls, dorm journaling, aesthetic stationery)
+// Curated promotional highlights tailored strictly to our ICP (creative college students, dorm desk rituals, aesthetic stationery)
 const PROMO_ITEMS = [
-  { icon: '🌸', text: 'Strictly 150 Copies Per Journal Edition', highlight: 'Batch 01 Small-Batch' },
-  { icon: '⏰', text: 'Pre-Orders Open September 9th, 8:00 PM', highlight: 'Drop Countdown' },
-  { icon: '✒️', text: '120–150 GSM Archival Bleedproof Paper', highlight: 'Zero Fountain Pen Bleed' },
+  { icon: '🌸', text: 'Small-Batch Handcrafted Stationery', highlight: 'Batch 01 Edition' },
+  { icon: '✒️', text: '120–150 GSM Archival Bleedproof Paper', highlight: 'Fountain Pen Safe' },
+  { icon: '🪡', text: 'Bespoke Custom Name Embroidery & Katakana Foil', highlight: 'Personalized Keepsakes' },
   { icon: '📖', text: '180° Lay-Flat Desk Binding', highlight: 'Dorm Desk Friendly' },
-  { icon: '🎀', text: 'Free Antique Brass Bookmark Included', highlight: 'With Every Journal' },
-  { icon: '💌', text: '100% Unconditional Refund Guarantee', highlight: 'Anytime Before Dispatch' },
-  { icon: '🚚', text: 'Free University Campus Dispatch', highlight: 'Direct to Hostel Gate' },
-  { icon: '♡', text: 'Pay Only ₹290–₹390 Deposit Today', highlight: 'Balance Due at Dispatch' },
-  { icon: '🪡', text: 'Custom Hand-Embroidered & Katakana Foil', highlight: 'Bespoke Personalization' }
+  { icon: '🌿', text: 'Vegetable-Tanned Leather, Heirloom Lace & Linen', highlight: 'Artisanal Craft' },
+  { icon: '🎀', text: 'Free Solid Antique Brass Bookmark Included', highlight: 'With Every Journal' },
+  { icon: '✨', text: 'Strictly 150 Copies Per Edition', highlight: 'Limited Run' },
+  { icon: '📦', text: 'Free Campus Shipping Across India', highlight: 'Delivered to Your Hostel' },
+  { icon: '♡', text: '100% Unconditional Refund Prior to Dispatch', highlight: 'Hassle-Free Pre-Orders' }
 ];
 
 /**
@@ -26,7 +26,7 @@ export const PromotionalMarquee = () => {
           <div key={idx} className="flex items-center gap-2 mx-5 sm:mx-8 shrink-0">
             <span className="text-base sm:text-lg">{item.icon}</span>
             <span className="font-serif tracking-tight text-[#2D1C20]">{item.text}</span>
-            <span className="text-[11px] font-sans px-2 py-0.5 rounded-full bg-white/80 border border-[#F2CCD6] text-[#A84A5C]">
+            <span className="text-[11px] font-sans px-2.5 py-0.5 rounded-full bg-white/85 border border-[#F2CCD6] text-[#8C3847] font-medium">
               {item.highlight}
             </span>
             <span className="text-xs text-[#DD6B80] ml-3">♡</span>
@@ -46,7 +46,7 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
 
   const handleAction = () => {
     if (onNavigate) {
-      onNavigate('product');
+      onNavigate('products');
     } else if (onExplore) {
       onExplore();
     } else {

@@ -23,6 +23,13 @@ export const Footer = ({ onNavigate }) => {
         {/* Razorpay Required Legal & Compliance Navigation Links */}
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-[#6E4249]">
           <button 
+            onClick={() => onNavigate && onNavigate('products')} 
+            className="hover:text-[#8E4350] transition"
+          >
+            All Journals
+          </button>
+          <span>•</span>
+          <button 
             onClick={() => onNavigate && onNavigate('about')} 
             className="hover:text-[#8E4350] transition"
           >

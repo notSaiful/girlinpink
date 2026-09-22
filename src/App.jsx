@@ -8,6 +8,7 @@ import { RefundPolicy } from './pages/RefundPolicy';
 import { ShippingPolicy } from './pages/ShippingPolicy';
 import { TermsConditions } from './pages/TermsConditions';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { ProductsPage } from './pages/ProductsPage';
 import { ProductPage } from './pages/ProductPage';
 import { CheckoutPage } from './pages/CheckoutPage';
 import { Footer } from './components/Footer';
@@ -19,14 +20,15 @@ export function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (['about', 'about-us', 'contact', 'refund', 'refund-policy', 'shipping', 'shipping-policy', 'terms', 'terms-and-conditions', 'privacy', 'privacy-policy', 'product', 'sheets', 'shop', 'checkout', 'order', 'sky-blue'].some(key => hash.includes(key))) {
+      if (['about', 'about-us', 'contact', 'refund', 'refund-policy', 'shipping', 'shipping-policy', 'terms', 'terms-and-conditions', 'privacy', 'privacy-policy', 'products', 'collection', 'catalog', 'shop', 'product', 'customize', 'checkout', 'order'].some(key => hash.includes(key))) {
         if (hash.includes('about')) setCurrentPage('about');
         else if (hash.includes('refund')) setCurrentPage('refund');
         else if (hash.includes('shipping')) setCurrentPage('shipping');
         else if (hash.includes('terms')) setCurrentPage('terms');
         else if (hash.includes('privacy')) setCurrentPage('privacy');
         else if (hash === 'contact') setCurrentPage('contact');
-        else if (['product', 'sheets', 'shop', 'sky-blue'].some(key => hash.includes(key))) setCurrentPage('product');
+        else if (['products', 'collection', 'catalog', 'shop'].some(key => hash.includes(key))) setCurrentPage('products');
+        else if (['product', 'customize'].some(key => hash.includes(key))) setCurrentPage('product');
         else if (['checkout', 'order'].some(key => hash.includes(key))) setCurrentPage('checkout');
       } else {
         setCurrentPage('home');
@@ -53,6 +55,7 @@ export function App() {
         {/* Dynamic Canvas Container */}
         <main className={`flex-1 ${currentPage === 'home' ? '' : 'py-6 sm:py-10'}`}>
           {currentPage === 'home' && <HomeStory onNavigate={navigateTo} />}
+          {currentPage === 'products' && <ProductsPage onNavigate={navigateTo} />}
           {currentPage === 'product' && <ProductPage onNavigate={navigateTo} />}
           {currentPage === 'checkout' && <CheckoutPage onNavigate={navigateTo} />}
           {currentPage === 'about' && <AboutUs onNavigate={navigateTo} />}

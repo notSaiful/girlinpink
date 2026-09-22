@@ -11,7 +11,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
   };
 
   const handleNavClick = (targetId) => {
-    if (['about', 'contact', 'refund', 'shipping', 'terms', 'privacy'].includes(targetId)) {
+    if (['about', 'contact', 'refund', 'shipping', 'terms', 'privacy', 'products'].includes(targetId)) {
       onNavigate && onNavigate(targetId);
       return;
     }
@@ -21,19 +21,16 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
       return;
     }
     if (targetId === 'reserve' || targetId === 'product') {
-      onNavigate && onNavigate('product');
+      onNavigate && onNavigate('products');
       return;
     }
   };
 
-  // Strictly Razorpay required pages as per user instruction
+  // Clean, focused navigation for products and story (policies preserved exclusively in Footer)
   const navItems = [
-    { id: 'about', label: 'About Us' },
-    { id: 'contact', label: 'Contact Us' },
-    { id: 'refund', label: 'Refund Policy' },
-    { id: 'shipping', label: 'Shipping Policy' },
-    { id: 'terms', label: 'Terms & Conditions' },
-    { id: 'privacy', label: 'Privacy Policy' },
+    { id: 'products', label: 'All Journals' },
+    { id: 'about', label: 'Our Story' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   return (
@@ -66,13 +63,13 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
             </button>
           </div>
 
-          {/* Razorpay Compliance Navigation Links with comfortable spacing */}
-          <nav className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0">
+          {/* Main Navigation Links */}
+          <nav className="hidden md:flex items-center gap-2 lg:gap-3 shrink-0">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`px-3 py-1.5 rounded-full text-xs lg:text-[13px] tracking-wide transition-all duration-150 whitespace-nowrap ${
+                className={`px-3.5 py-1.5 rounded-full text-xs lg:text-[13px] tracking-wide transition-all duration-150 whitespace-nowrap ${
                   currentPage === item.id
                     ? 'bg-[#FCD2DB] text-[#7A2A38] font-medium shadow-xs'
                     : 'text-[#6E4249] hover:text-[#2D1C20] hover:bg-[#FEE9EE] font-normal'
@@ -86,7 +83,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
           {/* Primary Action Button */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <button
-              onClick={() => handleNavClick('reserve')}
+              onClick={() => handleNavClick('products')}
               className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0"
             >
               <span className="hidden sm:inline">Pre-Orders Sept 9th, 8 PM</span>
@@ -97,13 +94,13 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
 
         </div>
 
-        {/* Mobile & Tablet Navigation Strip */}
-        <div className="xl:hidden flex items-center justify-start sm:justify-center pb-2.5 gap-2 overflow-x-auto no-scrollbar border-t border-[#F7D5DC] pt-2 px-1">
+        {/* Mobile Navigation Strip (Clean 3-item centered pill bar) */}
+        <div className="md:hidden flex items-center justify-center pb-2.5 gap-2 border-t border-[#F7D5DC] pt-2 px-1">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap shrink-0 transition ${
+              className={`px-4 py-1.5 rounded-full text-xs whitespace-nowrap transition ${
                 currentPage === item.id
                   ? 'bg-[#FCD2DB] text-[#7A2A38] font-medium shadow-2xs'
                   : 'text-[#6E4249] hover:bg-[#FEE9EE]'
