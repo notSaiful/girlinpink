@@ -16,20 +16,29 @@ export const FullScreenHero = ({ onExplore }) => {
     <section className="relative w-full h-[85vh] sm:h-screen max-h-[880px] min-h-[520px] flex items-center justify-center overflow-hidden">
       {/* Background Hero Image */}
       <img
-        src="/user_hero_bedroom.jpg"
-        alt="your room isn’t yours yet, your bed can be"
+        src="/hero_aesthetic_desk.jpg"
+        alt="your days are worth remembering, your thoughts deserve a home"
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
       {/* Soft, gentle contrast overlay for clean typography readability */}
-      <div className="absolute inset-0 bg-black/35" />
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
 
       {/* Centered Text Overlay & Girly CTA */}
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center text-white">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-xs sm:text-[13px] font-sans tracking-wide text-white/95 mb-4 sm:mb-6 shadow-sm">
+          <span>🌸</span>
+          <span>Small-Batch Handcrafted Stationery • Batch 01</span>
+        </div>
+
         <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl text-white font-normal leading-tight drop-shadow-md">
-          your room isn’t yours yet, <br />
-          <span className="italic font-serif">your bed can be.</span>
+          your days are worth remembering, <br />
+          <span className="italic font-serif">your thoughts deserve a home.</span>
         </h1>
+
+        <p className="mt-4 sm:mt-5 text-sm sm:text-base text-white/90 max-w-xl mx-auto font-sans font-light leading-relaxed drop-shadow-xs">
+          Handcrafted creative journals, vintage lace junk journals & personalized notebooks designed for dorm desks and quiet morning rituals.
+        </p>
 
         {/* Hero Girly CTA Button */}
         <div className="mt-8 sm:mt-10 flex justify-center animate-in fade-in duration-500 delay-150">

@@ -18,7 +18,7 @@ export const AboutUs = ({ onNavigate }) => {
         
         {/* Washi Tape Strip */}
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-44 h-5 bg-[#FADADD]/90 backdrop-blur-xs border border-dashed border-[#E8A5B2]/60 rounded-xs shadow-2xs rotate-1 z-10 flex items-center justify-center">
-          <span className="text-[10px] font-hand text-[#A85E5E] tracking-wider">our dorm origin story ♡</span>
+          <span className="text-[10px] font-hand text-[#A85E5E] tracking-wider">our stationery origin story ♡</span>
         </div>
 
         {/* Header */}
@@ -27,10 +27,10 @@ export const AboutUs = ({ onNavigate }) => {
             About the Brand ♡
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl text-[#2D1C20] font-normal tracking-tight">
-            Bedding for Borrowed Spaces
+            Handwriting in a Fast-Paced World
           </h1>
           <p className="text-sm text-[#69464C] mt-2 font-sans">
-            Created by students to turn institutional dorm rooms and PGs into serene, personal sanctuaries.
+            Created by students to turn cluttered dorm desks into quiet, mindful, creative sanctuaries.
           </p>
         </div>
 
@@ -43,23 +43,23 @@ export const AboutUs = ({ onNavigate }) => {
               1. Our Story & Purpose
             </h2>
             <p>
-              Moving into a university hostel, PG, or first rented apartment in Bangalore often means living in a borrowed room. You cannot repaint the walls, drill shelves, or replace the cold metal iron cots. But your bed is where you decompress after long lectures, study late at night, and start your mornings.
+              Between marathon lecture schedules, glowing phone screens, and noisy hostel corridors, students rarely have a quiet space that feels truly grounded. We realized that writing by hand on thick, textured paper was the single most calming, restorative ritual of our university days.
             </p>
             <p className="mt-2">
-              <strong className="text-[#2D1C20]">girlinpink</strong> was founded by students who were tired of scratchy, synthetic polyester sheets that slipped off thin cots every night. We set out to engineer 100% natural washed cotton percale bedding kits specifically tailored for student cot sizes.
+              <strong className="text-[#2D1C20]">girlinpink</strong> was born on crowded college desks. We set out to hand-bind journals that feel like treasured heirlooms—vegetable-tanned leather, heirloom lace, custom name embroidery, and Japanese Katakana foil—filled with 120–150 GSM archival paper that never bleeds.
             </p>
           </div>
 
           {/* Section 2: Direct Craftsmanship */}
           <div className="p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB]">
             <h2 className="font-serif text-base sm:text-lg text-[#2D1C20] font-medium mb-2">
-              2. Direct Mill Craftsmanship
+              2. Artisanal Bookbinding & Archival Paper
             </h2>
             <p>
-              We partner directly with our family weaving mill in Tamil Nadu, cutting out traditional middleman markups, overseas imports, and boutique retail storefront overheads.
+              We eliminate traditional luxury stationery markups by working directly with master paper mills and artisanal bookbinders.
             </p>
             <p className="mt-2">
-              Every set is woven from 100% long-staple cotton percale at 300 thread count, double enzyme pre-washed for immediate broken-in comfort, and hand-tailored with continuous 360° elastic hems and interior duvet ties.
+              Every journal is constructed with 180° lay-flat binding (exposed coptic stitch, smyth sewn, or twin wire-o), archival cotton rag or Japanese ivory paper tested for wet fountain pen ink washes, and packaged in signature keepsake gift boxes with ribbon ties.
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export const AboutUs = ({ onNavigate }) => {
             </p>
             <ul className="list-disc pl-5 mt-3 space-y-1.5 text-xs text-[#69464C]">
               <li><strong className="text-[#2D1C20]">Operating Entity:</strong> Glowup Living Retail LLP</li>
-              <li><strong className="text-[#2D1C20]">Brand:</strong> girlinpink (Dorm & Student Bedding)</li>
+              <li><strong className="text-[#2D1C20]">Brand:</strong> girlinpink (Creative Journals & Aesthetic Stationery)</li>
               <li><strong className="text-[#2D1C20]">Headquarters:</strong> No. 42, 3rd Floor, 80 Feet Road, 4th Block, Koramangala, Bangalore, Karnataka 560034, India</li>
               <li><strong className="text-[#2D1C20]">Customer Care:</strong> <a href="mailto:care@girlinpink.co" className="text-[#8E4350] underline font-medium">care@girlinpink.co</a> • +91 98860 43210</li>
               <li><strong className="text-[#2D1C20]">Payment Processing:</strong> Transactions processed securely via Razorpay Payment Gateway (PCI-DSS Level 1 Compliant)</li>
@@ -86,7 +86,7 @@ export const AboutUs = ({ onNavigate }) => {
               4. The Student-First Guarantee
             </h2>
             <p>
-              Because campus allotments and room changes can happen unexpectedly, we provide a 100% unconditional refund anytime prior to shipment dispatch. Zero cancellation penalties, zero stress.
+              Because campus schedules and college plans can shift, we provide a 100% unconditional refund anytime prior to package dispatch. Zero cancellation penalties, zero stress.
             </p>
           </div>
 

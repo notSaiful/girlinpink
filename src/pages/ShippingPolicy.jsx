@@ -43,12 +43,12 @@ export const ShippingPolicy = ({ onNavigate }) => {
               1. Batch 01 Dispatch Schedule
             </h2>
             <p>
-              Batch 01 preorders are crafted in limited runs of 150 sets at our partner heritage mill in Tamil Nadu.
+              Batch 01 handcrafted creative journals are produced in limited runs of 150 copies per edition.
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li><strong className="text-[#2D1C20]">Pre-Order Window:</strong> Open until September 15, 2026 or until allocation fills.</li>
-              <li><strong className="text-[#2D1C20]">Weaving & Finishing:</strong> September 16 – September 30, 2026.</li>
-              <li><strong className="text-[#2D1C20]">Campus Dispatch:</strong> October 05 – October 12, 2026, aligned with Autumn semester move-in.</li>
+              <li><strong className="text-[#2D1C20]">Pre-Order Window:</strong> Open until September 15, 2026 or until 150 allocation per edition fills.</li>
+              <li><strong className="text-[#2D1C20]">Hand-Binding & Foil Stamping:</strong> September 16 – September 30, 2026.</li>
+              <li><strong className="text-[#2D1C20]">Campus Dispatch:</strong> October 05 – October 12, 2026, aligned with Autumn university move-in.</li>
             </ul>
           </div>
 
@@ -58,31 +58,37 @@ export const ShippingPolicy = ({ onNavigate }) => {
               2. Transit Timelines & Shipping Costs
             </h2>
             <p>
-              We provide complimentary standard shipping across India on all Batch 01 preorders.
+              We provide <strong>100% Free Shipping</strong> on all Batch 01 pre-order reservations across India.
             </p>
-            <p className="mt-2">
-              Following dispatch from our fulfillment hub, transit typically requires 2 to 4 business days for major metropolitan hubs and 3 to 6 business days for regional university centers.
+            <ul className="list-disc pl-5 mt-2 space-y-1">
+              <li><strong className="text-[#2D1C20]">Metro Campuses (Delhi NCR, Bangalore, Mumbai, Chennai, Pune):</strong> 2 to 4 transit days after dispatch.</li>
+              <li><strong className="text-[#2D1C20]">Rest of India & University Towns (Pilani, Manipal, Sonipat, Vellore):</strong> 3 to 6 transit days.</li>
+              <li><strong className="text-[#2D1C20]">Hostel & PG Deliveries:</strong> Couriers deliver directly to campus security gates, hostel reception, or designated student mailrooms.</li>
+            </ul>
+          </div>
+
+          {/* Section 3: Packaging & Protection */}
+          <div className="p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB]">
+            <h2 className="font-serif text-base sm:text-lg text-[#2D1C20] font-medium mb-2">
+              3. Protective Keepsake Packaging
+            </h2>
+            <p>
+              Every journal is cushioned in tissue paper inside a signature rigid gift box with a satin ribbon tie, placed within an outer waterproof transit carton so your journal arrives with crisp, unbent corners.
             </p>
           </div>
 
-          {/* Section 3: Campus Gate & Hostel Security Desk Drops */}
+          {/* Section 4: Tracking & Contact */}
           <div className="p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB]">
             <h2 className="font-serif text-base sm:text-lg text-[#2D1C20] font-medium mb-2">
-              3. Campus Reception & Hostel Coordination
+              4. Tracking & Support
             </h2>
             <p>
-              You may specify your Hostel Block, Room Number, or Main Campus Security Gate during checkout. Our courier partners coordinate via phone and SMS prior to arrival to ensure smooth handover.
+              Upon dispatch in early October, an SMS and email notification with your Bluedart/Delhivery live tracking link will be sent to your registered phone and email. For delivery assistance, contact:
             </p>
-          </div>
-
-          {/* Section 4: Tracking Updates */}
-          <div className="p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB]">
-            <h2 className="font-serif text-base sm:text-lg text-[#2D1C20] font-medium mb-2">
-              4. Real-Time Tracking
-            </h2>
-            <p>
-              Once your shipment enters transit, you will receive an automatic dispatch notification containing your airway bill number and live tracking link.
-            </p>
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-xs text-[#69464C]">
+              <li>Email: <a href="mailto:care@girlinpink.co" className="text-[#8E4350] underline">care@girlinpink.co</a></li>
+              <li>Phone: +91 98860 43210 (Mon–Sat, 10 AM – 7 PM IST)</li>
+            </ul>
           </div>
 
         </div>

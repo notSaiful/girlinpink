@@ -18,42 +18,23 @@ export const ProductCarousel = ({ onNavigate }) => {
     }
   };
 
-  const slides = [
-    {
-      id: 'french-rose',
-      title: 'The French Rose Gingham',
-      tag: 'Dusty Rose Check',
-      tagColor: 'bg-[#F9F4F3] text-[#7A4B50] border-[#EEDBDB]',
-      description: 'Muted dusty rose check that softens harsh institutional room lighting into a warm, inviting personal sanctuary.',
-      image: '/products/french_rose_bed.jpg',
-      price: '₹1,200',
-      subPrice: 'Complete 4-Piece Kit • ₹390 pre-order deposit',
-      badge: '19 sets remaining',
-      inclusions: [
-        '360° deep-pocket elastic fitted sheet for cot mattresses',
-        'Washed cotton duvet cover with interior ties and concealed zip',
-        'Two matching envelope pillowcases with seamless folds'
-      ],
-      printData: LAUNCH_PRINTS[0]
-    },
-    {
-      id: 'sky-blue',
-      title: 'The Sky Blue Gingham',
-      tag: 'Sky Blue Check',
-      tagColor: 'bg-[#F0F5F8] text-[#345D78] border-[#CFDEE7]',
-      description: 'Breezy sky blue and soft cream check bringing an airy, peaceful clarity to your room and study space.',
-      image: '/products/morning_blue_bed.jpg',
-      price: '₹1,200',
-      subPrice: 'Complete 4-Piece Kit • ₹390 pre-order deposit',
-      badge: '14 sets remaining',
-      inclusions: [
-        '360° deep-pocket elastic fitted sheet for cot mattresses',
-        'Washed cotton duvet cover with interior ties and concealed zip',
-        'Two matching envelope pillowcases with seamless folds'
-      ],
-      printData: LAUNCH_PRINTS[1]
-    }
-  ];
+  const slides = LAUNCH_PRINTS.map(journal => ({
+    id: journal.id,
+    title: journal.name,
+    tag: journal.badge || 'Artisanal Journal',
+    tagColor: 'bg-[#FFF5F7] text-[#7E3846] border-[#F6D5DC]',
+    description: journal.description,
+    image: journal.editorialImage,
+    price: `₹${journal.price.toLocaleString('en-IN')}`,
+    subPrice: `Handcrafted Edition • ₹${journal.depositPrice} pre-order deposit`,
+    badge: `${journal.availableSets} copies remaining`,
+    inclusions: journal.includes || [
+      'Handcrafted journal in signature keepsake box',
+      'Solid antique brass bookmark clip',
+      'Protective cloth dust bag'
+    ],
+    printData: journal
+  }));
 
   // Auto advance every 7s unless hovered
   useEffect(() => {
@@ -78,15 +59,15 @@ export const ProductCarousel = ({ onNavigate }) => {
     <section id="prints-carousel" className="py-14 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
       
       {/* Clean Section Header */}
-      <div className="text-center max-w-xl mx-auto mb-10 sm:mb-12">
-        <span className="text-xs font-medium tracking-widest uppercase text-stone-400 font-sans block mb-2">
-          The Autumn Collection
+      <div className="text-center max-w-xl mx-auto mb-8 sm:mb-12">
+        <span className="text-xs font-medium tracking-widest uppercase text-[#DD6B80] font-sans block mb-2">
+          The Autumn Collection ♡
         </span>
         <h2 className="font-serif text-3xl sm:text-4xl text-[#221F1E] font-normal tracking-tight">
-          Select Your Bedding
+          Select Your Creative Journal
         </h2>
         <p className="text-sm text-stone-600 mt-2 font-sans max-w-md mx-auto">
-          Loomed in small batches of 150 from 100% long-staple washed cotton percale.
+          Six signature handcrafted editions featuring deckle-edge paper, vintage lace, Japanese Katakana foil, and bespoke floral embroidery.
         </p>
       </div>
 
@@ -103,12 +84,12 @@ export const ProductCarousel = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 items-center">
           
           {/* Slide Photo */}
-          <div className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-square bg-stone-100 border border-[#F8D2DA] shadow-sm">
+          <div className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-square bg-stone-100 border border-[#F8D2DA] shadow-sm group">
             <img 
               key={current.image}
               src={current.image} 
               alt={current.title}
-              className="w-full h-full object-cover object-center transition-all duration-500"
+              className="w-full h-full object-cover object-center transition-all duration-500 group-hover:scale-105"
             />
 
             {/* Live Sets Remaining Badge (out of 150 limit) */}
@@ -121,7 +102,7 @@ export const ProductCarousel = ({ onNavigate }) => {
                 ? 'Out of Stock'
                 : !timeLeft.isExpired
                   ? 'Drops Sept 9th'
-                  : 'A few sets left'}
+                  : current.badge}
             </div>
 
             {/* Out of Stock Photo Overlay */}
@@ -146,12 +127,8 @@ export const ProductCarousel = ({ onNavigate }) => {
           <div className="flex flex-col justify-between space-y-6">
             <div>
               {/* Category Tag */}
-              <div className={`inline-block px-3 py-1 rounded-full text-xs font-medium border mb-3 ${
-                (getPrintStats && getPrintStats(current.title).isSoldOut)
-                  ? 'bg-rose-100 text-rose-800 border-rose-300 font-semibold'
-                  : current.tagColor
-              }`}>
-                {(getPrintStats && getPrintStats(current.title).isSoldOut) ? 'Out of Stock' : current.tag}
+              <div className="inline-block px-3 py-1 rounded-full text-xs font-medium border mb-3 bg-[#FFE8EE] text-[#8C3847] border-[#F2CCD6]">
+                {current.tag}
               </div>
 
               {/* Title */}
@@ -167,7 +144,7 @@ export const ProductCarousel = ({ onNavigate }) => {
               {/* Inclusions List */}
               <div className="mt-5 p-4 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] space-y-2 text-xs text-[#69464C]">
                 <div className="font-medium text-[#7E3846] tracking-wide uppercase text-[11px]">
-                  What arrives in your set:
+                  Thoughtful Artisanal Details:
                 </div>
                 {current.inclusions.map((inc, i) => (
                   <div key={i} className="flex items-start gap-2.5">
@@ -189,7 +166,7 @@ export const ProductCarousel = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* Single Primary Action Button - Consistently Pink or Out of Stock */}
+              {/* Single Primary Action Button */}
               {(getPrintStats && getPrintStats(current.title).isSoldOut) ? (
                 <button
                   disabled
@@ -203,8 +180,8 @@ export const ProductCarousel = ({ onNavigate }) => {
                   onClick={() => handleChoosePrint(current.printData)}
                   className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <span className="hidden sm:inline">Preview & Customize (Drops Sept 9th)</span>
-                  <span className="sm:hidden">Customize Kit (Drops Sept 9)</span>
+                  <span className="hidden sm:inline">Preview & Personalize (Drops Sept 9)</span>
+                  <span className="sm:hidden">Personalize (Drops Sept 9)</span>
                   <span className="text-xs">⏰</span>
                 </button>
               ) : (
@@ -212,7 +189,7 @@ export const ProductCarousel = ({ onNavigate }) => {
                   onClick={() => handleChoosePrint(current.printData)}
                   className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <span>Customize & Pre-Order</span>
+                  <span>Personalize & Reserve</span>
                   <span className="text-xs">♡</span>
                 </button>
               )}
@@ -222,13 +199,35 @@ export const ProductCarousel = ({ onNavigate }) => {
 
         </div>
 
+        {/* Thumbnail Selector Strip for all 6 editions */}
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 mt-8 pt-6 border-t border-[#F8D2DA]">
+          {slides.map((s, idx) => (
+            <button
+              key={s.id}
+              onClick={() => setCurrentIndex(idx)}
+              className={`text-left p-1 sm:p-1.5 rounded-xl border transition-all duration-200 flex flex-col items-center gap-1.5 ${
+                currentIndex === idx
+                  ? 'bg-white border-[#DD6B80] shadow-sm scale-102 ring-2 ring-[#DD6B80]/30'
+                  : 'bg-white/60 border-[#F5CCD6] hover:bg-white hover:border-[#E8A5B2]'
+              }`}
+            >
+              <div className="w-full aspect-square rounded-lg overflow-hidden bg-stone-100">
+                <img src={s.image} alt={s.title} className="w-full h-full object-cover" />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-serif text-[#2D1C20] line-clamp-1 text-center font-normal px-1">
+                {s.title.replace('Personalized ', '')}
+              </span>
+            </button>
+          ))}
+        </div>
+
         {/* Carousel Navigation Footer */}
-        <div className="flex items-center justify-between mt-8 pt-4 border-t border-[#F7D5DC]">
+        <div className="flex items-center justify-between mt-6 pt-4 border-t border-[#F7D5DC]">
           
           <button 
             onClick={prevSlide}
             className="w-9 h-9 rounded-full bg-[#FFF5F7] border border-[#F3CAD3] hover:border-[#DD6B80] hover:bg-[#FFEBF0] text-[#7E3846] transition flex items-center justify-center text-sm shadow-xs"
-            aria-label="Previous print"
+            aria-label="Previous journal"
           >
             ←
           </button>
@@ -252,7 +251,7 @@ export const ProductCarousel = ({ onNavigate }) => {
           <button 
             onClick={nextSlide}
             className="w-9 h-9 rounded-full bg-[#FFF5F7] border border-[#F3CAD3] hover:border-[#DD6B80] hover:bg-[#FFEBF0] text-[#7E3846] transition flex items-center justify-center text-sm shadow-xs"
-            aria-label="Next print"
+            aria-label="Next journal"
           >
             →
           </button>

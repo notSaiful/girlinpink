@@ -7,16 +7,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
   const blueStats = getPrintStats ? getPrintStats('blue') : { remaining: 150, isSoldOut: false };
 
   const getAnnouncementText = () => {
-    if (roseStats.isSoldOut && blueStats.isSoldOut) {
-      return 'Batch 01 All Editions Out of Stock (150/150 Reserved) 🔒';
-    }
-    if (roseStats.isSoldOut) {
-      return 'French Rose is Out of Stock • Sky Blue Opens Sept 9th, 8 PM ♡';
-    }
-    if (blueStats.isSoldOut) {
-      return 'Sky Blue is Out of Stock • French Rose Opens Sept 9th, 8 PM ♡';
-    }
-    return 'Pre-Orders Open September 9th, 8:00 PM • Strictly 150 allocations per print ♡';
+    return 'Handcrafted Creative Journals & Notebooks • Pre-Orders Open September 9th, 8:00 PM ♡';
   };
 
   const handleNavClick = (targetId) => {

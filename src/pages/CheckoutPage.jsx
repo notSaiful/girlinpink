@@ -8,6 +8,9 @@ export const CheckoutPage = ({ onNavigate }) => {
     selectedPrint,
     selectedSize,
     selectedTier,
+    selectedRuling,
+    personalization,
+    setPersonalization,
     isDepositOnly,
     setIsDepositOnly,
     basePrice,
@@ -36,13 +39,17 @@ export const CheckoutPage = ({ onNavigate }) => {
     college: '',
     hostel: '',
     city: '',
-    pincode: ''
+    pincode: '',
+    personalizationText: personalization || ''
   });
   const [orderReceipt, setOrderReceipt] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    if (name === 'personalizationText' && setPersonalization) {
+      setPersonalization(value);
+    }
   };
 
   const handlePay = async (e) => {
@@ -55,7 +62,7 @@ export const CheckoutPage = ({ onNavigate }) => {
     }
 
     if (printStats.isSoldOut) {
-      setErrorMessage(`Batch 01 pre-order allocation for ${selectedPrint?.name || 'this edition'} is full (150/150 reserved). Please select another set.`);
+      setErrorMessage(`Batch 01 allocation for ${selectedPrint?.name || 'this edition'} is full (150/150 reserved). Please select another edition.`);
       return;
     }
 
@@ -63,10 +70,11 @@ export const CheckoutPage = ({ onNavigate }) => {
 
     const receipt = {
       orderId: `GP-${Math.floor(1000 + Math.random() * 9000)}`,
-      print: selectedPrint?.name || 'The French Rose Gingham',
-      tier: selectedTier?.name || 'The Complete Bedding Kit',
-      size: selectedSize?.name || 'Hostel Single Cot',
-      dimensions: selectedSize?.dimensions || '36" × 75"',
+      journal: selectedPrint?.name || 'Dragonfly Botanical Leather Journal',
+      format: selectedSize?.name || 'Classic A5 Format',
+      ruling: selectedRuling?.name || '5mm Dot Grid (Cream)',
+      bundle: selectedTier?.name || 'Single Journal Edition',
+      personalization: selectedPrint?.isPersonalized ? (formData.personalizationText || personalization || 'Custom Name') : 'Standard Edition',
       amountPaid: amountToPayNow,
       balanceDue: balanceDueLater,
       customer: formData,
@@ -74,11 +82,11 @@ export const CheckoutPage = ({ onNavigate }) => {
       allocationNumber: (printStats.reserved || 0) + 1
     };
 
-    // Save pre-order to Supabase (and local backup) with 150 capacity limit enforcement
+    // Save pre-order to Supabase (and local backup)
     try {
       const res = await savePreOrder(receipt);
       if (res && res.capacityReached) {
-        setErrorMessage(res.error || `Batch 01 pre-order limit of 150 sets has been reached.`);
+        setErrorMessage(res.error || `Batch 01 pre-order limit of 150 copies has been reached.`);
         setStep('checkout');
         if (refreshCounts) await refreshCounts();
         return;
@@ -109,7 +117,7 @@ export const CheckoutPage = ({ onNavigate }) => {
           className="inline-flex items-center gap-2 text-xs font-medium tracking-wide text-stone-500 hover:text-[#221F1E] transition"
         >
           <span>←</span>
-          <span>{step === 'confirmed' ? 'Back to Home' : 'Back to Customizer'}</span>
+          <span>{step === 'confirmed' ? 'Back to Home' : 'Back to Collection'}</span>
         </button>
       </div>
 
@@ -133,7 +141,7 @@ export const CheckoutPage = ({ onNavigate }) => {
             </span>
 
             <h1 className="font-serif text-3xl sm:text-4xl text-[#2D1C20] font-normal tracking-tight">
-              Your Pre-Order Is Reserved
+              Your Journal Is Reserved
             </h1>
 
             <p className="text-sm text-[#69464C] mt-2 max-w-md mx-auto leading-relaxed font-sans">
@@ -141,58 +149,41 @@ export const CheckoutPage = ({ onNavigate }) => {
             </p>
 
             {/* Receipt Summary Card */}
-            <div className="mt-8 p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] text-left space-y-3 text-xs font-sans text-[#69464C]">
-              <div className="flex justify-between items-center pb-3 border-b border-[#F8D2DA]">
-                <span className="text-[#8C5E68]">Reference Number</span>
-                <span className="font-mono font-medium text-[#9E2B42] bg-[#FFE8EE] px-2.5 py-0.5 rounded border border-[#F5CCD6]">
-                  {orderReceipt.orderId}
-                </span>
+            <div className="mt-8 p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] text-left space-y-3.5 font-sans text-xs sm:text-sm">
+              <div className="flex items-center justify-between pb-3 border-b border-[#F8CCD6]">
+                <span className="text-[#8C5E68]">Reservation ID:</span>
+                <span className="font-mono font-bold text-[#2D1C20]">{orderReceipt.orderId}</span>
               </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#8C5E68]">Selected Print:</span>
-                <span className="font-medium text-[#2D1C20]">{orderReceipt.print}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-[#8C5E68]">Edition:</span>
+                <span className="font-medium text-[#2D1C20]">{orderReceipt.journal}</span>
               </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#8C5E68]">Bundle Tier:</span>
-                <span className="font-medium text-[#2D1C20]">{orderReceipt.tier}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-[#8C5E68]">Format & Size:</span>
+                <span className="text-[#2D1C20]">{orderReceipt.format}</span>
               </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#8C5E68]">Cot Dimensions:</span>
-                <span className="font-medium text-[#2D1C20]">{orderReceipt.size} • {orderReceipt.dimensions}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-[#8C5E68]">Paper Ruling:</span>
+                <span className="text-[#2D1C20]">{orderReceipt.ruling}</span>
               </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#8C5E68]">Batch Allocation:</span>
-                <span className="font-medium text-[#2D1C20]">Batch 01 (Set #{orderReceipt.allocationNumber || 1} of 150)</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#8C5E68]">Delivery Window:</span>
-                <span className="font-medium text-[#2D1C20]">{orderReceipt.deliveryWindow}</span>
-              </div>
-
-              <div className="flex justify-between pt-3 border-t border-[#F8D2DA] items-baseline">
-                <span className="font-medium text-[#2D1C20]">Amount Paid via Razorpay:</span>
-                <span className="font-serif font-medium text-xl text-[#2D1C20]">₹{orderReceipt.amountPaid}</span>
-              </div>
-
-              {orderReceipt.balanceDue > 0 && (
-                <div className="flex justify-between text-xs text-[#8C5E68] pt-1">
-                  <span>Balance due at campus dispatch:</span>
-                  <span className="font-medium text-[#2D1C20]">₹{orderReceipt.balanceDue}</span>
+              {selectedPrint?.isPersonalized && (
+                <div className="flex items-center justify-between">
+                  <span className="text-[#8C5E68]">Personalized Name:</span>
+                  <span className="font-medium text-[#DD6B80]">“{orderReceipt.personalization}”</span>
                 </div>
               )}
-            </div>
-
-            {/* Refund Assurance Note */}
-            <div className="mt-6 p-4 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-xs text-[#69464C] text-left">
-              <strong className="text-[#DD6B80] block font-medium mb-0.5">Flexible Student Policy ♡</strong>
-              <p className="leading-relaxed font-sans">
-                If your college plans or hostel assignments change before dispatch, you can request a 100% full refund at any time with zero cancellation fee.
-              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-[#8C5E68]">Bundle:</span>
+                <span className="text-[#2D1C20]">{orderReceipt.bundle}</span>
+              </div>
+              <div className="flex items-center justify-between pt-3 border-t border-[#F8CCD6]">
+                <span className="font-medium text-[#2D1C20]">Deposit Paid:</span>
+                <span className="font-serif text-lg font-bold text-[#DD6B80]">₹{orderReceipt.amountPaid}</span>
+              </div>
+              <div className="flex items-center justify-between text-xs text-[#8C5E68]">
+                <span>Remaining Balance at Dispatch:</span>
+                <span>₹{orderReceipt.balanceDue}</span>
+              </div>
             </div>
 
             <button
@@ -219,13 +210,13 @@ export const CheckoutPage = ({ onNavigate }) => {
                 
                 <div>
                   <span className="text-xs font-medium tracking-widest uppercase text-[#DD6B80] font-sans block mb-1">
-                    Pre-Order Allocation ♡
+                    Stationery Drop Allocation ♡
                   </span>
                   <h1 className="font-serif text-2xl sm:text-4xl text-[#2D1C20] font-normal tracking-tight">
-                    Secure Your Reservation
+                    Secure Your Journal
                   </h1>
                   <p className="text-sm text-[#69464C] mt-1 font-sans">
-                    Batch 01 allocation is strictly limited to 150 sets per print edition. Pre-orders officially unlock on <strong>September 9th at 8:00 PM IST</strong>. Complimentary campus shipping across India.
+                    Batch 01 is strictly limited to 150 handcrafted copies per journal edition. Pre-orders officially unlock on <strong>September 9th at 8:00 PM IST</strong>. Free campus dispatch across India in signature keepsake gift boxes.
                   </p>
                 </div>
 
@@ -236,33 +227,14 @@ export const CheckoutPage = ({ onNavigate }) => {
                       <span>Pre-Launch Mode: Pre-Orders Open September 9th, 8:00 PM</span>
                     </div>
                     <p className="text-[#69464C] leading-relaxed">
-                      We are currently in pre-launch! Pre-order reservations for Batch 01 will officially go live on <strong>September 9th at 8:00 PM IST</strong>. Until then, you can explore the collection, customize dimensions, and preview what comes in your kit.
+                      We are currently in pre-launch! Handcrafted journal reservations for Batch 01 will officially unlock on <strong>September 9th at 8:00 PM IST</strong>. Until then, you can explore the collection, customize your personal name, and select paper rulings.
                     </p>
                     <button
                       type="button"
                       onClick={() => onNavigate && onNavigate('product')}
                       className="mt-1 px-4 py-2 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-xs inline-flex items-center gap-2"
                     >
-                      <span>Explore Collection & Preview Dimensions ←</span>
-                    </button>
-                  </div>
-                )}
-
-                {printStats.isSoldOut && (
-                  <div className="p-4 rounded-2xl bg-[#FFF1F4] border border-[#E8A5B2] text-xs text-[#9E2B42] space-y-2 font-sans shadow-xs">
-                    <div className="font-semibold flex items-center gap-2">
-                      <span>⚠️</span>
-                      <span>Out of Stock: {selectedPrint?.name} (150/150 Reserved)</span>
-                    </div>
-                    <p className="text-[#69464C] leading-relaxed">
-                      All 150 allocations for this bedding set in Batch 01 have already been secured. Please select our other available print edition to pre-order.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => onNavigate && onNavigate('product')}
-                      className="mt-1 px-4 py-2 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-xs"
-                    >
-                      Choose Another Print Pattern ←
+                      <span>Explore Collection & Personalize ←</span>
                     </button>
                   </div>
                 )}
@@ -299,7 +271,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
-                          placeholder="Full Name"
+                          placeholder="e.g. Eleanor Vance"
                           className="w-full px-3.5 py-2.5 rounded-xl border border-[#F3CCD5] bg-[#FFFBFC] text-xs focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80]/30"
                         />
                       </div>
@@ -319,7 +291,6 @@ export const CheckoutPage = ({ onNavigate }) => {
                             className="w-full px-3.5 py-2.5 rounded-xl border border-[#F3CCD5] bg-[#FFFBFC] text-xs focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80]/30"
                           />
                         </div>
-
                         <div>
                           <label className="text-xs text-[#69464C] font-medium block mb-1">
                             Email Address *
@@ -330,30 +301,48 @@ export const CheckoutPage = ({ onNavigate }) => {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            placeholder="name@university.edu"
+                            placeholder="eleanor@university.edu"
                             className="w-full px-3.5 py-2.5 rounded-xl border border-[#F3CCD5] bg-[#FFFBFC] text-xs focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80]/30"
                           />
                         </div>
                       </div>
+
+                      {selectedPrint?.isPersonalized && (
+                        <div>
+                          <label className="text-xs text-[#69464C] font-medium block mb-1">
+                            Custom Name to Embroider / Foil Stamp *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            name="personalizationText"
+                            value={formData.personalizationText}
+                            onChange={handleInputChange}
+                            placeholder="e.g. Eleanor"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#DD6B80] bg-white text-xs font-serif text-[#2D1C20] focus:outline-none focus:ring-1 focus:ring-[#DD6B80]"
+                          />
+                        </div>
+                      )}
+
                     </div>
                   </div>
 
-                  {/* Step 2: Campus Delivery Address */}
-                  <div className="relative p-5 rounded-2xl bg-[#F3F8F3] border border-[#D5E8D5] space-y-4 pt-6">
+                  {/* Step 2: Campus / Hostel Delivery Address */}
+                  <div className="relative p-5 rounded-2xl bg-[#F4F9F4] border border-[#D5E8D5] space-y-4 pt-6">
                     {/* Washi Tag */}
-                    <div className="absolute -top-2.5 left-6 px-3 py-0.5 bg-[#E2EFE2] border border-dashed border-[#A3CFA3] rounded-xs shadow-2xs -rotate-1 text-[10px] font-hand text-[#4B734B]">
-                      step 02 • dorm destination ♡
+                    <div className="absolute -top-2.5 left-6 px-3 py-0.5 bg-[#E2EFE2] border border-dashed border-[#A0CCA0] rounded-xs shadow-2xs -rotate-1 text-[10px] font-hand text-[#3A6B3A]">
+                      step 02 • campus dispatch address ♡
                     </div>
 
                     <div className="font-serif text-sm font-medium text-[#2D1C20] flex items-center gap-2">
-                      <span className="w-5 h-5 rounded-full bg-[#E2EFE2] text-[#4B734B] text-xs flex items-center justify-center font-sans font-bold">2</span>
-                      <span>Campus Delivery Destination</span>
+                      <span className="w-5 h-5 rounded-full bg-[#E2EFE2] text-[#3A6B3A] text-xs flex items-center justify-center font-sans font-bold">2</span>
+                      <span>Delivery Address</span>
                     </div>
 
                     <div className="space-y-3 font-sans">
                       <div>
                         <label className="text-xs text-[#69464C] font-medium block mb-1">
-                          College or University *
+                          College / University Campus *
                         </label>
                         <input
                           type="text"
@@ -361,14 +350,14 @@ export const CheckoutPage = ({ onNavigate }) => {
                           name="college"
                           value={formData.college}
                           onChange={handleInputChange}
-                          placeholder="e.g. Christ University Central Campus, Bangalore"
+                          placeholder="e.g. Christ University / Lady Shri Ram College / IIT"
                           className="w-full px-3.5 py-2.5 rounded-xl border border-[#D5E8D5] bg-[#FBFCFB] text-xs focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80]/30"
                         />
                       </div>
 
                       <div>
                         <label className="text-xs text-[#69464C] font-medium block mb-1">
-                          Hostel, PG Name, or Street Address *
+                          Hostel Name, Room #, PG or Apartment *
                         </label>
                         <input
                           type="text"
@@ -376,7 +365,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                           name="hostel"
                           value={formData.hostel}
                           onChange={handleInputChange}
-                          placeholder="e.g. Block B, Room 304"
+                          placeholder="e.g. Block C, Room 304 / PG Flat"
                           className="w-full px-3.5 py-2.5 rounded-xl border border-[#D5E8D5] bg-[#FBFCFB] text-xs focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80]/30"
                         />
                       </div>
@@ -414,7 +403,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                     </div>
                   </div>
 
-                  {/* Step 3: Pre-Order Reservation Deposit */}
+                  {/* Step 3: Reservation Deposit */}
                   <div className="relative p-5 rounded-2xl bg-[#F2F7FB] border border-[#D3E3F0] space-y-3 pt-6">
                     {/* Washi Tag */}
                     <div className="absolute -top-2.5 left-6 px-3 py-0.5 bg-[#DDEBF5] border border-dashed border-[#99BDDA] rounded-xs shadow-2xs rotate-1 text-[10px] font-hand text-[#456885]">
@@ -424,7 +413,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                     <div className="font-serif text-sm font-medium text-[#2D1C20] flex flex-wrap items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className="w-5 h-5 rounded-full bg-[#DDEBF5] text-[#456885] text-xs flex items-center justify-center font-sans font-bold shrink-0">3</span>
-                        <span>Pre-Order Reservation Deposit</span>
+                        <span>Pre-Order Deposit</span>
                       </div>
                       <span className="text-xs font-semibold text-[#DD6B80] bg-[#FFE8EE] px-2.5 py-1 rounded-full border border-[#F5CCD6] shrink-0">
                         ₹{amountToPayNow} Due Today
@@ -432,26 +421,18 @@ export const CheckoutPage = ({ onNavigate }) => {
                     </div>
 
                     <p className="text-xs text-[#69464C] leading-relaxed font-sans">
-                      To reserve your set from Batch 01, you only pay an initial pre-order deposit of <strong>₹{amountToPayNow}</strong> today. The remaining balance of <strong>₹{balanceDueLater}</strong> will be collected upon campus dispatch in October 2026.
+                      To reserve your copy in Batch 01, you only pay an initial deposit of <strong>₹{amountToPayNow}</strong> today. The balance of <strong>₹{balanceDueLater}</strong> is due upon campus dispatch in October 2026.
                     </p>
 
                     <div className="p-3 rounded-xl bg-[#FFF8F9] border border-[#FAD2DB] flex items-center gap-2.5 text-xs text-[#8C5E68] font-sans">
                       <span className="text-[#DD6B80] text-sm">♡</span>
-                      <span>100% unconditional refund anytime prior to dispatch if your college or hostel plans change.</span>
+                      <span>100% unconditional refund anytime prior to dispatch if your college plans change.</span>
                     </div>
                   </div>
 
                   {/* Primary Checkout CTA */}
                   <div className="pt-2 space-y-3">
-                    {printStats.isSoldOut ? (
-                      <button
-                        type="button"
-                        disabled
-                        className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
-                      >
-                        <span>Out of Stock (150/150 Reserved) 🔒</span>
-                      </button>
-                    ) : !timeLeft.isExpired ? (
+                    {!timeLeft.isExpired ? (
                       <button
                         type="button"
                         disabled
@@ -502,85 +483,73 @@ export const CheckoutPage = ({ onNavigate }) => {
                     <span className="text-xs font-medium uppercase tracking-wider text-[#DD6B80]">
                       Order Summary ♡
                     </span>
-                    <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${
-                      printStats.isSoldOut 
-                        ? 'bg-red-50 text-red-700 border-red-200 font-semibold' 
-                        : 'bg-[#FFE8EE] text-[#9E2B42] border-[#F5CCD6]'
-                    }`}>
-                      {printStats.isSoldOut 
-                        ? 'Out of Stock (150/150 Reserved)' 
-                        : !timeLeft.isExpired 
-                          ? 'Drops Sept 9th' 
-                          : 'A few sets left'}
+                    <span className="text-[11px] font-medium px-2 py-0.5 rounded-full border bg-[#FFE8EE] text-[#9E2B42] border-[#F5CCD6]">
+                      Batch 01 Edition
                     </span>
                   </div>
 
                   {/* Product Photo */}
                   <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-stone-100 border border-[#F8D2DA] shadow-sm mb-4">
                     <img
-                      src={selectedPrint?.editorialImage || '/products/french_rose_bed.jpg'}
+                      src={selectedPrint?.editorialImage || '/products/journals/dragonfly_botanical_leather.jpg'}
                       alt={selectedPrint?.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute bottom-3 left-3 bg-[#FFF8F9]/95 backdrop-blur-sm px-2.5 py-0.5 rounded-full text-xs font-sans text-[#7E3846] border border-[#F7D5DC] shadow-xs">
-                      {selectedPrint?.paletteName}
+                    <div className="absolute bottom-2.5 left-2.5 bg-[#FFF8F9]/95 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-[#F7D5DC] text-[11px] font-sans text-[#7E3846]">
+                      {selectedPrint?.badge || 'Batch 01'}
                     </div>
                   </div>
 
-                  <h3 className="font-serif text-xl text-[#2D1C20] font-normal">
-                    {selectedPrint?.name}
-                  </h3>
-                  <p className="text-xs font-serif italic text-[#8C5E68] mt-0.5">
-                    {selectedPrint?.tagline}
-                  </p>
-
-                  <div className="my-4 py-3 border-y border-[#F8D2DA] space-y-2 text-xs font-sans text-[#69464C]">
-                    <div className="flex justify-between">
-                      <span className="text-[#8C5E68]">Edition:</span>
-                      <span className="font-medium text-[#2D1C20]">The Complete Bedding Kit (4-Piece Set)</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-[#8C5E68]">Cot Dimensions:</span>
-                      <span className="font-medium text-[#2D1C20]">{selectedSize?.name} • {selectedSize?.dimensions}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-[#8C5E68]">Dispatch Window:</span>
-                      <span className="font-medium text-[#2D1C20]">{meta.dispatchDate}</span>
-                    </div>
+                  {/* Edition Details */}
+                  <div className="space-y-1 pb-3 border-b border-[#F8D2DA]">
+                    <h3 className="font-serif text-lg text-[#2D1C20] font-normal leading-snug">
+                      {selectedPrint?.name}
+                    </h3>
+                    <p className="text-xs text-[#8C5E68] font-sans">
+                      {selectedSize?.name} • {selectedRuling?.name}
+                    </p>
+                    {selectedPrint?.isPersonalized && (
+                      <p className="text-xs text-[#DD6B80] font-hand">
+                        Personalization: “{formData.personalizationText || personalization || 'Custom Name'}”
+                      </p>
+                    )}
                   </div>
 
-                  {/* Inclusions checklist */}
-                  <div className="p-3.5 rounded-xl bg-[#FFF1F4] border border-[#FAD2DB] space-y-1.5 text-xs text-[#69464C] mb-4">
-                    <div className="font-medium text-[#7E3846] tracking-wide uppercase text-[11px]">Included in package:</div>
-                    {selectedTier?.includes?.map((inc, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#DD6B80] mt-1.5 shrink-0" />
-                        <span>{inc}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Pricing Breakdown */}
-                  <div className="space-y-2 text-xs font-sans pt-2 border-t border-[#F8D2DA]">
-                    <div className="flex justify-between text-[#8C5E68]">
-                      <span>Complete Kit Value</span>
-                      <span className="text-[#2D1C20]">₹{basePrice}</span>
+                  {/* Price Breakdown */}
+                  <div className="py-3 space-y-2 text-xs font-sans text-[#69464C] border-b border-[#F8D2DA]">
+                    <div className="flex justify-between">
+                      <span>Journal Value</span>
+                      <span className="font-medium text-[#2D1C20]">₹{basePrice}</span>
                     </div>
-                    <div className="flex justify-between text-[#8C5E68]">
+                    <div className="flex justify-between">
+                      <span>Bundle: {selectedTier?.name}</span>
+                      <span className="text-[#8C5E68]">Included</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Rigid Keepsake Gift Box & Ribbon</span>
+                      <span className="text-emerald-700 font-medium">FREE</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Solid Antique Brass Bookmark</span>
+                      <span className="text-emerald-700 font-medium">FREE</span>
+                    </div>
+                    <div className="flex justify-between">
                       <span>Campus Shipping</span>
-                      <span className="text-emerald-700 font-medium">Free</span>
+                      <span className="text-emerald-700 font-medium">FREE</span>
                     </div>
-                    <div className="flex justify-between text-[#8C5E68]">
-                      <span>Cotton Tote Packaging</span>
-                      <span className="text-[#2D1C20] font-medium">Included</span>
-                    </div>
-                    <div className="flex justify-between pt-2 border-t border-[#F8D2DA] font-serif text-base font-normal text-[#2D1C20]">
-                      <span>Deposit Due Today</span>
-                      <span className="font-medium text-[#DD6B80]">₹{amountToPayNow}</span>
+                  </div>
+
+                  {/* Totals */}
+                  <div className="pt-3 space-y-2 font-sans">
+                    <div className="flex justify-between items-baseline">
+                      <span className="text-xs font-medium text-[#2D1C20]">Deposit Due Today:</span>
+                      <span className="font-serif text-xl sm:text-2xl font-bold text-[#DD6B80]">
+                        ₹{amountToPayNow}
+                      </span>
                     </div>
                     <div className="flex justify-between text-xs text-[#8C5E68]">
-                      <span>Balance at campus dispatch:</span>
-                      <span className="font-medium text-[#2D1C20]">₹{balanceDueLater}</span>
+                      <span>Remaining Balance at Dispatch:</span>
+                      <span>₹{balanceDueLater}</span>
                     </div>
                   </div>
 
@@ -593,7 +562,6 @@ export const CheckoutPage = ({ onNavigate }) => {
         )}
 
       </div>
-
     </div>
   );
 };

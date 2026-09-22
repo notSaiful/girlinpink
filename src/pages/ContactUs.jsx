@@ -30,7 +30,7 @@ export const ContactUs = ({ onNavigate }) => {
             Customer Support
           </h1>
           <p className="text-sm text-[#69464C] mt-2 font-sans">
-            Questions regarding sizing, delivery timelines, or pre-order modifications.
+            Questions regarding personalization, paper specifications, or pre-order modifications.
           </p>
         </div>
 

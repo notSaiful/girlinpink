@@ -2,17 +2,17 @@ import React from 'react';
 import { useCart } from '../context/CartContext';
 import { useCountdown } from '../hooks/useCountdown';
 
-// Curated promotional highlights tailored strictly to our ICP (college girls, dorm life, hostel cots, cute aesthetic)
+// Curated promotional highlights tailored strictly to our ICP (creative college girls, dorm journaling, aesthetic stationery)
 const PROMO_ITEMS = [
-  { icon: '🌸', text: 'Strictly 150 Sets Per Print Edition', highlight: 'Batch 01 Small-Batch' },
-  { icon: '⏰', text: 'Pre-Orders Open September 9th, 8:00 PM', highlight: 'Launch Countdown' },
-  { icon: '🧸', text: '360° Deep Elastic Fitted Sheet', highlight: 'Never Pops Off Hostel Cots' },
-  { icon: '☁️', text: '100% Washed Percale Cotton', highlight: 'Breathable & Zero Microfiber Sweat' },
-  { icon: '🎀', text: 'Free Canvas Tote Bag Included', highlight: 'With Complete Bedding Kit' },
-  { icon: '💌', text: '100% Unconditional Refund Guarantee', highlight: 'If Hostel Allotment Changes' },
-  { icon: '🚚', text: 'Free Campus Dispatch', highlight: 'Direct to Your University Hostel Gate' },
-  { icon: '♡', text: 'Pay Only ₹390 Deposit at Launch', highlight: 'Balance Due at Dispatch' },
-  { icon: '🧺', text: 'Pre-Shrunk & Enzyme Softened', highlight: 'Tough on Hostel Laundry' }
+  { icon: '🌸', text: 'Strictly 150 Copies Per Journal Edition', highlight: 'Batch 01 Small-Batch' },
+  { icon: '⏰', text: 'Pre-Orders Open September 9th, 8:00 PM', highlight: 'Drop Countdown' },
+  { icon: '✒️', text: '120–150 GSM Archival Bleedproof Paper', highlight: 'Zero Fountain Pen Bleed' },
+  { icon: '📖', text: '180° Lay-Flat Desk Binding', highlight: 'Dorm Desk Friendly' },
+  { icon: '🎀', text: 'Free Antique Brass Bookmark Included', highlight: 'With Every Journal' },
+  { icon: '💌', text: '100% Unconditional Refund Guarantee', highlight: 'Anytime Before Dispatch' },
+  { icon: '🚚', text: 'Free University Campus Dispatch', highlight: 'Direct to Hostel Gate' },
+  { icon: '♡', text: 'Pay Only ₹290–₹390 Deposit Today', highlight: 'Balance Due at Dispatch' },
+  { icon: '🪡', text: 'Custom Hand-Embroidered & Katakana Foil', highlight: 'Bespoke Personalization' }
 ];
 
 /**
@@ -43,9 +43,6 @@ export const PromotionalMarquee = () => {
 export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
   const { getPrintStats } = useCart();
   const timeLeft = useCountdown();
-
-  const roseStats = getPrintStats ? getPrintStats('The French Rose Gingham') : { remaining: 150, isSoldOut: false };
-  const blueStats = getPrintStats ? getPrintStats('The Sky Blue Gingham') : { remaining: 150, isSoldOut: false };
 
   const handleAction = () => {
     if (onNavigate) {
@@ -81,28 +78,23 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
               </div>
               
               <h3 className="font-serif text-2xl sm:text-3xl text-[#2D1C20] font-normal tracking-tight">
-                Batch 01 Pre-Orders Drop Soon
+                Batch 01 Stationery Drop Soon
               </h3>
               
               <p className="text-xs sm:text-sm text-[#69464C] leading-relaxed font-sans">
-                We are currently in <strong>pre-launch</strong>! Pre-orders officially unlock on <strong>September 9th at 8:00 PM IST</strong> to custom-loom our natural washed cotton for October campus move-in. Strictly capped at 150 sets per print.
+                We are currently in <strong>pre-launch</strong>! Handcrafted journal pre-orders unlock on <strong>September 9th at 8:00 PM IST</strong>. Strictly capped at 150 individually inspected copies per edition with custom name embroidery & foil options.
               </p>
 
               {/* Real-time remaining allocation pill */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 sm:gap-2 pt-1 text-xs font-sans">
-                <span className={`px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium ${
-                  roseStats.isSoldOut 
-                    ? 'bg-rose-100 text-rose-800 border-rose-300 font-semibold' 
-                    : 'bg-white text-[#8C3847] border-[#F5CCD6]'
-                }`}>
-                  🌸 French Rose: {roseStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : !timeLeft.isExpired ? '150 Allocations at Launch' : 'A few sets left'}
+                <span className="px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium bg-white text-[#8C3847] border-[#F5CCD6]">
+                  🌿 Dragonfly Leather: 19 Sets Left
                 </span>
-                <span className={`px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium ${
-                  blueStats.isSoldOut 
-                    ? 'bg-sky-100 text-sky-800 border-sky-300 font-semibold' 
-                    : 'bg-white text-[#2B5B7E] border-[#CFE0ED]'
-                }`}>
-                  ☁️ Sky Blue: {blueStats.isSoldOut ? 'Out of Stock (150/150 Reserved)' : !timeLeft.isExpired ? '150 Allocations at Launch' : 'A few sets left'}
+                <span className="px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium bg-white text-[#8C3847] border-[#F5CCD6]">
+                  🎀 Vintage Lace: 14 Sets Left
+                </span>
+                <span className="px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium bg-white text-[#8C3847] border-[#F5CCD6]">
+                  🪡 Embroidered Linen: 22 Sets Left
                 </span>
               </div>
             </div>
@@ -158,45 +150,30 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
                 {/* Seconds */}
                 <div className="flex flex-col items-center">
                   <div className="w-12 sm:w-16 md:w-18 h-14 sm:h-18 md:h-20 bg-[#FFE8EE] rounded-xl sm:rounded-2xl border border-[#F2CCD6] shadow-[0_4px_16px_rgba(221,107,128,0.18)] flex items-center justify-center rotate-1">
-                    <span className="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-[#9E2B42]">
+                    <span className="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-[#DD6B80]">
                       {String(timeLeft.seconds).padStart(2, '0')}
                     </span>
                   </div>
-                  <span className="text-[9px] sm:text-[10px] font-medium tracking-wider uppercase font-sans text-[#9E2B42] mt-1 font-bold">
+                  <span className="text-[9px] sm:text-[10px] font-medium tracking-wider uppercase font-sans text-[#DD6B80] mt-1">
                     Secs
                   </span>
                 </div>
 
               </div>
 
-              {/* Fast Action CTA */}
-              {(roseStats.isSoldOut && blueStats.isSoldOut) ? (
-                <button
-                  disabled
-                  className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-xs sm:text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
-                >
-                  <span>Out of Stock (All Editions Reserved) 🔒</span>
-                </button>
-              ) : !timeLeft.isExpired ? (
+              {/* Status & CTA Button */}
+              <div className="w-full flex flex-col items-center sm:items-end gap-2">
                 <button
                   onClick={handleAction}
-                  className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-xs sm:text-sm tracking-wide shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <span>Explore Bedding Kit — Drops Sept 9th, 8 PM</span>
-                  <span className="text-xs">⏰</span>
-                </button>
-              ) : (
-                <button
-                  onClick={handleAction}
-                  className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
-                >
-                  <span>Reserve Pre-Order — ₹390 Deposit</span>
+                  <span>Explore 6 Journal Editions</span>
                   <span className="text-xs">♡</span>
                 </button>
-              )}
-
-              <div className="text-[11px] text-[#8C5E68] font-sans text-center">
-                Pre-Orders Unlock September 9th at 8:00 PM IST • Strictly 150 Orders Per Print Edition
+                <span className="text-[10px] sm:text-[11px] text-[#8C5E68] font-sans flex items-center gap-1">
+                  <span>🔒</span>
+                  <span>Pre-orders unlock Sept 9th, 8:00 PM</span>
+                </span>
               </div>
 
             </div>
@@ -205,16 +182,6 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
 
         </div>
       </div>
-
     </section>
-  );
-};
-
-export const PromotionalBannerStrip = (props) => {
-  return (
-    <>
-      <PromotionalMarquee />
-      <PreLaunchTimerSection {...props} />
-    </>
   );
 };

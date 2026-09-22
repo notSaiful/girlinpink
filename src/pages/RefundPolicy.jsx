@@ -43,10 +43,10 @@ export const RefundPolicy = ({ onNavigate }) => {
               1. Order Cancellation (Pre-Dispatch Window)
             </h2>
             <p>
-              Because Batch 01 is loomed in small editions for Autumn move-in, we allow 100% full, unconditional cancellations anytime before your parcel is dispatched from our packing facility in early October 2026.
+              Because Batch 01 creative journals are hand-bound in small editions of 150, we allow 100% full, unconditional cancellations anytime before your parcel is dispatched from our Bangalore facility in early October 2026.
             </p>
             <p className="mt-2">
-              If your room allotment changes or you decide to cancel, contact our team at <a href="mailto:care@girlinpink.co" className="text-[#8E4350] font-medium underline">care@girlinpink.co</a> or phone +91 98860 43210 with your order confirmation reference.
+              If your university plans change or you decide to cancel before dispatch, simply email our support team at <a href="mailto:care@girlinpink.co" className="text-[#8E4350] font-medium underline">care@girlinpink.co</a> or phone +91 98860 43210 with your order confirmation reference.
             </p>
           </div>
 
@@ -56,36 +56,33 @@ export const RefundPolicy = ({ onNavigate }) => {
               2. Refund Processing Timelines
             </h2>
             <p>
-              Cancellation requests are reviewed and approved within 24 business hours. The full pre-order deposit paid will be reversed directly to your original payment method via Razorpay.
-            </p>
-            <p className="mt-2 text-[#9E6E77] text-xs">
-              Under standard banking protocols, funds reflect in your bank account or UPI wallet within 5 to 7 business days following cancellation approval.
+              Cancellation requests are approved within 24 business hours. The full pre-order deposit or payment paid will be reversed directly to your original payment method via Razorpay within 5 to 7 banking days.
             </p>
           </div>
 
           {/* Section 3 */}
           <div className="p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB]">
             <h2 className="font-serif text-base sm:text-lg text-[#2D1C20] font-medium mb-2">
-              3. Damaged or Defective Items on Delivery
+              3. Damaged in Transit or Defective Items
             </h2>
             <p>
-              Every bedding set undergoes dual quality inspection at the mill before packing. In the event that your parcel arrives damaged in transit or with manufacturing defects:
+              Every journal is inspected by hand and packaged in rigid protective boxes with bubble cushioning. In the rare event that your journal or gift box arrives with damage from transit (bent corners, crushed box, or torn pages), notify us within 48 hours of delivery with photos. We will immediately dispatch a free replacement or issue a full refund.
             </p>
-            <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>Notify us within 7 days of delivery at <a href="mailto:care@girlinpink.co" className="text-[#8E4350] font-medium underline">care@girlinpink.co</a> with photographic documentation.</li>
-              <li>We will arrange a complimentary reverse pickup from your campus reception or hostel gate.</li>
-              <li>You may select an immediate replacement from reserve stock or receive a 100% full refund.</li>
-            </ul>
           </div>
 
           {/* Section 4 */}
           <div className="p-6 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB]">
             <h2 className="font-serif text-base sm:text-lg text-[#2D1C20] font-medium mb-2">
-              4. Complimentary Size Adjustments
+              4. Contact for Support
             </h2>
             <p>
-              If your institution assigns you a different cot dimension prior to shipping, you can update your sizing allocation at zero additional service charge by contacting customer care.
+              For any refund or cancellation inquiries, contact our student care team:
             </p>
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-xs text-[#69464C]">
+              <li>Email: <a href="mailto:care@girlinpink.co" className="text-[#8E4350] underline">care@girlinpink.co</a></li>
+              <li>Phone: +91 98860 43210 (Mon–Sat, 10 AM – 7 PM IST)</li>
+              <li>Address: No. 42, 3rd Floor, 80 Feet Road, 4th Block, Koramangala, Bangalore 560034</li>
+            </ul>
           </div>
 
         </div>

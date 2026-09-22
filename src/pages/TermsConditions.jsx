@@ -42,7 +42,7 @@ export const TermsConditions = ({ onNavigate }) => {
               1. Introduction & Acceptance
             </h2>
             <p>
-              These Terms and Conditions govern your use of the website <strong>girlinpink.co</strong> and the purchase of bedding products offered by <strong>girlinpink</strong>, operated by Glowup Living Retail LLP, Bangalore, India. By accessing or placing an order on this website, you agree to these terms.
+              These Terms and Conditions govern your use of the website <strong>girlinpink.co</strong> and the purchase of handcrafted creative journals, junk journals, planners, and stationery products offered by <strong>girlinpink</strong>, operated by Glowup Living Retail LLP, Bangalore, India. By accessing or placing an order on this website, you agree to these terms.
             </p>
           </div>
 

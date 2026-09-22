@@ -16,7 +16,7 @@ export const Footer = ({ onNavigate }) => {
             girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
           </div>
           <p className="text-xs text-[#8C5E68] font-sans tracking-wide">
-            Bedding thoughtfully crafted for borrowed spaces and student rooms ♡
+            Small-batch handcrafted creative journals, junk journals & personalized notebooks ♡
           </p>
         </div>
 

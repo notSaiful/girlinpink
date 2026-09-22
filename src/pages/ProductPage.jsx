@@ -1,21 +1,40 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { LAUNCH_PRINTS, SIZES, TIERS } from '../data/preorderData';
+import { LAUNCH_PRINTS, SIZES, TIERS, RULINGS } from '../data/preorderData';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 import { useCountdown } from '../hooks/useCountdown';
 
 export const ProductPage = ({ onNavigate }) => {
-  const { setSelectedPrint, setSelectedSize, setSelectedTier, selectedPrint, getPrintStats } = useCart();
+  const {
+    setSelectedPrint,
+    setSelectedSize,
+    setSelectedTier,
+    setSelectedRuling,
+    setPersonalization,
+    selectedPrint,
+    selectedSize,
+    selectedTier,
+    selectedRuling,
+    personalization,
+    isDepositOnly,
+    setIsDepositOnly,
+    basePrice,
+    depositPrice,
+    amountToPayNow,
+    balanceDueLater,
+    getPrintStats
+  } = useCart();
+
   const timeLeft = useCountdown();
 
   const [selectedPrintId, setSelectedPrintId] = useState(() => {
     if (selectedPrint?.id) return selectedPrint.id;
-    if (typeof window !== 'undefined' && window.location.hash.includes('sky-blue')) {
-      return 'sky-blue-gingham';
-    }
-    return 'french-rose-gingham';
+    return LAUNCH_PRINTS[0].id;
   });
-  const [selectedSizeId, setSelectedSizeId] = useState('hostel-single');
+  const [selectedSizeId, setSelectedSizeId] = useState(selectedSize?.id || SIZES[0].id);
+  const [selectedRulingId, setSelectedRulingId] = useState(selectedRuling?.id || RULINGS[0].id);
+  const [selectedTierId, setSelectedTierId] = useState(selectedTier?.id || TIERS[0].id);
+  const [customName, setCustomName] = useState(personalization || 'Eleanor');
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   // Sync if selectedPrint in cart changes from external navigation
@@ -23,44 +42,66 @@ export const ProductPage = ({ onNavigate }) => {
     if (selectedPrint?.id && selectedPrint.id !== selectedPrintId) {
       setSelectedPrintId(selectedPrint.id);
       setActiveImageIndex(0);
-    } else if (typeof window !== 'undefined' && window.location.hash.includes('sky-blue') && selectedPrintId !== 'sky-blue-gingham') {
-      setSelectedPrintId('sky-blue-gingham');
-      setActiveImageIndex(0);
     }
   }, [selectedPrint?.id]);
 
-  const currentPrint = LAUNCH_PRINTS.find(p => p.id === selectedPrintId) || LAUNCH_PRINTS[0];
+  const currentJournal = LAUNCH_PRINTS.find(p => p.id === selectedPrintId) || LAUNCH_PRINTS[0];
   const currentSize = SIZES.find(s => s.id === selectedSizeId) || SIZES[0];
-  const currentTier = TIERS[0]; // Strictly Complete Bedding Kit
+  const currentRuling = RULINGS.find(r => r.id === selectedRulingId) || RULINGS[0];
+  const currentTier = TIERS.find(t => t.id === selectedTierId) || TIERS[0];
 
   const currentStats = getPrintStats 
-    ? getPrintStats(currentPrint.name) 
+    ? getPrintStats(currentJournal.name) 
     : { remaining: 150, isSoldOut: false, reserved: 0, capacity: 150 };
 
-  const basePrice = Math.round(currentTier.price * currentSize.multiplier);
-  const depositPrice = Math.round(currentTier.depositPrice * currentSize.multiplier);
-  const balanceDueLater = basePrice - depositPrice;
-
-  const galleryImages = currentPrint.gallery || [
+  const galleryImages = currentJournal.gallery || [
     {
-      src: currentPrint.editorialImage || '/products/french_rose_bed.jpg',
-      label: 'Bed Overview'
+      src: currentJournal.editorialImage,
+      label: 'Journal Overview'
     }
   ];
 
   const safeActiveIndex = activeImageIndex >= galleryImages.length ? 0 : activeImageIndex;
 
-  const handlePrintChange = (printId) => {
+  const handleJournalChange = (printId) => {
     setSelectedPrintId(printId);
     setActiveImageIndex(0);
+    const chosen = LAUNCH_PRINTS.find(p => p.id === printId);
+    if (chosen && setSelectedPrint) setSelectedPrint(chosen);
+  };
+
+  const handleSizeChange = (sId) => {
+    setSelectedSizeId(sId);
+    const chosen = SIZES.find(s => s.id === sId);
+    if (chosen && setSelectedSize) setSelectedSize(chosen);
+  };
+
+  const handleRulingChange = (rId) => {
+    setSelectedRulingId(rId);
+    const chosen = RULINGS.find(r => r.id === rId);
+    if (chosen && setSelectedRuling) setSelectedRuling(chosen);
+  };
+
+  const handleTierChange = (tId) => {
+    setSelectedTierId(tId);
+    const chosen = TIERS.find(t => t.id === tId);
+    if (chosen && setSelectedTier) setSelectedTier(chosen);
+  };
+
+  const handleNameChange = (e) => {
+    const val = e.target.value.slice(0, 16);
+    setCustomName(val);
+    if (setPersonalization) setPersonalization(val);
   };
 
   const handleReserveClick = () => {
-    if (!timeLeft.isExpired) return; // Strictly locked until September 9th launch
+    if (!timeLeft.isExpired) return; // Locked during pre-launch countdown
     if (currentStats.isSoldOut) return;
-    if (setSelectedPrint) setSelectedPrint(currentPrint);
+    if (setSelectedPrint) setSelectedPrint(currentJournal);
     if (setSelectedSize) setSelectedSize(currentSize);
+    if (setSelectedRuling) setSelectedRuling(currentRuling);
     if (setSelectedTier) setSelectedTier(currentTier);
+    if (setPersonalization) setPersonalization(customName);
     if (onNavigate) {
       onNavigate('checkout');
     }
@@ -78,7 +119,9 @@ export const ProductPage = ({ onNavigate }) => {
           <span>←</span>
           <span>Back to Collection</span>
         </button>
-      </div>      {/* Main Product Card: Stacked Layout (Images on Top, Details Below) */}
+      </div>
+
+      {/* Main Product Card: Stacked Layout */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
         <div className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-6 sm:p-10 shadow-[0_8px_30px_rgba(242,175,188,0.15)]">
           {/* Scrapbook Washi Tape Tab */}
@@ -88,10 +131,10 @@ export const ProductPage = ({ onNavigate }) => {
           <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4">
             
             {/* Featured Image Frame */}
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[16/10] bg-stone-100 border border-[#F8D2DA] shadow-sm">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[16/11] bg-stone-100 border border-[#F8D2DA] shadow-sm">
               <img
                 src={galleryImages[safeActiveIndex].src}
-                alt={currentPrint.name}
+                alt={currentJournal.name}
                 className="w-full h-full object-cover object-center transition-all duration-300"
               />
 
@@ -108,7 +151,7 @@ export const ProductPage = ({ onNavigate }) => {
                   ? 'Out of Stock'
                   : !timeLeft.isExpired
                     ? 'Drops Sept 9th'
-                    : 'Only a few sets left'}
+                    : `${currentJournal.availableSets} copies remaining`}
               </div>
 
               {/* Out of Stock Photo Overlay */}
@@ -125,7 +168,7 @@ export const ProductPage = ({ onNavigate }) => {
             </div>
 
             {/* Thumbnails Row */}
-            <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 sm:gap-2.5">
+            <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 sm:gap-2.5">
               {galleryImages.map((img, idx) => (
                 <button
                   key={idx}
@@ -143,7 +186,7 @@ export const ProductPage = ({ onNavigate }) => {
 
           </div>
 
-          {/* ================= SECTION 2: PRODUCT DETAILS (BELOW IMAGES) ================= */}
+          {/* ================= SECTION 2: PRODUCT DETAILS ================= */}
           <div className="max-w-3xl mx-auto mt-8 sm:mt-10 pt-8 border-t border-[#F8D2DA] space-y-6">
             
             {/* Header Details */}
@@ -151,21 +194,21 @@ export const ProductPage = ({ onNavigate }) => {
               {/* Reviews rating pill */}
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF1F4] border border-[#FAD2DB] text-xs text-[#7E3846] mb-3 font-sans">
                 <span className="text-amber-500 text-xs">★★★★★</span>
-                <span className="font-semibold text-[#2D1C20]">4.95</span>
-                <span className="text-[#8C5E68]">• 42 student reviews ♡</span>
+                <span className="font-semibold text-[#2D1C20]">{currentJournal.rating}</span>
+                <span className="text-[#8C5E68]">• {currentJournal.reviewsCount} verified student reviews ♡</span>
               </div>
 
               {/* Product Title */}
               <h1 className="font-serif text-3xl sm:text-4xl text-[#2D1C20] font-normal leading-tight tracking-tight">
-                {currentPrint.name}
+                {currentJournal.name}
               </h1>
 
               {/* Subtitle & Story */}
               <p className="text-sm sm:text-base font-serif italic text-[#8C5E68] mt-1">
-                {currentPrint.tagline}
+                {currentJournal.tagline}
               </p>
               <p className="text-xs sm:text-sm text-[#69464C] mt-2 leading-relaxed font-sans">
-                {currentPrint.shortStory}
+                {currentJournal.shortStory}
               </p>
             </div>
 
@@ -182,8 +225,8 @@ export const ProductPage = ({ onNavigate }) => {
                   <span className="text-xs text-[#8C5E68] font-sans">to reserve today</span>
                 </div>
                 <div className="text-xs text-[#69464C] mt-1 font-sans">
-                  Total Kit Value: <strong className="text-[#2D1C20]">₹{basePrice}</strong> 
-                  <span className="text-stone-400 line-through ml-1.5">₹2,499</span>
+                  Total Journal Value: <strong className="text-[#2D1C20]">₹{basePrice}</strong> 
+                  <span className="text-stone-400 line-through ml-1.5">₹{currentJournal.originalPrice}</span>
                 </div>
               </div>
 
@@ -193,36 +236,36 @@ export const ProductPage = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Craftsmanship & Material Highlights: Scrapbook Notes */}
+            {/* Craftsmanship & Material Highlights */}
             <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-xs text-[#69464C]">
               <div className="font-medium text-[#7E3846] tracking-wide uppercase text-[11px] mb-3 font-sans flex items-center justify-between">
-                <span>Craftsmanship & Material Highlights:</span>
-                <span className="font-hand text-sm text-[#B05063] normal-case">100% long-staple cotton ♡</span>
+                <span>Artisanal Stationery Highlights:</span>
+                <span className="font-hand text-sm text-[#B05063] normal-case">120–150 GSM archival paper ♡</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div className="p-3 rounded-xl bg-[#FFF0F3] border border-[#F8CCD6]">
-                  <strong className="text-[#2D1C20] block font-medium">Marshmallow Soft</strong>
-                  <span className="text-[#8C5E68] text-[11px]">Double enzyme pre-washed cotton</span>
+                  <strong className="text-[#2D1C20] block font-medium">Zero Ink Bleed</strong>
+                  <span className="text-[#8C5E68] text-[11px]">Tested with wet fountain pens</span>
                 </div>
                 <div className="p-3 rounded-xl bg-[#F3F8F3] border border-[#D6E6D6]">
-                  <strong className="text-[#2D1C20] block font-medium">360° Snug Cot Fit</strong>
-                  <span className="text-[#4E624E] text-[11px]">Continuous elastic perimeter</span>
+                  <strong className="text-[#2D1C20] block font-medium">180° Lay-Flat Binding</strong>
+                  <span className="text-[#4E624E] text-[11px]">Comfortable on tiny dorm desks</span>
                 </div>
                 <div className="p-3 rounded-xl bg-[#FFF9EE] border border-[#F5E5C0]">
-                  <strong className="text-[#2D1C20] block font-medium">100% Washed Percale</strong>
-                  <span className="text-[#6C5632] text-[11px]">Pure, breathable natural fiber</span>
+                  <strong className="text-[#2D1C20] block font-medium">Bespoke Personalization</strong>
+                  <span className="text-[#6C5632] text-[11px]">Hand-embroidered & Katakana foil</span>
                 </div>
               </div>
             </div>
 
             {/* Configuration Selectors */}
-            <div className="space-y-4">
+            <div className="space-y-5">
               
-              {/* 1. Print Selection */}
+              {/* 1. Choose Journal Edition */}
               <div className="space-y-2">
                 <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
-                  <span>1. Choose Print:</span>
-                  <span className="text-[#8C5E68] text-xs">{currentPrint.paletteName}</span>
+                  <span>1. Select Journal Edition:</span>
+                  <span className="text-[#8C5E68] text-xs">{currentJournal.paletteName}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {LAUNCH_PRINTS.map(p => {
@@ -230,7 +273,7 @@ export const ProductPage = ({ onNavigate }) => {
                     return (
                       <button
                         key={p.id}
-                        onClick={() => handlePrintChange(p.id)}
+                        onClick={() => handleJournalChange(p.id)}
                         className={`p-3 rounded-2xl border text-left transition flex items-center justify-between ${
                           selectedPrintId === p.id 
                             ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
@@ -238,22 +281,18 @@ export const ProductPage = ({ onNavigate }) => {
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
-                          <span 
-                            className="w-3.5 h-3.5 rounded-full border border-stone-300 shrink-0" 
-                            style={{ backgroundColor: p.checkColor }}
-                          />
-                          <span className="text-xs font-medium">{p.name.replace('The ', '')}</span>
+                          <img src={p.editorialImage} alt={p.name} className="w-7 h-7 rounded-lg object-cover shrink-0 border border-[#F6D5DC]" />
+                          <div className="flex flex-col">
+                            <span className="text-xs font-medium line-clamp-1">{p.name}</span>
+                            <span className="text-[10px] text-[#8C5E68]">₹{p.price}</span>
+                          </div>
                         </div>
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans ${
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans shrink-0 ${
                           pStats.isSoldOut 
                             ? 'bg-rose-100 text-rose-800 font-semibold border border-rose-300' 
                             : 'bg-white/80 text-[#8C3847] border border-[#F5CCD6]'
                         }`}>
-                          {pStats.isSoldOut 
-                            ? 'Out of Stock' 
-                            : !timeLeft.isExpired 
-                              ? 'Sept 9th' 
-                              : 'A few left'}
+                          {p.badge || 'Batch 01'}
                         </span>
                       </button>
                     );
@@ -261,25 +300,109 @@ export const ProductPage = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* 2. Cot Size Selection */}
+              {/* 2. Bespoke Personalization Input (if applicable) */}
+              {currentJournal.isPersonalized && (
+                <div className="p-4 rounded-2xl bg-[#FFF2F5] border border-[#F7CCD6] space-y-2">
+                  <div className="flex items-center justify-between text-xs font-sans">
+                    <span className="font-medium text-[#2D1C20] flex items-center gap-1.5">
+                      <span>🪡</span>
+                      <span>{currentJournal.personalizationLabel || 'Custom Name Personalization:'}</span>
+                    </span>
+                    <span className="text-[11px] text-[#A85E5E] font-hand">included in edition ♡</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="text"
+                      value={customName}
+                      onChange={handleNameChange}
+                      placeholder="e.g. Eleanor"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-[#F5CCD6] text-xs sm:text-sm font-serif text-[#2D1C20] focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80]"
+                      maxLength={16}
+                    />
+                    <div className="px-3 py-2 rounded-xl bg-white/80 border border-[#F5CCD6] text-xs font-hand text-[#8C3847] shrink-0">
+                      Preview: “{customName || 'Your Name'}”
+                    </div>
+                  </div>
+                  <p className="text-[10px] sm:text-[11px] text-[#8C5E68] font-sans">
+                    {currentJournal.id.includes('katakana') 
+                      ? 'Our linguistic team will convert your name into authentic Japanese Katakana before hot-stamping in rose-gold foil.' 
+                      : 'Hand-embroidered in cursive dusty rose thread across your journal cover.'}
+                  </p>
+                </div>
+              )}
+
+              {/* 3. Choose Format / Size */}
               <div className="space-y-2">
                 <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
-                  <span>2. Cot Size:</span>
-                  <span className="text-[#8C5E68] text-xs">{currentSize.dimensions} • {currentSize.depth}</span>
+                  <span>2. Format & Size:</span>
+                  <span className="text-[#8C5E68] text-xs">{currentSize.dimensions}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   {SIZES.map(s => (
                     <button
                       key={s.id}
-                      onClick={() => setSelectedSizeId(s.id)}
-                      className={`p-3 rounded-2xl border text-left sm:text-center text-xs transition ${
+                      onClick={() => handleSizeChange(s.id)}
+                      className={`p-3 rounded-2xl border text-left text-xs transition ${
                         selectedSizeId === s.id 
                           ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
                           : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
                       }`}
                     >
-                      <div className="font-medium truncate">{s.name.replace('Hostel ', '')}</div>
+                      <div className="font-serif text-xs sm:text-sm">{s.name}</div>
                       <div className="text-[10px] text-[#8C5E68] mt-0.5">{s.dimensions}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 4. Choose Paper Ruling */}
+              <div className="space-y-2">
+                <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
+                  <span>3. Paper Ruling Style:</span>
+                  <span className="text-[#8C5E68] text-xs">{currentRuling.name}</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {RULINGS.map(r => (
+                    <button
+                      key={r.id}
+                      onClick={() => handleRulingChange(r.id)}
+                      className={`p-3 rounded-2xl border text-left text-xs transition ${
+                        selectedRulingId === r.id 
+                          ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
+                          : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
+                      }`}
+                    >
+                      <div className="font-serif text-xs sm:text-sm">{r.name}</div>
+                      <div className="text-[10px] text-[#8C5E68] mt-0.5 line-clamp-1">{r.description}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* 5. Bundle Tier Selection */}
+              <div className="space-y-2">
+                <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
+                  <span>4. Choose Bundle:</span>
+                  <span className="text-[#8C5E68] text-xs">{currentTier.name}</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {TIERS.map(t => (
+                    <button
+                      key={t.id}
+                      onClick={() => handleTierChange(t.id)}
+                      className={`p-3 rounded-2xl border text-left text-xs transition flex flex-col justify-between ${
+                        selectedTierId === t.id 
+                          ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
+                          : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
+                      }`}
+                    >
+                      <div>
+                        <div className="font-serif text-xs sm:text-sm">{t.name}</div>
+                        <div className="text-[10px] text-[#8C5E68] mt-0.5">{t.subtitle}</div>
+                      </div>
+                      <div className="text-[11px] font-semibold text-[#DD6B80] mt-2">
+                        {t.id === 'single-journal' ? 'Standard' : t.id === 'writer-bundle' ? '+₹300' : '+₹700'}
+                      </div>
                     </button>
                   ))}
                 </div>
@@ -287,87 +410,52 @@ export const ProductPage = ({ onNavigate }) => {
 
             </div>
 
-            {/* Inclusions Checklist - The Complete Kit */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] space-y-2.5 text-xs text-[#69464C]">
-              <div className="font-medium text-[#7E3846] tracking-wide uppercase text-[11px] font-sans flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-                <span>What Arrives in Your Complete Kit:</span>
-                <span className="text-[#8C3847] bg-[#FFE8ED] px-2.5 py-0.5 rounded-full border border-[#F5CCD6] normal-case text-[11px] font-medium self-start sm:self-auto">
-                  Full 4-Piece Set + Tote
-                </span>
+            {/* Inclusions List */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] space-y-2 text-xs text-[#69464C]">
+              <div className="font-medium text-[#7E3846] tracking-wide uppercase text-[11px] font-sans">
+                What Arrives in Your Package:
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 font-sans">
-                {currentTier.includes.map((inc, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#DD6B80] mt-1.5 shrink-0" />
-                    <span className="leading-snug">{inc}</span>
+              {currentJournal.thoughtfulDetails.map((det, i) => (
+                <div key={i} className="flex items-start gap-2.5">
+                  <span className="text-[#C27878] shrink-0">{det.icon}</span>
+                  <div>
+                    <strong className="text-[#2D1C20] font-medium">{det.title}: </strong>
+                    <span>{det.desc}</span>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
 
-            {/* September 9th Pre-Orders Launch Countdown Banner */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] text-xs font-sans text-[#7E3846]">
-              <div className="flex items-center gap-2 font-medium">
-                <span className="text-sm">⏰</span>
-                <span>Pre-Orders Open September 9th, 8:00 PM:</span>
-              </div>
-              <div className="font-mono font-semibold text-[#9E2B42] bg-white px-2.5 py-1 rounded-lg border border-[#F5CCD6] shadow-2xs self-stretch sm:self-auto text-center">
-                {timeLeft.isExpired ? 'Pre-Orders Live!' : timeLeft.formatted}
-              </div>
-            </div>
-
-            {/* Primary Call to Action Button - Pre-Launch Mode */}
-            <div className="pt-2 space-y-3">
+            {/* Primary Action Button */}
+            <div className="pt-4 border-t border-[#F8D2DA]">
               {currentStats.isSoldOut ? (
                 <button
                   disabled
-                  className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#E8B2BD]"
+                  className="w-full py-4 rounded-full bg-[#F3CCD5] text-[#8C5E68] border border-[#E8B2BD] text-xs sm:text-sm font-medium tracking-wide cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  <span>Out of Stock (150/150 Reserved) 🔒</span>
+                  <span>Batch 01 Sold Out</span>
+                  <span>🔒</span>
                 </button>
               ) : !timeLeft.isExpired ? (
-                <div className="space-y-3">
-                  <button
-                    disabled
-                    className="w-full py-4 rounded-full bg-[#F6CCD5] text-[#8C3847] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#EAA8B6] shadow-2xs"
-                  >
-                    <span>Pre-Orders Open September 9th, 8 PM 🔒</span>
-                  </button>
-
-                  <div className="p-4 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-center space-y-1.5">
-                    <div className="text-xs font-serif font-medium text-[#7E3846]">
-                      Batch 01 Pre-Launch in Progress ♡
-                    </div>
-                    <p className="text-[11px] font-sans text-[#8C5E68]">
-                      Orders strictly unlock on September 9th at 8:00 PM IST. Strictly capped at 150 allocations per print.
-                    </p>
-                  </div>
-                </div>
+                <button
+                  onClick={handleReserveClick}
+                  className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_18px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_25px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-98 flex items-center justify-center gap-2"
+                >
+                  <span>Pre-Orders Unlock September 9th, 8:00 PM</span>
+                  <span className="text-xs">⏰</span>
+                </button>
               ) : (
                 <button
                   onClick={handleReserveClick}
-                  className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_18px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_25px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-98 flex items-center justify-center gap-2"
                 >
-                  <span>Reserve Pre-Order — ₹{depositPrice} Deposit</span>
+                  <span>Reserve with ₹{depositPrice} Deposit</span>
                   <span className="text-xs">♡</span>
                 </button>
               )}
-
-              <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#8C5E68] text-center font-sans">
-                {currentStats.isSoldOut ? (
-                  <span className="text-[#B05063] font-medium">This edition is currently out of stock. Please choose another edition above.</span>
-                ) : !timeLeft.isExpired ? (
-                  <span className="text-[#8C3847] font-medium">Pre-orders unlock September 9th at 8 PM • 100% Refund Guarantee</span>
-                ) : (
-                  <>
-                    <span>100% Refund Guarantee</span>
-                    <span>•</span>
-                    <span>Free Campus Dispatch</span>
-                    <span>•</span>
-                    <span>Secured by Razorpay</span>
-                  </>
-                )}
-              </div>
+              <p className="text-center text-[11px] text-[#8C5E68] mt-2 font-sans">
+                100% unconditional refund anytime before dispatch • Free campus shipping
+              </p>
             </div>
 
           </div>
@@ -375,103 +463,7 @@ export const ProductPage = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Specifications & Craftsmanship Section: Scrapbook Treatment */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="relative bg-[#FFF8F9] rounded-3xl border border-[#F6D5DC] p-6 sm:p-10 shadow-[0_8px_30px_rgba(242,175,188,0.15)]">
-          {/* Washi Tape Strip */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-36 sm:w-48 h-5 bg-[#FADADD]/85 backdrop-blur-xs border border-dashed border-[#E5A8B4]/70 rounded-xs shadow-2xs rotate-0.5 pointer-events-none" />
-
-          {/* Section Heading */}
-          <div className="max-w-xl mx-auto text-center mb-8 sm:mb-10">
-            <span className="font-hand text-xl text-[#B05063] block mb-1">
-              thoughtfully crafted for dorm rooms ♡
-            </span>
-            <h2 className="font-serif text-2xl sm:text-3xl text-[#2D1C20] font-normal tracking-tight">
-              Thoughtfully Engineered for Student Rooms
-            </h2>
-            <p className="text-sm text-[#69464C] mt-1 font-sans">
-              Practical construction details tailored for standard single cots.
-            </p>
-          </div>
-
-          {/* 4 Thoughtful Construction Details Grid: Pastel Washi Polaroids */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-8">
-            {/* Card 1: Rose */}
-            <div className="relative p-5 rounded-2xl bg-[#FFF8F9] border border-[#F6D5DC] -rotate-1 hover:rotate-0 transition-transform duration-300 shadow-xs">
-              <div className="absolute -top-2.5 left-6 w-20 h-4 bg-[#FADADD]/80 border border-dashed border-[#E5A8B4]/60 rounded-xs -rotate-2" />
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm text-[#C27878] font-serif">{currentPrint.thoughtfulDetails?.[0]?.icon || '✦'}</span>
-                <h3 className="font-serif text-base font-normal text-[#2D1C20]">
-                  {currentPrint.thoughtfulDetails?.[0]?.title || 'Four Interior Corner Ties'}
-                </h3>
-              </div>
-              <p className="text-xs text-[#69464C] leading-relaxed font-sans">
-                {currentPrint.thoughtfulDetails?.[0]?.desc || 'Secures your duvet or blanket in place throughout the night without shifting.'}
-              </p>
-            </div>
-
-            {/* Card 2: Sage */}
-            <div className="relative p-5 rounded-2xl bg-[#F3F8F3] border border-[#D6E6D6] rotate-1 hover:rotate-0 transition-transform duration-300 shadow-xs">
-              <div className="absolute -top-2.5 right-6 w-20 h-4 bg-[#E2EFE2]/85 border border-dashed border-[#A8C8A8]/60 rounded-xs rotate-2" />
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm text-[#4E7A4E] font-serif">{currentPrint.thoughtfulDetails?.[1]?.icon || '✦'}</span>
-                <h3 className="font-serif text-base font-normal text-[#2D1C20]">
-                  {currentPrint.thoughtfulDetails?.[1]?.title || 'Concealed Zip Closure'}
-                </h3>
-              </div>
-              <p className="text-xs text-[#4E624E] leading-relaxed font-sans">
-                {currentPrint.thoughtfulDetails?.[1]?.desc || 'Tucked beneath a seamless fabric fold to keep hardware hidden and quiet.'}
-              </p>
-            </div>
-
-            {/* Card 3: Butter */}
-            <div className="relative p-5 rounded-2xl bg-[#FFF9EE] border border-[#F5E5C0] -rotate-1 hover:rotate-0 transition-transform duration-300 shadow-xs">
-              <div className="absolute -top-2.5 left-6 w-20 h-4 bg-[#FFF2D6]/85 border border-dashed border-[#ECD39E]/60 rounded-xs -rotate-2" />
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm text-[#B58532] font-serif">{currentPrint.thoughtfulDetails?.[2]?.icon || '✦'}</span>
-                <h3 className="font-serif text-base font-normal text-[#2D1C20]">
-                  {currentPrint.thoughtfulDetails?.[2]?.title || 'Envelope Pillowcases'}
-                </h3>
-              </div>
-              <p className="text-xs text-[#6C5632] leading-relaxed font-sans">
-                {currentPrint.thoughtfulDetails?.[2]?.desc || 'Clean overlapping back fold eliminates exposed zippers and metal edges.'}
-              </p>
-            </div>
-
-            {/* Card 4: Sky Blue */}
-            <div className="relative p-5 rounded-2xl bg-[#F2F7FB] border border-[#CFDEE7] rotate-1 hover:rotate-0 transition-transform duration-300 shadow-xs">
-              <div className="absolute -top-2.5 right-6 w-20 h-4 bg-[#DDEBF5]/85 border border-dashed border-[#B0C8D8]/60 rounded-xs rotate-2" />
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm text-[#3A6B88] font-serif">{currentPrint.thoughtfulDetails?.[3]?.icon || '✦'}</span>
-                <h3 className="font-serif text-base font-normal text-[#2D1C20]">
-                  {currentPrint.thoughtfulDetails?.[3]?.title || '360° Snug Cot Elastic'}
-                </h3>
-              </div>
-              <p className="text-xs text-[#476070] leading-relaxed font-sans">
-                {currentPrint.thoughtfulDetails?.[3]?.desc || '12-inch continuous pocket depth locks onto single mattresses with zero untucking.'}
-              </p>
-            </div>
-          </div>
-
-          {/* Care Guidelines Scrapbook Banner */}
-          <div className="relative p-5 rounded-2xl bg-[#F3F8F3] border border-[#D6E6D6] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="absolute -top-2.5 left-8 w-24 h-4 bg-[#E2EFE2]/85 border border-dashed border-[#A8C8A8]/60 rounded-xs -rotate-1" />
-            <div>
-              <div className="font-serif text-base font-medium text-[#2E422E]">
-                Student Laundry Guidelines
-              </div>
-              <div className="font-hand text-lg text-[#3B663B] mt-0.5">
-                cold machine wash • washes softer with every cycle • zero ironing needed 🧺☁️
-              </div>
-            </div>
-            <div className="inline-flex items-center text-xs text-[#2E422E] bg-white/90 px-3.5 py-1.5 rounded-full border border-[#D6E6D6] shrink-0 font-sans shadow-2xs">
-              Double Enzyme Pre-Washed ♡
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
+      {/* Testimonials */}
       <TestimonialsSection />
 
     </div>
