@@ -30,7 +30,7 @@ export const TermsConditions = ({ onNavigate }) => {
             Terms & Conditions
           </h1>
           <p className="text-sm text-[#69464C] mt-2 font-sans">
-            Terms governing pre-orders and services provided on girlinpink.co.
+            Terms governing pre-orders and services provided on journaly.in.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export const TermsConditions = ({ onNavigate }) => {
               1. Introduction & Acceptance
             </h2>
             <p>
-              These Terms and Conditions govern your use of the website <strong>girlinpink.co</strong> and the purchase of handcrafted creative journals, junk journals, planners, and stationery products offered by <strong>girlinpink</strong>, operated by Glowup Living Retail LLP, Bangalore, India. By accessing or placing an order on this website, you agree to these terms.
+              These Terms and Conditions govern your use of the website <strong>journaly.in</strong> and the purchase of handcrafted creative journals, junk journals, planners, and stationery products offered by <strong>journaly</strong>, operated by Glowup Living Retail LLP, Bangalore, India. By accessing or placing an order on this website, you agree to these terms.
             </p>
           </div>
 
@@ -78,7 +78,7 @@ export const TermsConditions = ({ onNavigate }) => {
               5. Customer Support
             </h2>
             <p>
-              For any questions regarding these terms, contact us at <a href="mailto:care@girlinpink.co" className="text-[#8E4350] font-medium underline">care@girlinpink.co</a> or by phone at +91 98860 43210.
+              For any questions regarding these terms, contact us at <a href="mailto:care@journaly.in" className="text-[#8E4350] font-medium underline">care@journaly.in</a> or by phone at +91 98860 43210.
             </p>
           </div>
 

@@ -30,7 +30,7 @@ export const PrivacyPolicy = ({ onNavigate }) => {
             Privacy Policy
           </h1>
           <p className="text-sm text-[#69464C] mt-2 font-sans">
-            How girlinpink protects and manages your customer data.
+            How journaly protects and manages your customer data.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export const PrivacyPolicy = ({ onNavigate }) => {
               1. Information Collected
             </h2>
             <p>
-              When placing a pre-order on <strong>girlinpink.co</strong>, we collect only the necessary details required to fulfill and deliver your bedding:
+              When placing a pre-order on <strong>journaly.in</strong>, we collect only the necessary details required to fulfill and deliver your handcrafted journals and stationery:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>Full Name</li>
@@ -66,7 +66,7 @@ export const PrivacyPolicy = ({ onNavigate }) => {
               3. Data Retention & Inquiries
             </h2>
             <p>
-              You may request access to or deletion of your account records at any time by contacting our privacy compliance team at <a href="mailto:care@girlinpink.co" className="text-[#8E4350] font-medium underline">care@girlinpink.co</a>.
+              You may request access to or deletion of your account records at any time by contacting our privacy compliance team at <a href="mailto:care@journaly.in" className="text-[#8E4350] font-medium underline">care@journaly.in</a>.
             </p>
           </div>
 

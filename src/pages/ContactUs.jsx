@@ -44,10 +44,10 @@ export const ContactUs = ({ onNavigate }) => {
               For order assistance, sizing guidance, and campus delivery questions:
             </p>
             <a 
-              href="mailto:care@girlinpink.co" 
+              href="mailto:care@journaly.in" 
               className="text-sm font-medium text-[#8E4350] hover:underline"
             >
-              care@girlinpink.co
+              care@journaly.in
             </a>
             <div className="text-xs text-[#9E6E77] mt-1">
               Response within 24 business hours
@@ -79,12 +79,12 @@ export const ContactUs = ({ onNavigate }) => {
             Registered Operating Address
           </div>
           <div className="font-sans leading-relaxed text-[#69464C]">
-            <p className="font-medium text-[#2D1C20]">girlinpink • Glowup Living Retail LLP</p>
+            <p className="font-medium text-[#2D1C20]">journaly • Glowup Living Retail LLP</p>
             <p>No. 42, 3rd Floor, 80 Feet Road, 4th Block, Koramangala</p>
             <p>Bangalore, Karnataka — 560034, India</p>
           </div>
           <div className="pt-2 border-t border-[#F8D2DA] text-xs text-[#9E6E77]">
-            Grievance Officer: Tara R. • grievance@girlinpink.co
+            Grievance Officer: Tara R. • grievance@journaly.in
           </div>
         </div>
 

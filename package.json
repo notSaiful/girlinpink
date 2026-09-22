@@ -1,12 +1,13 @@
 {
-  "name": "dormcozy-bedkits",
+  "name": "journaly",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "shopify:sync": "node scripts/sync_to_shopify.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.115.0",

@@ -9,11 +9,11 @@ export const Footer = ({ onNavigate }) => {
         <div className="text-center space-y-2 pb-6 border-b border-[#F7D5DC] flex flex-col items-center">
           <img 
             src="/logo.png" 
-            alt="girlinpink logo" 
+            alt="journaly logo" 
             className="w-14 h-14 object-contain p-1.5 rounded-2xl bg-white border border-[#F6D5DC] shadow-xs mb-1" 
           />
           <div className="font-serif text-2xl font-bold tracking-tight text-[#2D1C20]">
-            girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
+            journaly<span className="text-[#C27878] font-serif font-normal">.</span>
           </div>
           <p className="text-xs text-[#8C5E68] font-sans tracking-wide">
             Small-batch handcrafted creative journals, junk journals & personalized notebooks ♡
@@ -69,13 +69,13 @@ export const Footer = ({ onNavigate }) => {
         <div className="pt-4 border-t border-[#F7D5DC] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#9E6E77] text-center sm:text-left">
           <div className="space-y-1">
             <p>
-              © {new Date().getFullYear()} girlinpink. Operated by Glowup Living Retail LLP. All rights reserved.
+              © {new Date().getFullYear()} journaly. Operated by Glowup Living Retail LLP. All rights reserved.
             </p>
             <p>
               Registered Address: 80 Feet Road, 4th Block, Koramangala, Bangalore, Karnataka 560034.
             </p>
             <p>
-              Support: <a href="mailto:care@girlinpink.co" className="text-[#7A2A38] hover:underline">care@girlinpink.co</a> • Phone: +91 98860 43210
+              Support: <a href="mailto:care@journaly.in" className="text-[#7A2A38] hover:underline">care@journaly.in</a> • Phone: +91 98860 43210
             </p>
           </div>
 

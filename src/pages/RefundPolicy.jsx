@@ -46,7 +46,7 @@ export const RefundPolicy = ({ onNavigate }) => {
               Because Batch 01 creative journals are hand-bound in small editions of 150, we allow 100% full, unconditional cancellations anytime before your parcel is dispatched from our Bangalore facility in early October 2026.
             </p>
             <p className="mt-2">
-              If your university plans change or you decide to cancel before dispatch, simply email our support team at <a href="mailto:care@girlinpink.co" className="text-[#8E4350] font-medium underline">care@girlinpink.co</a> or phone +91 98860 43210 with your order confirmation reference.
+              If your university plans change or you decide to cancel before dispatch, simply email our support team at <a href="mailto:care@journaly.in" className="text-[#8E4350] font-medium underline">care@journaly.in</a> or phone +91 98860 43210 with your order confirmation reference.
             </p>
           </div>
 
@@ -79,7 +79,7 @@ export const RefundPolicy = ({ onNavigate }) => {
               For any refund or cancellation inquiries, contact our student care team:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1 text-xs text-[#69464C]">
-              <li>Email: <a href="mailto:care@girlinpink.co" className="text-[#8E4350] underline">care@girlinpink.co</a></li>
+              <li>Email: <a href="mailto:care@journaly.in" className="text-[#8E4350] underline">care@journaly.in</a></li>
               <li>Phone: +91 98860 43210 (Mon–Sat, 10 AM – 7 PM IST)</li>
               <li>Address: No. 42, 3rd Floor, 80 Feet Road, 4th Block, Koramangala, Bangalore 560034</li>
             </ul>

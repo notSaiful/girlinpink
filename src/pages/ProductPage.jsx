@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext';
 import { LAUNCH_PRINTS, SIZES, TIERS, RULINGS } from '../data/preorderData';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 import { useCountdown } from '../hooks/useCountdown';
+import { isShopifyConnected, generateShopifyCartPermalink } from '../services/shopify';
 
 export const ProductPage = ({ onNavigate }) => {
   const {
@@ -427,7 +428,7 @@ export const ProductPage = ({ onNavigate }) => {
             </div>
 
             {/* Primary Action Button */}
-            <div className="pt-4 border-t border-[#F8D2DA]">
+            <div className="pt-4 border-t border-[#F8D2DA] space-y-2.5">
               {currentStats.isSoldOut ? (
                 <button
                   disabled
@@ -445,13 +446,33 @@ export const ProductPage = ({ onNavigate }) => {
                   <span className="text-xs">⏰</span>
                 </button>
               ) : (
-                <button
-                  onClick={handleReserveClick}
-                  className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_18px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_25px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-98 flex items-center justify-center gap-2"
-                >
-                  <span>Reserve with ₹{depositPrice} Deposit</span>
-                  <span className="text-xs">♡</span>
-                </button>
+                <>
+                  <button
+                    onClick={handleReserveClick}
+                    className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_18px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_25px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-98 flex items-center justify-center gap-2"
+                  >
+                    <span>Reserve with ₹{depositPrice} Deposit</span>
+                    <span className="text-xs">♡</span>
+                  </button>
+
+                  {isShopifyConnected() && (
+                    <a
+                      href={generateShopifyCartPermalink({
+                        quantity: 1,
+                        personalization: customName,
+                        size: currentSize.name,
+                        ruling: currentRuling.name,
+                        tier: currentTier.name
+                      })}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3 rounded-full bg-[#FFF0F4] hover:bg-[#FFE0E8] text-[#8C3847] border border-[#F5CCD6] text-xs sm:text-sm font-medium tracking-wide transition flex items-center justify-center gap-2"
+                    >
+                      <span>Buy via Shopify Checkout</span>
+                      <span className="text-xs">🛍️</span>
+                    </a>
+                  )}
+                </>
               )}
               <p className="text-center text-[11px] text-[#8C5E68] mt-2 font-sans">
                 100% unconditional refund anytime before dispatch • Free campus shipping

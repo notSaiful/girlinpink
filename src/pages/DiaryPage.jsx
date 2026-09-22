@@ -94,7 +94,7 @@ export const DiaryPage = ({ onNavigate }) => {
           “you can’t change your hostel walls, but your bed will always be your safe haven ♡”
         </p>
         <p className="font-serif italic text-xs text-muted mt-1">
-          Maya & Tara — girlinpink founders
+          Maya & Tara — journaly founders
         </p>
       </div>
 

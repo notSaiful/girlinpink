@@ -86,7 +86,7 @@ export const ShippingPolicy = ({ onNavigate }) => {
               Upon dispatch in early October, an SMS and email notification with your Bluedart/Delhivery live tracking link will be sent to your registered phone and email. For delivery assistance, contact:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1 text-xs text-[#69464C]">
-              <li>Email: <a href="mailto:care@girlinpink.co" className="text-[#8E4350] underline">care@girlinpink.co</a></li>
+              <li>Email: <a href="mailto:care@journaly.in" className="text-[#8E4350] underline">care@journaly.in</a></li>
               <li>Phone: +91 98860 43210 (Mon–Sat, 10 AM – 7 PM IST)</li>
             </ul>
           </div>

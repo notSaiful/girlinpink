@@ -57,11 +57,11 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
             >
               <img 
                 src="/logo.png" 
-                alt="girlinpink logo" 
+                alt="journaly logo" 
                 className="w-8 h-8 sm:w-10 sm:h-10 lg:w-11 lg:h-11 object-contain p-0.5 sm:p-1 rounded-xl sm:rounded-2xl bg-white border border-[#F6D5DC] shadow-xs group-hover:scale-105 transition-transform shrink-0" 
               />
               <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#2D1C20] group-hover:text-[#C27878] transition whitespace-nowrap shrink-0">
-                girlinpink<span className="text-[#C27878] font-serif font-normal">.</span>
+                journaly<span className="text-[#C27878] font-serif font-normal">.</span>
               </span>
             </button>
           </div>

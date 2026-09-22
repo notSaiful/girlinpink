@@ -46,7 +46,7 @@ export const AboutUs = ({ onNavigate }) => {
               Between marathon lecture schedules, glowing phone screens, and noisy hostel corridors, students rarely have a quiet space that feels truly grounded. We realized that writing by hand on thick, textured paper was the single most calming, restorative ritual of our university days.
             </p>
             <p className="mt-2">
-              <strong className="text-[#2D1C20]">girlinpink</strong> was born on crowded college desks. We set out to hand-bind journals that feel like treasured heirlooms—vegetable-tanned leather, heirloom lace, custom name embroidery, and Japanese Katakana foil—filled with 120–150 GSM archival paper that never bleeds.
+              <strong className="text-[#2D1C20]">journaly</strong> was born on crowded college desks. We set out to hand-bind journals that feel like treasured heirlooms—vegetable-tanned leather, heirloom lace, custom name embroidery, and Japanese Katakana foil—filled with 120–150 GSM archival paper that never bleeds.
             </p>
           </div>
 
@@ -69,13 +69,12 @@ export const AboutUs = ({ onNavigate }) => {
               3. Commercial Entity & Operations
             </h2>
             <p>
-              <strong className="text-[#2D1C20]">girlinpink</strong> is a registered direct-to-consumer brand commercially owned and operated by <strong className="text-[#2D1C20]">Glowup Living Retail LLP</strong>, headquartered in Bangalore, Karnataka.
+              <strong className="text-[#2D1C20]">journaly</strong> is a registered direct-to-consumer brand commercially owned and operated by <strong className="text-[#2D1C20]">Glowup Living Retail LLP</strong>, headquartered in Bangalore, Karnataka.
             </p>
             <ul className="list-disc pl-5 mt-3 space-y-1.5 text-xs text-[#69464C]">
-              <li><strong className="text-[#2D1C20]">Operating Entity:</strong> Glowup Living Retail LLP</li>
-              <li><strong className="text-[#2D1C20]">Brand:</strong> girlinpink (Creative Journals & Aesthetic Stationery)</li>
-              <li><strong className="text-[#2D1C20]">Headquarters:</strong> No. 42, 3rd Floor, 80 Feet Road, 4th Block, Koramangala, Bangalore, Karnataka 560034, India</li>
-              <li><strong className="text-[#2D1C20]">Customer Care:</strong> <a href="mailto:care@girlinpink.co" className="text-[#8E4350] underline font-medium">care@girlinpink.co</a> • +91 98860 43210</li>
+              <li><strong className="text-[#2D1C20]">Brand:</strong> journaly (Creative Journals & Aesthetic Stationery)</li>
+              <li><strong className="text-[#2D1C20]">Operating Entity:</strong> Glowup Living Retail LLP (LLPIN: ACA-8941)</li>
+              <li><strong className="text-[#2D1C20]">Customer Care:</strong> <a href="mailto:care@journaly.in" className="text-[#8E4350] underline font-medium">care@journaly.in</a> • +91 98860 43210</li>
               <li><strong className="text-[#2D1C20]">Payment Processing:</strong> Transactions processed securely via Razorpay Payment Gateway (PCI-DSS Level 1 Compliant)</li>
             </ul>
           </div>

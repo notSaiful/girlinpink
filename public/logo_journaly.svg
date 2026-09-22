@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF6F8" />
+      <stop offset="100%" stop-color="#FFE3E9" />
+    </linearGradient>
+    <linearGradient id="goldRose" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DD6B80" />
+      <stop offset="100%" stop-color="#B84A60" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Rounded Badge -->
+  <rect x="16" y="16" width="480" height="480" rx="110" fill="url(#bgGrad)" stroke="#F5CAD4" stroke-width="8" />
+  <rect x="36" y="36" width="440" height="440" rx="90" fill="none" stroke="#EDBDC8" stroke-width="2" stroke-dasharray="6 6" />
+
+  <!-- Handcrafted Open Journal Icon -->
+  <g transform="translate(256, 230)">
+    <!-- Left Page -->
+    <path d="M -130,40 C -90,20 -40,30 0,55 L 0,-115 C -40,-135 -90,-125 -130,-105 Z" 
+          fill="#FFFFFF" stroke="#E5B2BD" stroke-width="4" />
+    <path d="M -120,-90 C -85,-110 -45,-100 -10,-80 M -120,-60 C -85,-80 -45,-70 -10,-50 M -120,-30 C -85,-50 -45,-40 -10,-20 M -120,0 C -85,-20 -45,-10 -10,10" 
+          fill="none" stroke="#F3D0D8" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Right Page -->
+    <path d="M 130,40 C 90,20 40,30 0,55 L 0,-115 C 40,-135 90,-125 130,-105 Z" 
+          fill="#FFFBFB" stroke="#E5B2BD" stroke-width="4" />
+    <path d="M 10,-80 C 45,-100 85,-110 120,-90 M 10,-50 C 45,-70 85,-80 120,-60 M 10,-20 C 45,-40 85,-50 120,-30 M 10,10 C 45,-10 85,-20 120,0" 
+          fill="none" stroke="#F3D0D8" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Book Spine & Ribbon -->
+    <path d="M 0,-120 L 0,65" stroke="#C27878" stroke-width="6" stroke-linecap="round" />
+    <path d="M 0,-115 Q 15,-60 25,20 Q 30,75 40,95 L 30,95 L 20,85 L 10,95 Z" fill="url(#goldRose)" />
+
+    <!-- Delicate Botanical Twig above journal -->
+    <path d="M -45,-135 Q 0,-165 45,-135" fill="none" stroke="#C27878" stroke-width="3.5" stroke-linecap="round" />
+    <circle cx="-25" cy="-150" r="5" fill="#DD6B80" />
+    <circle cx="0" cy="-160" r="6" fill="#DD6B80" />
+    <circle cx="25" cy="-150" r="5" fill="#DD6B80" />
+  </g>
+
+  <!-- Brand Name Text -->
+  <text x="256" y="410" font-family="Fraunces, Georgia, serif" font-size="64" font-weight="bold" fill="#2D1C20" text-anchor="middle" letter-spacing="-1.5">
+    journaly<tspan fill="#DD6B80">.</tspan>
+  </text>
+  <text x="256" y="442" font-family="'Work Sans', sans-serif" font-size="16" font-weight="500" fill="#9C5B67" text-anchor="middle" letter-spacing="3.5">
+    HANDCRAFTED STATIONERY
+  </text>
+</svg>
