@@ -74,17 +74,12 @@ export const CartProvider = ({ children }) => {
     setIsDrawerOpen(false);
   };
 
-  // Pricing calculations based on journal edition, bundle tier & format size
+  // Direct retail pricing calculations based on journal edition
   const journalPrice = selectedPrint ? selectedPrint.price : 999;
-  const journalDeposit = selectedPrint ? selectedPrint.depositPrice : 290;
-  const bundleAddon = selectedTier?.id === 'writer-bundle' ? 300 : selectedTier?.id === 'heirloom-box' ? 700 : 0;
-  const bundleDepositAddon = selectedTier?.id === 'writer-bundle' ? 100 : selectedTier?.id === 'heirloom-box' ? 200 : 0;
-  
-  const sizeMultiplier = selectedSize?.multiplier || 1.0;
-  const basePrice = Math.round((journalPrice + bundleAddon) * sizeMultiplier);
-  const depositPrice = Math.round((journalDeposit + bundleDepositAddon) * sizeMultiplier);
-  const amountToPayNow = isDepositOnly ? depositPrice : basePrice;
-  const balanceDueLater = isDepositOnly ? basePrice - depositPrice : 0;
+  const basePrice = journalPrice;
+  const depositPrice = journalPrice;
+  const amountToPayNow = journalPrice;
+  const balanceDueLater = 0;
 
   return (
     <CartContext.Provider value={{

@@ -175,8 +175,8 @@ export const ProductCarousel = ({ onNavigate }) => {
                       </span>
                     )}
                   </div>
-                  <span className="text-[11px] font-sans font-medium text-[#DD6B80] bg-[#FFE8EE] px-2 py-0.5 rounded-full border border-[#F5CCD6]">
-                    ₹{journal.depositPrice} Deposit
+                  <span className="text-[11px] font-sans font-medium text-emerald-700 bg-[#EBF5EE] px-2 py-0.5 rounded-full border border-[#CDE5D4]">
+                    In Stock
                   </span>
                 </div>
 
@@ -185,7 +185,7 @@ export const ProductCarousel = ({ onNavigate }) => {
                   onClick={() => handleSelectProduct(journal)}
                   className="w-full py-2.5 sm:py-3 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-xs hover:shadow-sm active:scale-98 flex items-center justify-center gap-1.5"
                 >
-                  <span>{journal.isPersonalized ? 'Personalize & Pre-Order' : 'Select & Pre-Order'}</span>
+                  <span>{journal.isPersonalized ? 'Personalize & Buy' : `Buy Now — ₹${journal.price}`}</span>
                   <span className="text-xs">♡</span>
                 </button>
 

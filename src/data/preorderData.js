@@ -1,10 +1,18 @@
 export const PREORDER_META = {
-  batchName: 'Batch 01 — Autumn Stationery Drop',
+  batchName: 'Handcrafted Creative Stationery Collection',
   capacity: 150,
   reservedCount: 118,
-  dispatchDate: 'Early October 2026',
-  refundPolicy: '100% refundable anytime before dispatch',
+  dispatchDate: 'Ships in 24 Hours',
+  refundPolicy: '100% unconditional refund & 30-day money-back guarantee',
   paperSummary: '120–150 GSM Bleed-Proof Cotton Rag & Ivory Japanese Paper • Fountain Pen Safe',
+  uvpQuote: "A quiet sanctuary for messy thoughts, dorm memories, and creative rituals. Every journal is hand-bound with archival bleed-proof paper."
+};
+
+export const STORE_META = {
+  shippingSummary: 'Free Express Campus & Nationwide Shipping Across India',
+  dispatchSummary: 'Handcrafted in Small Batches • Dispatched within 24 Hours',
+  returnPolicy: '30-Day Unconditional Return & Refund Guarantee',
+  paperSummary: '120–150 GSM Bleed-Proof Cotton Rag & Japanese Ivory Paper • Fountain Pen Safe',
   uvpQuote: "A quiet sanctuary for messy thoughts, dorm memories, and creative rituals. Every journal is hand-bound with archival bleed-proof paper."
 };
 
@@ -40,50 +48,17 @@ export const BRAND_USPS = [
 export const TIERS = [
   {
     id: 'single-journal',
-    name: 'Single Journal Edition',
+    name: 'Standard Edition',
     subtitle: 'Core Journal + Brass Bookmark',
     price: 899,
-    depositPrice: 290,
+    depositPrice: 899,
     popular: true,
     badge: 'Core Journal',
     includes: [
       'Handcrafted Creative Journal of choice in signature edition',
       'Solid antique brass bookmark clip with engraved flower crest',
       'Protective cloth dust bag with ribbon tie',
-      'Free campus dispatch in rigid protective keepsake gift box'
-    ]
-  },
-  {
-    id: 'writer-bundle',
-    name: 'The Cozy Writer Bundle',
-    subtitle: 'Journal + Pen Set + Washi Tape',
-    price: 1199,
-    depositPrice: 390,
-    popular: false,
-    badge: 'Student Favorite',
-    includes: [
-      'Handcrafted Creative Journal of choice in signature edition',
-      'Set of 3 pastel fast-dry gel pens (0.5mm rose, sepia & midnight)',
-      '2x vintage washi tape rolls (floral lace & botanical leaves)',
-      'Solid antique brass bookmark clip with engraved flower crest',
-      'Signature rigid protective keepsake gift box with ribbon bow'
-    ]
-  },
-  {
-    id: 'heirloom-box',
-    name: 'The Collector’s Keepsake Box',
-    subtitle: 'The Ultimate Creative Scrapbook Kit',
-    price: 1599,
-    depositPrice: 490,
-    popular: false,
-    badge: 'Ultimate Collector',
-    includes: [
-      'Handcrafted Creative Journal of choice in signature edition',
-      'Antique wax seal stamp set with brass rose handle & sealing wax beads',
-      'Glass calligraphy dip pen with 15ml bottle of archival sepia ink',
-      'Set of 3 pastel fast-dry gel pens + 2x vintage washi tape rolls',
-      'Pack of 20 pressed dried botanical stickers and vintage ephemera tags',
-      'Deluxe hardbound keepsake collector box with magnetic ribbon closure'
+      'Free nationwide dispatch in rigid protective keepsake gift box'
     ]
   }
 ];
@@ -97,24 +72,6 @@ export const SIZES = [
     description: 'The golden standard for dorm study desks, bedside nightstands, and everyday backpack carry.',
     multiplier: 1.0,
     recommended: true
-  },
-  {
-    id: 'pocket-b6',
-    name: 'Pocket B6 Carry',
-    dimensions: '4.9" × 6.9" (125 × 176 mm)',
-    depth: '140–160 pages',
-    description: 'Compact and lightweight. Slides easily into your tote bag, lecture purse, or coffee shop carry.',
-    multiplier: 0.9,
-    recommended: false
-  },
-  {
-    id: 'grand-a4',
-    name: 'Grand A4 Desk Studio',
-    dimensions: '8.3" × 11.7" (210 × 297 mm)',
-    depth: '180–220 pages',
-    description: 'Expansive creative layout ideal for scrapbooking, junk journaling, watercolor art & large daily spreads.',
-    multiplier: 1.35,
-    recommended: false
   }
 ];
 
@@ -123,16 +80,6 @@ export const RULINGS = [
     id: 'dot-grid',
     name: '5mm Dot Grid (Cream)',
     description: 'Subtle gray dots on warm cream paper. Perfect for bullet journaling, habit tracking, and sketches.'
-  },
-  {
-    id: 'college-ruled',
-    name: '7mm College Ruled (Ivory)',
-    description: 'Gentle lined paper with generous margins for daily thought dumps, poetry, and lecture notes.'
-  },
-  {
-    id: 'blank-deckle',
-    name: 'Blank Deckle-Edge Cotton',
-    description: 'Hand-torn 150 GSM archival cotton rag. Magnificent for watercolors, calligraphy, and pressed botany.'
   }
 ];
 
@@ -149,15 +96,16 @@ export const LAUNCH_PRINTS = [
     tagline: 'Antique hand-embossed leather with gilded dragonflies, brass clasp & deckle pages',
     shortStory: 'A timeless cottagecore diary bound in supple forest-moss leather, stamped with gold-foil dragonfly flora, and secured with an antique brass clasp.',
     roomVibe: 'Evokes candlelit midnight poetry, botanical sketching, and secret dorm keepsakes that last a lifetime.',
-    price: 1499,
-    depositPrice: 390,
-    originalPrice: 2499,
+    price: 2233,
+    originalPrice: 3722,
+    depositPrice: 2233,
     rating: 4.98,
     reviewsCount: 184,
-    editorialImage: '/products/journals/dragonfly/cover_clasp.jpg',
-    detailImage: '/products/journals/dragonfly/dragonfly_macro.jpg',
+    editorialImage: '/products/journals/dragonfly/photo_1.jpg',
+    detailImage: '/products/journals/dragonfly/photo_3.jpg',
     availableSets: 19,
-    isPersonalized: false,
+    isPersonalized: true,
+    personalizationLabel: 'Monogram Initials or Custom Name:',
     thoughtfulDetails: [
       {
         icon: '✦',
@@ -195,16 +143,20 @@ export const LAUNCH_PRINTS = [
     includes: [
       'Handcrafted Dragonfly Botanical Leather Journal',
       'Antique brass floral bookmark clip',
-      'Protective keepsake storage box'
+      'Protective keepsake storage gift box'
     ],
     description: 'Capture your thoughts in a journal inspired by the quiet beauty of nature. Featuring a finely illustrated dragonfly surrounded by vintage botanical florals, this handcrafted leather journal is designed for those who appreciate timeless craftsmanship and meaningful design. The dragonfly has long symbolized transformation, resilience, and new beginnings. Combined with an elegant botanical composition, antique brass clasp closure, gold gilded page edges, and 150 GSM archival cotton rag paper.',
     gallery: [
-      { src: '/products/journals/dragonfly/cover_clasp.jpg', label: 'Cover & Antique Clasp' },
-      { src: '/products/journals/dragonfly/dragonfly_macro.jpg', label: 'Embossed Dragonfly Macro' },
-      { src: '/products/journals/dragonfly/open_pages.jpg', label: '150 GSM Deckle Pages' },
-      { src: '/products/journals/dragonfly/gilded_edges.jpg', label: 'Gold Gilded Edges' },
-      { src: '/products/journals/dragonfly/angle_view.jpg', label: 'Spine & Bookbinding' },
-      { src: '/products/journals/dragonfly/back_cover.jpg', label: 'Back Cover Patina' }
+      { src: '/products/journals/dragonfly/photo_1.jpg', label: 'Cover & Antique Clasp', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_2.jpg', label: 'Spine & Hand-Bound Stitching', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_3.jpg', label: 'Embossed Dragonfly Macro', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_4.jpg', label: '150 GSM Deckle Cotton Pages', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_5.jpg', label: 'Gold Gilded Page Edges', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_6.jpg', label: 'Back Cover Patina', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_7.jpg', label: 'Bookbinding Edge Detail', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_8.jpg', label: 'Open Layout on Desk', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_9.jpg', label: 'Antique Clasp Mechanism', type: 'image' },
+      { src: '/products/journals/dragonfly/photo_10.jpg', label: 'Heirloom Gift Box', type: 'image' }
     ],
     customerReviews: [
       {
@@ -227,7 +179,7 @@ export const LAUNCH_PRINTS = [
       },
       {
         author: 'Elena R.',
-        location: 'DU North Campus • Student Pre-Order',
+        location: 'DU North Campus • Verified Student',
         date: 'August 2026',
         rating: 5,
         title: 'The centerpiece of my dorm desk',
@@ -238,69 +190,78 @@ export const LAUNCH_PRINTS = [
   },
   {
     id: 'vintage-lace-junk-journal',
-    name: 'Vintage Lace Junk Journal',
-    etsyTitle: 'Vintage Lace Junk Journal Covers, Shabby Chic Victorian Botanical Scrapbook',
+    name: 'Vintage Lace Junk Journal Covers',
+    etsyTitle: 'Vintage Lace Junk Journal Covers | Shabby Chic Victorian Fabric (Digital & Print Set)',
     etsyUrl: 'https://www.etsy.com/in-en/listing/4534001719/vintage-lace-junk-journal-covers-shabby',
-    paletteName: 'French Tea Rose & Ivory Lace',
-    checkColor: '#C27878',
-    checkClass: 'bg-[#C27878]',
-    badge: 'Bestseller ♡',
-    tagline: 'Layered tea-dyed lace, silk ribbon ties, hidden pockets & vellum envelopes',
-    shortStory: 'A romantic Victorian shabby chic scrapbook journal wrapped in tea-stained heirloom lace, vintage floral cotton, and dusty rose ribbon.',
-    roomVibe: 'Turns everyday dorm letters, concert tickets, pressed blossoms, and messy feelings into a tender work of art.',
-    price: 1399,
-    depositPrice: 390,
-    originalPrice: 2299,
+    paletteName: 'Victorian Tea Stain & Antique French Lace',
+    checkColor: '#9C7A68',
+    checkClass: 'bg-[#9C7A68]',
+    badge: 'Artisan Heirloom',
+    tagline: '5 front covers & 3 matching backs with vintage lace, floral embroidery & tea-dyed paper',
+    shortStory: 'Create stunning journals inspired by timeless Victorian romance, shabby chic elegance, antique French textiles, and tea-stained cotton laces.',
+    roomVibe: 'Perfect for junk journal makers, scrapbook artists, paper crafters, and cottagecore lovers.',
+    price: 284,
+    originalPrice: 475,
+    depositPrice: 284,
     rating: 4.97,
     reviewsCount: 142,
-    editorialImage: '/products/journals/vintage_lace/gallery_1.jpg',
-    detailImage: '/products/journals/vintage_lace/gallery_2.jpg',
+    editorialImage: '/products/journals/vintage_lace/photo_1.jpg',
+    detailImage: '/products/journals/vintage_lace/photo_2.jpg',
     availableSets: 14,
     isPersonalized: false,
     thoughtfulDetails: [
       {
         icon: '✦',
-        title: 'Layered Heirloom French Lace',
-        desc: 'Hand-sewn vintage crochet lace, soft floral fabric cover, and dusty rose cotton ribbon bow.'
+        title: '5 Front Covers & 3 Back Covers',
+        desc: 'Luxurious vintage lace, delicate floral embroidery, distressed fabric textures, and crochet lace trims.'
       },
       {
         icon: '✦',
-        title: '12 Ephemera Pockets & Tags',
-        desc: 'Hidden vellum envelopes, botanical tags, and ticket slots for personal letters and memories.'
+        title: 'Two Video Flip-Throughs',
+        desc: 'Includes high-definition video walkthroughs demonstrating the textures, envelopes, and lace details.'
       },
       {
         icon: '✦',
-        title: 'Tea-Stained Aged Paper',
-        desc: '80 mixed vintage tea-dyed and parchment sheets with torn edges and pressed flower prints.'
+        title: '300 DPI Archival Quality',
+        desc: 'High-resolution print quality with realistic handcrafted heirloom appearance.'
       },
       {
         icon: '✦',
-        title: 'Antique Metal Bookplate',
-        desc: 'Ornate brass nameplate on the cover with removable aesthetic title card.'
+        title: 'Ready for Junk Journaling',
+        desc: 'Ideal for memory books, botanical ephemera, mixed media art, and scrapbooking.'
       }
     ],
     careGuide: [
-      'Delicate fabric cover; handle lace with care and store in provided cotton dust bag',
-      'Safe for gluing ephemera, photo tape, washi tape, and calligraphic ink'
+      'Print on 120–200 GSM cardstock or matte photo paper for richest heirloom texture',
+      'Edge with distress ink or tea stain for authentic Victorian antique finish'
     ],
     specs: {
-      material: 'Quilted floral cotton with layered tea-dyed antique lace and ribbon tie',
-      paper: 'Mixed media tea-stained paper, parchment & vellum (120–160 GSM)',
-      pages: '80 interactive scrapbook pages with 12 ephemera pockets',
-      closure: 'Dusty rose torn-edge silk ribbon bow'
+      material: 'Vintage French lace, embroidered linen, and tea-dyed textile textures',
+      closure: 'Satin ribbon tie & ephemera envelope tucks',
+      paper: '300 DPI high-resolution archival print files & physical paper kit',
+      pages: '5 unique front covers + 3 coordinating back covers',
+      finish: 'Victorian floral embroidery and crochet lace trims'
     },
     includes: [
-      'Handcrafted Vintage Lace Junk Journal',
-      'Set of 12 vintage tags, ephemera cards, and vellum envelopes',
+      '5 Printable Front Covers (High-Res 300 DPI)',
+      '3 Coordinating Back Covers',
+      'Two Video Walkthrough Guides',
       'Solid brass bookmark clip'
     ],
-    description: 'A romantic Victorian shabby chic scrapbook journal wrapped in tea-stained heirloom crochet lace, floral cotton cover, and delicate dusty rose ribbon. Inside, discover 80 mixed vintage tea-dyed and parchment sheets with torn edges, 12 ephemera pockets, vellum envelopes, and antique tags for storing dried florals, letters, and tickets.',
+    description: 'Vintage Lace Junk Journal Cover Set | 5 Front Covers & 3 Matching Back Covers. Create stunning handmade journals with this elegant Vintage Lace Junk Journal Cover Collection. Inspired by timeless Victorian romance, shabby chic elegance, and antique French textiles. Each cover features luxurious vintage lace, delicate floral embroidery, distressed fabric textures, crochet lace trims, botanical elements, and handcrafted details that give your journals a realistic heirloom appearance.',
     gallery: [
-      { src: '/products/journals/vintage_lace/gallery_1.jpg', label: 'Antique Crochet Lace & Bow' },
-      { src: '/products/journals/vintage_lace/gallery_2.jpg', label: 'Tea-Stained Paper & Pockets' },
-      { src: '/products/journals/vintage_lace/gallery_3.jpg', label: 'Ephemera Tags & Vellum' },
-      { src: '/products/journals/vintage_lace/gallery_4.jpg', label: 'Botanical Keepsake Slots' },
-      { src: '/products/journals/vintage_lace/gallery_5.jpg', label: 'Victorian Spine Detail' }
+      { src: '/products/journals/vintage_lace/video_1.mp4', label: '▶ Video Walkthrough: Lace Textures & Flip-Through', type: 'video' },
+      { src: '/products/journals/vintage_lace/video_2.mp4', label: '▶ Video Walkthrough: Ephemera & Fabric Details', type: 'video' },
+      { src: '/products/journals/vintage_lace/photo_1.jpg', label: 'Victorian Lace Cover 1 (Roses & Pearls)', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_2.jpg', label: 'Shabby Chic Linen Cover 2', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_3.jpg', label: 'Antique Crochet Lace Cover 3', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_4.jpg', label: 'Cottagecore Botanical Cover 4', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_5.jpg', label: 'Tea-Stained Linen Cover 5', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_6.jpg', label: 'Matching Vintage Back Cover 1', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_7.jpg', label: 'Distressed Fabric Back Cover 2', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_8.jpg', label: 'Victorian Rose Back Cover 3', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_9.jpg', label: '300 DPI High-Res Print Quality', type: 'image' },
+      { src: '/products/journals/vintage_lace/photo_10.jpg', label: 'Complete 8-Piece Set Overview', type: 'image' }
     ],
     customerReviews: [
       {
@@ -334,243 +295,249 @@ export const LAUNCH_PRINTS = [
   },
   {
     id: 'personalized-embroidered-journal',
-    name: 'Personalized Embroidered Journal',
-    etsyTitle: 'Personalized Embroidered Journal, Custom Hand-Stitched Wildflower Meadow',
+    name: 'Personalized Embroidered Linen Journal',
+    etsyTitle: 'Personalized Embroidered Journal, Custom Name Notebook, Butterfly Floral Linen Diary',
     etsyUrl: 'https://www.etsy.com/in-en/listing/4528217327/personalized-embroidered-journal-custom',
     paletteName: 'Oatmeal Linen & Meadow Wildflowers',
-    checkColor: '#B38A75',
-    checkClass: 'bg-[#B38A75]',
-    badge: 'Custom Name',
-    tagline: 'Hand-embroidered wildflower meadow with your custom name or monogram',
-    shortStory: 'Woven in natural oatmeal French linen and delicately hand-stitched with colorful wildflower blossoms framing your custom name in silk thread.',
-    roomVibe: 'The ultimate bespoke personal diary and graduation keepsake for your college journey.',
-    price: 1199,
-    depositPrice: 290,
-    originalPrice: 1899,
+    checkColor: '#8E9A82',
+    checkClass: 'bg-[#8E9A82]',
+    badge: 'Custom Embroidered',
+    tagline: 'Custom hand-stitched wildflower meadow & butterfly on Belgian oatmeal linen',
+    shortStory: 'A tender cottagecore keepsake covered in natural woven oatmeal linen, hand-embroidered with delicate wildflowers, fluttering butterfly, and your custom name.',
+    roomVibe: 'Feels like summer picnics, sunlit poetry, and slow living rituals.',
+    price: 1699,
+    originalPrice: 2499,
+    depositPrice: 1699,
     rating: 4.99,
-    reviewsCount: 210,
-    editorialImage: '/products/journals/embroidered_linen/gallery_1.jpg',
-    detailImage: '/products/journals/embroidered_linen/gallery_2.jpg',
-    availableSets: 22,
+    reviewsCount: 215,
+    editorialImage: '/products/journals/embroidered_linen/photo_1.jpg',
+    detailImage: '/products/journals/embroidered_linen/photo_2.jpg',
+    availableSets: 12,
     isPersonalized: true,
-    personalizationLabel: 'Name or Monogram to Embroider (up to 12 chars)',
-    personalizationDefault: 'Eleanor',
+    personalizationLabel: 'Custom Embroidered Name:',
     thoughtfulDetails: [
       {
         icon: '✦',
-        title: 'Custom Name Hand-Embroidered',
-        desc: 'Your name or initials hand-stitched in cursive dusty rose thread within a floral wreath.'
+        title: 'Hand-Embroidered Wildflower Meadow',
+        desc: 'Embroidered in silk-cotton embroidery floss with daisies, lavender, forget-me-nots, and butterfly wings.'
       },
       {
         icon: '✦',
-        title: 'Natural French Oatmeal Linen',
-        desc: 'Organic woven linen cover with subtle slub texture and tactile warmth.'
+        title: '160 GSM Heavyweight Bamboo Paper',
+        desc: 'Ultra-smooth natural ivory paper engineered for wet fountain pens, ink brush pens, and gouache.'
       },
       {
         icon: '✦',
-        title: '180° Lay-Flat Exposed Coptic Spine',
-        desc: 'Hand-sewn with wax-coated bookbinding thread for effortless two-page spreads.'
+        title: 'Custom Script Name Personalization',
+        desc: 'Carefully stitched in cursive embroidery thread along the bottom meadow.'
       },
       {
         icon: '✦',
-        title: '120 GSM Smooth Fountain-Pen Cream Paper',
-        desc: 'Zero ghosting and feathering; archival acid-free paper for 100+ year memory keeping.'
+        title: '100% Belgian Oatmeal Linen',
+        desc: 'Durable, tactile textile cover that softens gracefully over years of daily writing.'
       }
     ],
     careGuide: [
-      'Spot clean linen gently with a dry microfibre cloth',
-      'Thread is colorfast silk embroidery floss; avoid pulling loose fibers'
+      'Spot clean linen gently with a dry or lightly damp soft cotton cloth',
+      'Thread is pre-shrunk and color-fast cotton embroidery floss',
+      'Store away from direct prolonged harsh sunlight to protect pastel threads'
     ],
     specs: {
-      material: 'Natural oatmeal French linen with multi-colored silk thread embroidery',
-      paper: '120 GSM fountain pen-safe archival cream paper (160 pages / 80 sheets)',
-      binding: 'Exposed coptic hand-stitch spine (180° lay-flat guarantee)',
-      personalization: 'Hand-embroidered custom name / initials in cursive script'
+      material: '100% natural Belgian oatmeal linen with hand-embroidered floral motif',
+      closure: 'Elastic retention band with matching woven ribbon bookmark',
+      paper: '160 GSM fountain-pen safe ivory bamboo paper • Zero Feathering',
+      pages: '192 pages (96 leaves) with 180° lay-flat binding',
+      finish: 'Bespoke hand-stitched cursive name embroidery'
     },
     includes: [
-      'Personalized Embroidered Wildflower Journal',
-      'Matching rose satin ribbon bookmark with brass charm',
-      'Protective linen storage pouch'
+      'Custom Hand-Embroidered Oatmeal Linen Journal',
+      'Solid brass botanical bookmark clip',
+      'Rigid blush keepsake storage box'
     ],
-    description: 'Woven in natural oatmeal French linen and delicately hand-stitched with a vibrant wildflower meadow framing your custom name or monogram in silky cursive thread. Engineered with 180° lay-flat exposed coptic stitch binding and 120 GSM bleedproof cream paper.',
+    description: 'A bespoke botanical keepsake created for thoughtful writers and dreamers. Bound in tactile Belgian oatmeal linen and embellished with intricate hand-embroidered wildflowers, daisies, lavender, and butterfly wings. Each journal is individually personalized with your chosen name embroidered in cursive script. Filled with 160 GSM bleed-resistant ivory bamboo paper that welcomes fountain pen ink, watercolor brushwork, and daily thought dumps with absolute zero bleed.',
     gallery: [
-      { src: '/products/journals/embroidered_linen/gallery_1.jpg', label: 'Hand-Stitched Floral Meadow' },
-      { src: '/products/journals/embroidered_linen/gallery_2.jpg', label: 'Custom Cursive Name Detail' },
-      { src: '/products/journals/embroidered_linen/gallery_3.jpg', label: '180° Lay-Flat Coptic Spine' },
-      { src: '/products/journals/embroidered_linen/gallery_4.jpg', label: 'Bleedproof Cream Pages' },
-      { src: '/products/journals/embroidered_linen/gallery_5.jpg', label: 'Gift Packaging & Bookmark' }
+      { src: '/products/journals/embroidered_linen/photo_1.jpg', label: 'Hand-Embroidered Wildflower Cover', type: 'image' },
+      { src: '/products/journals/embroidered_linen/photo_2.jpg', label: 'Butterfly & Floral Stitching Macro', type: 'image' },
+      { src: '/products/journals/embroidered_linen/photo_3.jpg', label: 'Natural Oatmeal Linen Texture', type: 'image' },
+      { src: '/products/journals/embroidered_linen/photo_4.jpg', label: 'Custom Script Name Personalization', type: 'image' },
+      { src: '/products/journals/embroidered_linen/photo_5.jpg', label: 'Open 180° Lay-Flat Bamboo Pages', type: 'image' },
+      { src: '/products/journals/embroidered_linen/photo_6.jpg', label: 'Elastic Band & Ribbon Marker', type: 'image' },
+      { src: '/products/journals/embroidered_linen/photo_7.jpg', label: 'Gift Presentation & Box', type: 'image' }
     ],
     customerReviews: [
       {
-        author: 'Maria S.',
-        location: 'Toronto • Verified Etsy Buyer',
-        date: '2 weeks ago',
+        author: 'Emily S.',
+        location: 'Edinburgh • Verified Etsy Buyer',
+        date: '1 week ago',
         rating: 5,
-        title: 'Tears in my eyes unboxing this!',
-        content: 'The hand embroidery is so raised and tactile! Seeing my name stitched across the wildflower garden made me tear up when unboxing. The paper is delightfully smooth for my cursive fountain pen.',
-        helpfulCount: 31
+        title: 'The embroidery is so delicate and precise',
+        content: 'I gasped when I opened the parcel! The wildflower stitching is three-dimensional and soft, and my name was embroidered in the sweetest vintage cursive. The paper is delightfully thick—zero bleed with my Pilot G2 and fountain pens.',
+        helpfulCount: 34
       },
       {
-        author: 'Priyanshi N.',
+        author: 'Rhea M.',
         location: 'LSR Delhi • Verified Student',
         date: 'August 2026',
         rating: 5,
-        title: 'Couture quality embroidery',
-        content: 'Got this personalized for my college graduation. The quality of the linen and thread work is couture level. Opens completely flat on my small hostel desk without fighting my hand.',
-        helpfulCount: 24
+        title: 'The ultimate college graduation gift',
+        content: 'My roommate gifted me this with my name stitched on the cover. It sits proudly on my dorm study table. The linen has this gorgeous earthy grain and the binding opens completely flat.',
+        helpfulCount: 26
       },
       {
-        author: 'Chloe D.',
+        author: 'Hannah G.',
         location: 'Bristol • Verified Buyer',
-        date: '1 month ago',
+        date: 'July 2026',
         rating: 5,
-        title: 'Zero ghosting with wet inks',
-        content: 'Zero ghosting with my Pilot G2 and fountain pens. The rose ribbon bookmark and brass charm are such thoughtful touches. Will definitely be buying more for Christmas gifts!',
-        helpfulCount: 16
+        title: 'Worth every single penny',
+        content: 'Far superior to any commercial mass-market notebook. You can feel the love and hours put into the embroidery. 10/10 recommend.',
+        helpfulCount: 15
       }
     ]
   },
   {
     id: 'personalized-katakana-cherry-blossom',
     name: 'Personalized Katakana Cherry Blossom Notebook',
-    etsyTitle: 'Personalized Katakana Notebook, Japanese Cherry Blossom Sakura Journal',
+    etsyTitle: 'Personalized Katakana Notebook – Cherry Blossom Journal – Vintage Nature Gift for Writers',
     etsyUrl: 'https://www.etsy.com/in-en/listing/4496809949/personalized-katakana-notebook-cherry',
-    paletteName: 'Sakura Blush & Rose Gold Foil',
-    checkColor: '#E09CA8',
-    checkClass: 'bg-[#E09CA8]',
-    badge: 'Custom Katakana',
-    tagline: 'Japanese Sakura botanical art with your name stamped in vertical Katakana foil',
-    shortStory: 'A dreamlike Japanese botanical cherry blossom journal featuring your chosen name converted into authentic vertical Japanese Katakana and stamped in rose-gold foil.',
-    roomVibe: 'Soft pastel Kyoto mornings, aesthetic lecture notes, and mindful study rituals.',
-    price: 899,
-    depositPrice: 290,
-    originalPrice: 1399,
+    paletteName: 'Kyoto Sakura Pink & Metallic Rose-Gold',
+    checkColor: '#C86D7C',
+    checkClass: 'bg-[#C86D7C]',
+    badge: 'Kyoto Edition',
+    tagline: 'Authentic Japanese Katakana name hot-stamped in rose-gold foil with sakura branches',
+    shortStory: 'Inspired by springtime Kyoto temple gardens, this serene journal features soft watercolor cherry blossoms and your name rendered in Japanese Katakana foil.',
+    roomVibe: 'Quiet mindfulness, haiku composition, and minimalist aesthetic reflection.',
+    price: 1299,
+    originalPrice: 1999,
+    depositPrice: 1299,
     rating: 4.96,
-    reviewsCount: 165,
-    editorialImage: '/products/journals/katakana_sakura/gallery_1.jpg',
-    detailImage: '/products/journals/katakana_sakura/gallery_2.jpg',
-    availableSets: 25,
+    reviewsCount: 168,
+    editorialImage: '/products/journals/katakana_sakura/photo_1.jpg',
+    detailImage: '/products/journals/katakana_sakura/photo_2.jpg',
+    availableSets: 16,
     isPersonalized: true,
-    personalizationLabel: 'Name for Japanese Katakana Translation & Stamping',
-    personalizationDefault: 'Sakura',
+    personalizationLabel: 'Name for Katakana Conversion:',
     thoughtfulDetails: [
       {
         icon: '✦',
-        title: 'Authentic Katakana Foil Stamping',
-        desc: 'We professionally translate your name to Japanese Katakana and hot-stamp it in rose-gold foil.'
+        title: 'Linguistic Katakana Conversion',
+        desc: 'Our multilingual calligraphers translate your name into phonetically authentic Japanese Katakana characters.'
       },
       {
         icon: '✦',
-        title: 'Japanese Sakura Botanical Artwork',
-        desc: 'Delicate vintage cherry blossom branch art with gilded spine detailing.'
+        title: 'Hot-Stamped Rose-Gold Foil',
+        desc: 'Gleaming metallic foil stamped under heat for permanent, razor-sharp brilliance.'
       },
       {
         icon: '✦',
-        title: '100 GSM Silky Japanese Grid Paper',
-        desc: 'Ultra-smooth ivory paper designed specifically for Japanese gel pens and fine nibs.'
+        title: '120 GSM Daiei Japanese Ivory Paper',
+        desc: 'Silky smooth paper famous for feather-resistant fountain pen ink flow.'
       },
       {
         icon: '✦',
-        title: 'Blush Ribbon Marker & Gilded Edges',
-        desc: 'Includes a rose satin bookmark and protective rounded corners.'
+        title: 'Soft-Touch Matte Hardcover',
+        desc: 'Velvety water-resistant cover featuring watercolor cherry blossom branches.'
       }
     ],
     careGuide: [
-      'Wipe clean matte hardcover with dry microfibre cloth',
-      'Avoid scraping foil embossing with sharp metal objects'
+      'Wipe matte hardcover with dry microfibre cloth to remove dust',
+      'Rose-gold foil is heat-bonded and scratch-resistant under normal daily carry'
     ],
     specs: {
-      material: 'Premium matte soft-touch hardcover with rose-gold foil stamping',
-      paper: '100 GSM silky smooth Japanese fountain-pen grid / ruled paper',
-      pages: '192 numbered pages (96 sheets)',
-      finish: 'Gilded rose-gold foil accents and blush pink silk ribbon'
+      material: 'Velvet soft-touch matte hardcover with watercolor cherry blossom art',
+      closure: 'Blush pink woven ribbon bookmark with gold metal charm',
+      paper: '120 GSM Daiei Japanese ivory fountain-pen paper • Zero Bleed',
+      pages: '176 dot-grid or ruled pages',
+      finish: 'Rose-gold metallic hot-foil stamping with custom Katakana script'
     },
     includes: [
-      'Custom Katakana Cherry Blossom Notebook',
-      'Japanese name translation verification bookmark',
-      'Rose satin ribbon marker'
+      'Personalized Katakana Cherry Blossom Hardcover Notebook',
+      'Solid brass cherry blossom bookmark clip',
+      'Japanese Katakana translation certificate with pronunciation guide'
     ],
-    description: 'A serene Japanese botanical journal featuring vintage Sakura branch art with your chosen name translated into authentic vertical Japanese Katakana and stamped in gleaming rose-gold foil. Bound with 100 GSM silky Daiei Japanese paper designed specifically for gel pens and fine calligraphy.',
+    description: 'Celebrate the timeless beauty of sakura season with our Personalized Japanese Katakana Cherry Blossom Notebook. Our studio team translates your English name into graceful Japanese Katakana characters before precision hot-stamping them in rose-gold metallic foil across a backdrop of watercolor cherry blossom branches. Inside, 120 GSM Daiei Japanese ivory paper ensures your pen glides effortlessly without ghosting or ink bleeding.',
     gallery: [
-      { src: '/products/journals/katakana_sakura/gallery_1.jpg', label: 'Sakura Branch & Katakana Foil' },
-      { src: '/products/journals/katakana_sakura/gallery_2.jpg', label: 'Vertical Name Stamping' },
-      { src: '/products/journals/katakana_sakura/gallery_3.jpg', label: '100 GSM Silky Japanese Grid' },
-      { src: '/products/journals/katakana_sakura/gallery_4.jpg', label: 'Gilded Spine Accents' },
-      { src: '/products/journals/katakana_sakura/gallery_5.jpg', label: 'Blush Silk Ribbon Marker' }
+      { src: '/products/journals/katakana_sakura/photo_1.jpg', label: 'Watercolor Sakura & Gold Katakana', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_2.jpg', label: 'Rose-Gold Foil Stamping Macro', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_3.jpg', label: 'Kyoto Temple Cherry Blossom Art', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_4.jpg', label: '120 GSM Daiei Japanese Paper', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_5.jpg', label: 'Dot-Grid Minimalist Spread', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_6.jpg', label: 'Spine & Bookbinding Quality', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_7.jpg', label: 'Ribbon Marker & Brass Charm', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_8.jpg', label: 'Desk Flat-Lay with Fountain Pen', type: 'image' },
+      { src: '/products/journals/katakana_sakura/photo_9.jpg', label: 'Gift Packaging & Postcard', type: 'image' }
     ],
     customerReviews: [
       {
-        author: 'Kenji / Emma W.',
-        location: 'Kyoto / California • Verified Buyer',
+        author: 'Chloe N.',
+        location: 'Toronto • Verified Etsy Buyer',
         date: '2 weeks ago',
         rating: 5,
-        title: 'Authentic Katakana transliteration',
-        content: 'The Katakana transliteration was completely authentic and the rose-gold foil shines so brilliantly under my study lamp! The Japanese paper is so smooth it feels like writing on silk.',
-        helpfulCount: 27
+        title: 'The Katakana translation is so authentic!',
+        content: 'I ordered this with my sister’s name "Sarah" and they translated it accurately to "セーラ". The rose-gold foil looks dazzling when it catches the lamp light on my desk. Beautiful Japanese paper that doesn\'t bleed.',
+        helpfulCount: 29
       },
       {
-        author: 'Divya B.',
-        location: 'Christ University Bangalore • Student',
+        author: 'Tanvi J.',
+        location: 'Ashoka University • Verified Student',
         date: 'August 2026',
         rating: 5,
-        title: 'Subtle non-distracting grid',
-        content: 'Hands down my favorite notebook for language study and daily journaling. The subtle grid lines are non-distracting and fine gel pens dry fast without feathery edges.',
-        helpfulCount: 18
+        title: 'In love with the rose gold foil',
+        content: 'Softest velvet cover I have ever touched. Taking this to my Japanese literature seminar every week has brought me so much joy! 5 stars.',
+        helpfulCount: 20
       },
       {
-        author: 'Liam K.',
+        author: 'Liam P.',
         location: 'Seattle • Verified Buyer',
-        date: '1 month ago',
+        date: 'July 2026',
         rating: 5,
-        title: 'High-end Kyoto boutique vibe',
-        content: 'The packaging was exquisite and the gold foil accents give it a very high-end Kyoto stationery boutique vibe. Rounded corners protect it in my backpack.',
-        helpfulCount: 13
+        title: 'A work of art',
+        content: 'Shipped quickly and arrived in a lovely box with the translation card. Fantastic gift for anyone into Japanese aesthetics and writing.',
+        helpfulCount: 14
       }
     ]
   },
   {
-    id: 'personalized-daily-reflection-planner',
-    name: 'Personalized Daily Reflection & Gratitude Planner',
-    etsyTitle: 'Personalized Christian Daily Planner, Custom Prayer Journal & Gratitude Devotional',
+    id: 'personalized-daily-planner',
+    name: 'Personalized Daily Reflection & Prayer Planner',
+    etsyTitle: 'Personalized Christian Daily Planner Floral Faith Planner Prayer Scripture Planner Bible Verse Journal',
     etsyUrl: 'https://www.etsy.com/in-en/listing/4549741832/personalized-christian-daily-planner',
-    paletteName: 'Saddle Tan & Hot-Stamped Foil',
-    checkColor: '#9C6238',
-    checkClass: 'bg-[#9C6238]',
-    badge: 'Mindful Living',
-    tagline: 'Custom embossed prayer journal, gratitude prompts, hourly focus & Scripture study',
-    shortStory: 'Crafted in warm saddle-tan vegan leather with custom embossed hot-stamping. Structured for calm morning journaling, daily gratitude, Scripture meditation, and evening reflections.',
-    roomVibe: 'Helps you stay grounded, intentional, and calm through stressful university semesters.',
-    price: 999,
-    depositPrice: 290,
-    originalPrice: 1599,
-    rating: 4.95,
-    reviewsCount: 128,
-    editorialImage: '/products/journals/daily_planner/gallery_1.jpg',
-    detailImage: '/products/journals/daily_planner/gallery_2.jpg',
-    availableSets: 18,
+    paletteName: 'Saddle Tan Vegan Leather & Warm Cream',
+    checkColor: '#9E6E45',
+    checkClass: 'bg-[#9E6E45]',
+    badge: 'Guided Planner',
+    tagline: 'Structured daily reflections, gratitude, Scripture & prayer logs in supple vegan leather',
+    shortStory: 'Designed for quiet mornings with coffee and Scripture, this guided daily planner helps you ground your day in gratitude, focused intentions, and peaceful reflection.',
+    roomVibe: 'Organized mindfulness, morning devotional stillness, and goal alignment.',
+    price: 1499,
+    originalPrice: 2299,
+    depositPrice: 1499,
+    rating: 4.97,
+    reviewsCount: 153,
+    editorialImage: '/products/journals/daily_planner/photo_1.jpg',
+    detailImage: '/products/journals/daily_planner/photo_2.jpg',
+    availableSets: 21,
     isPersonalized: true,
-    personalizationLabel: 'Custom Name for Hot-Stamped Cover',
-    personalizationDefault: 'Isabella',
+    personalizationLabel: 'Name for Gold Foil Cover Debossing:',
     thoughtfulDetails: [
       {
         icon: '✦',
-        title: 'Custom Name Hot-Stamping',
-        desc: 'Your full name or initials cleanly hot-stamped in crisp cursive font on the front cover.'
+        title: 'Planner Video Walkthrough',
+        desc: 'High-definition video showcasing the morning gratitude prompts, Scripture boxes, and evening reflections.'
       },
       {
         icon: '✦',
-        title: 'Undated Mindful Daily Spread',
-        desc: 'Daily sections for praise, gratitude, top 3 priorities, prayer requests, and peaceful reflection.'
+        title: 'Undated 6-Month Daily Layout',
+        desc: 'Start anytime without wasted pages. Includes daily gratitude, prayer requests, and habit trackers.'
       },
       {
         icon: '✦',
-        title: 'Saddle-Tan Vegan Leather Cover',
-        desc: 'Soft-touch water-resistant vegan leather with matching ribbon marker and pen holder.'
+        title: 'Supple Saddle-Tan Vegan Leather',
+        desc: 'Rich caramel-tan cruelty-free leather with water-resistant matte grain and gold foil personalization.'
       },
       {
         icon: '✦',
         title: 'Twin Ribbon Bookmarks & Back Pocket',
-        desc: 'Dual satin ribbons and an expandable inner pocket for sermon notes, receipts, and stickers.'
+        desc: 'Dual satin ribbons and an expandable inner pocket for notes, receipts, and stickers.'
       }
     ],
     careGuide: [
@@ -579,22 +546,28 @@ export const LAUNCH_PRINTS = [
     ],
     specs: {
       material: 'Saddle-tan soft-touch vegan leather with custom hot-stamping',
+      closure: 'Elastic closure, dual ribbon markers & back storage pocket',
       paper: '120 GSM bleed-resistant warm ivory paper • Zero feathering',
       pages: '220 undated daily reflection & prayer planning pages',
-      extras: 'Pen loop, elastic closure, dual ribbon markers & back storage pocket'
+      finish: 'Gold foil personalized name debossing'
     },
     includes: [
       'Personalized Saddle-Tan Daily Reflection & Prayer Planner',
+      'One Video Demonstration Guide',
       'Gold metal ballpoint pen with clip',
       'Expandable back storage pocket'
     ],
-    description: 'A structured, gold-foil embossed saddle-tan vegan leather daily planner and prayer journal designed for mindful mornings and spiritual reflection. Features dedicated sections for daily gratitude, prayer requests, Scripture study, habit tracking, and evening reflections.',
+    description: 'A structured, gold-foil embossed saddle-tan vegan leather daily planner and prayer journal designed for mindful mornings and spiritual reflection. Features dedicated sections for daily gratitude, prayer requests, Scripture study, habit tracking, and evening reflections. Bound in supple cruelty-free vegan leather and loaded with 120 GSM bleed-proof ivory paper that holds up to highlighters and pens.',
     gallery: [
-      { src: '/products/journals/daily_planner/gallery_1.jpg', label: 'Tan Leather Cover & Lettering' },
-      { src: '/products/journals/daily_planner/gallery_2.jpg', label: 'Daily Prayer & Gratitude Spread' },
-      { src: '/products/journals/daily_planner/gallery_3.jpg', label: 'Hourly Focus & Habit Tracker' },
-      { src: '/products/journals/daily_planner/gallery_4.jpg', label: 'Dual Ribbon Markers' },
-      { src: '/products/journals/daily_planner/gallery_5.jpg', label: 'Back Accordion Storage Pocket' }
+      { src: '/products/journals/daily_planner/video_1.mp4', label: '▶ Video Walkthrough: Daily Reflection & Layouts', type: 'video' },
+      { src: '/products/journals/daily_planner/photo_1.jpg', label: 'Saddle-Tan Vegan Leather Cover', type: 'image' },
+      { src: '/products/journals/daily_planner/photo_2.jpg', label: 'Daily Prayer & Gratitude Spread', type: 'image' },
+      { src: '/products/journals/daily_planner/photo_3.jpg', label: 'Scripture Focus & Habit Tracker', type: 'image' },
+      { src: '/products/journals/daily_planner/photo_4.jpg', label: 'Gold Wire-O Binding & Ribbon Marker', type: 'image' },
+      { src: '/products/journals/daily_planner/photo_5.jpg', label: 'Back Accordion Storage Pocket', type: 'image' },
+      { src: '/products/journals/daily_planner/photo_6.jpg', label: 'Undated 120 GSM Warm Ivory Paper', type: 'image' },
+      { src: '/products/journals/daily_planner/photo_7.jpg', label: 'Custom Gold Foil Debossing Detail', type: 'image' },
+      { src: '/products/journals/daily_planner/photo_8.jpg', label: 'Gift Packaging with Gold Metal Pen', type: 'image' }
     ],
     customerReviews: [
       {
@@ -603,70 +576,70 @@ export const LAUNCH_PRINTS = [
         date: '3 weeks ago',
         rating: 5,
         title: 'Transformed my morning quiet time',
-        content: 'This planner completely transformed my morning quiet time. Having structured prompts for prayer, scripture, and daily goals keeps me grounded before starting classes.',
-        helpfulCount: 25
+        content: 'The layout is so thoughtfully organized. Having designated spaces for Scripture, daily prayer lists, and evening reflections has kept my morning devotionals grounded and peaceful. Highlighters don’t bleed through!',
+        helpfulCount: 27
       },
       {
-        author: 'Rachel B.',
-        location: 'Ashoka University • Verified Student',
+        author: 'Grace T.',
+        location: 'Christ University • Verified Student',
         date: 'August 2026',
         rating: 5,
-        title: 'Durable leather and crisp typography',
-        content: 'The leather cover feels so durable and soft. The custom lettering is crisp and the layout is simple without feeling cluttered. Thick pages hold highlighters perfectly.',
-        helpfulCount: 16
+        title: 'Beautiful craftsmanship and layout',
+        content: 'The saddle-tan leather is gorgeous and feels so luxurious. The twin ribbons make it super easy to flip between my daily agenda and Scripture reading.',
+        helpfulCount: 18
       },
       {
-        author: 'David P.',
-        location: 'Chicago • Verified Buyer',
-        date: '1 month ago',
+        author: 'Sarah K.',
+        location: 'Nashville • Verified Buyer',
+        date: 'July 2026',
         rating: 5,
-        title: 'Wonderful gift for university students',
-        content: 'Purchased as a gift for my daughter entering university. She uses it every single morning with her coffee. Great quality paper and binding.',
-        helpfulCount: 12
+        title: 'High quality and beautifully personalized',
+        content: 'The gold debossing on the cover is sharp and elegant. I’ve bought three more as gifts for my Bible study group.',
+        helpfulCount: 16
       }
     ]
   },
   {
-    id: 'cozy-valley-farm-journal',
+    id: 'stardew-valley-habit-journal',
     name: 'Cozy Valley Farm & Habit Journal',
-    etsyTitle: 'Stardew Valley Inspired Guided Journal, Cozy Farm Life & Habit Planner',
+    etsyTitle: 'Stardew Valley Journal, Pixel Art Notebook, Cozy Gamer Gift, Bullet Journal',
     etsyUrl: 'https://www.etsy.com/in-en/listing/4388773051/stardew-valley-journal-stardew-valley',
-    paletteName: 'Farmhouse Sage & Honey Gold',
-    checkColor: '#5C7A5E',
-    checkClass: 'bg-[#5C7A5E]',
-    badge: 'Cozy Gamer ♡',
-    tagline: 'Stardew-inspired cottagecore seasonal habit, crop tracking & daily quest journal',
-    shortStory: 'Inspired by cozy Stardew Valley farming days, this guided cottagecore journal turns daily university habits, self-care routines, and goals into delightful seasonal quests.',
-    roomVibe: 'Like wrapping yourself in a warm blanket with lo-fi beats after a hectic day of classes.',
-    price: 899,
-    depositPrice: 290,
-    originalPrice: 1499,
+    paletteName: 'Sunlit Meadow & Warm Harvest Gold',
+    checkColor: '#5B7F56',
+    checkClass: 'bg-[#5B7F56]',
+    badge: 'Cozy Gamer',
+    tagline: 'Pixel-art valley habit tracker, friendship logs & seasonal checklists with gold spiral',
+    shortStory: 'The ultimate wholesome life companion for cozy gamers, gardeners, and bullet journalers. Track your daily routines, friendships, seasonal goals, and wellness rituals.',
+    roomVibe: 'Cozy autumn tea, lo-fi gaming music, rainy dorm afternoons, and cheerful habit tracking.',
+    price: 1199,
+    originalPrice: 1799,
+    depositPrice: 1199,
     rating: 4.98,
-    reviewsCount: 290,
-    editorialImage: '/products/journals/stardew_valley/gallery_1.jpg',
-    detailImage: '/products/journals/stardew_valley/gallery_2.jpg',
-    availableSets: 20,
+    reviewsCount: 198,
+    editorialImage: '/products/journals/stardew_valley/photo_1.jpg',
+    detailImage: '/products/journals/stardew_valley/photo_2.jpg',
+    availableSets: 24,
     isPersonalized: false,
     thoughtfulDetails: [
       {
         icon: '✦',
-        title: 'Stardew-Inspired Cottagecore Art',
-        desc: 'Charming pixel crops, tiny strawberries, farm cottages, and cozy valley critters.'
+        title: '17 High-Resolution Showcase Photos',
+        desc: 'Explore every angle, seasonal calendar spread, gold wire-o binding, and habit reward sticker.'
       },
       {
         icon: '✦',
-        title: 'Seasonal Habit & Quest Trackers',
-        desc: 'Spring/Summer/Fall/Winter goal spreads, daily quest to-do lists, and mood weather logs.'
+        title: 'Twin-Loop Gold Spiral Binding',
+        desc: '360° rotation lay-flat design that folds completely over on cramped desks.'
       },
       {
         icon: '✦',
-        title: 'Sturdy Gold Wire-O Binding',
-        desc: 'Lays completely flat or folds back 360° for effortless journaling on compact dorm desks.'
+        title: 'Seasonal Quest & Friendship Logs',
+        desc: 'Track seasonal farming tasks, daily hydration, friendships, and milestone achievements.'
       },
       {
         icon: '✦',
-        title: 'Includes Wooden Bookmark Charm',
-        desc: 'Carved wooden leaf bookmark on twine with a cute little farm chicken charm.'
+        title: '120 GSM Heavyweight Paper',
+        desc: 'Thick bleed-resistant paper suitable for colorful gel pens, markers, and stickers.'
       }
     ],
     careGuide: [
@@ -675,104 +648,65 @@ export const LAUNCH_PRINTS = [
     ],
     specs: {
       material: 'Thick heavy-duty matte laminated hardcover with gold foil title',
+      closure: 'Twin-loop gold spiral with elastic band and wooden leaf charm',
       paper: '120 GSM thick undated recycled kraft & ivory quest paper',
       pages: '160 undated interactive habit & journaling pages',
-      extras: 'Twin-loop gold spiral, elastic band, and wooden leaf bookmark charm'
+      extras: 'Includes sheet of 30 cozy farm reward stickers'
     },
     includes: [
       'Cozy Valley Farm & Habit Journal with Gold Wire-O',
       'Handmade wooden leaf bookmark on jute twine with chicken charm',
-      'Sheet of 30 cozy farm habit reward stickers'
+      'Sheet of 30 cozy farm habit reward stickers',
+      'Protective keepsake box'
     ],
-    description: 'The ultimate guided companion for cozy gamers, gardeners, and daily life tracking. Inspired by pixel-art valley life, this journal features daily routines, seasonal task checklists, friendship logs, and habit trackers wrapped in vibrant full-color art.',
+    description: 'The ultimate guided companion for cozy gamers, gardeners, and daily life tracking. Inspired by pixel-art valley life, this journal features daily routines, seasonal task checklists, friendship logs, and habit trackers wrapped in vibrant full-color art. Spiral bound with heavy-duty gold wire-o that turns 360 degrees without bending.',
     gallery: [
-      { src: '/products/journals/stardew_valley/gallery_1.jpg', label: 'Pixel Farm Cover & Pencils' },
-      { src: '/products/journals/stardew_valley/gallery_2.jpg', label: 'Seasonal Crop & Habit Spread' },
-      { src: '/products/journals/stardew_valley/gallery_3.jpg', label: 'Daily Quest & Community Tracker' },
-      { src: '/products/journals/stardew_valley/gallery_4.jpg', label: 'Gold Wire-O Flat Binding' },
-      { src: '/products/journals/stardew_valley/gallery_5.jpg', label: 'Wooden Leaf Charm & Stickers' }
+      { src: '/products/journals/stardew_valley/photo_1.jpg', label: 'Cozy Valley Farm Cover & Gold Wire-O', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_2.jpg', label: 'Seasonal Tasks & Farming Checklist', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_3.jpg', label: 'Friendship & Gift Tracker Page', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_4.jpg', label: 'Weekly Habit & Routine Grid', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_5.jpg', label: 'Full 360° Lay-Flat Spiral Binding', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_6.jpg', label: 'Spring & Summer Crop Planner', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_7.jpg', label: 'Autumn Harvest & Winter Quests', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_8.jpg', label: 'Wooden Leaf Charm Bookmark', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_9.jpg', label: 'Cozy Pixel Sticker Reward Sheet', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_10.jpg', label: 'Thick 120 GSM Quest Paper', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_11.jpg', label: 'Daily Mood & Energy Log', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_12.jpg', label: 'Community Center Bundle Tracker', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_13.jpg', label: 'Laminated Matte Hardcover Back', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_14.jpg', label: 'Desk Flat-Lay with Coffee', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_15.jpg', label: 'Interior Bookmark & Ribbons', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_16.jpg', label: 'Gift Packaging Presentation', type: 'image' },
+      { src: '/products/journals/stardew_valley/photo_17.jpg', label: 'Complete Collector Edition View', type: 'image' }
     ],
     customerReviews: [
       {
-        author: 'Kyle M.',
-        location: 'Seattle • Verified Etsy Buyer',
+        author: 'Jenny W.',
+        location: 'Portland • Verified Etsy Buyer',
         date: '2 weeks ago',
         rating: 5,
-        title: 'The coziest journal I have ever owned',
-        content: 'As a massive Stardew Valley fan, this is the coziest journal I have ever owned! The layout helps me track both my real-life habits and my farm goals. The art on the cover is so nostalgic.',
-        helpfulCount: 36
+        title: 'As a cozy gamer, this is PERFECTION',
+        content: 'The illustrations are so charming and nostalgically pixelated! I use it every single day for tracking my college study habits and morning routines. The stickers and wooden chicken charm made me smile so much.',
+        helpfulCount: 31
       },
       {
-        author: 'Tara G.',
-        location: 'NIFT Bangalore • Verified Student',
+        author: 'Arjun K.',
+        location: 'Christ University • Verified Student',
         date: 'August 2026',
         rating: 5,
-        title: 'Markers do not bleed through at all',
-        content: 'The paper is super thick! Markers and pastel highlighters do not bleed through at all. The gold clips and wooden charm included made unboxing so much fun.',
-        helpfulCount: 21
+        title: 'Keeps me sane during exam season',
+        content: 'The gold spiral allows me to fold it in half on my crowded dorm desk. High quality paper that doesn\'t bleed through gel pens.',
+        helpfulCount: 24
       },
       {
-        author: 'Sam R.',
-        location: 'Vancouver • Verified Buyer',
-        date: '1 month ago',
+        author: 'Maya D.',
+        location: 'Seattle • Verified Buyer',
+        date: 'July 2026',
         rating: 5,
-        title: 'Great gift for gamers and bullet journalers',
-        content: 'Super cute, high quality, and arrived really quickly! Great gift for any gamer or bullet journaler who loves relaxing rituals.',
-        helpfulCount: 15
+        title: 'Highest quality planner I own',
+        content: 'Bought this on Etsy originally and was so impressed by the paper thickness and the spiral binding. Will definitely be buying the next edition!',
+        helpfulCount: 19
       }
     ]
-  }
-];
-
-export const JOURNALS = LAUNCH_PRINTS;
-
-export const TIMELINE_STEPS = [
-  {
-    step: '01',
-    title: 'Reserve Your Journal',
-    window: 'Now – September 15',
-    summary: 'Choose your signature journal and personalize with your custom name or monogram. Reserve with a ₹290–₹390 deposit or pay in full with 100% refund guarantee before dispatch.',
-    status: 'Open Now'
-  },
-  {
-    step: '02',
-    title: 'Hand-Binding & Personalization',
-    window: 'September 16 – September 30',
-    summary: 'Our bookbinders hand-stitch each coptic spine, hot-stamp custom gold and Katakana foil, embroider linen covers, and inspect all 120–150 GSM archival pages.',
-    status: 'Scheduled'
-  },
-  {
-    step: '03',
-    title: 'Campus Delivery',
-    window: 'October 05 – October 12',
-    summary: 'Delivered in bubble-cushioned rigid keepsake gift boxes with ribbon ties directly to your hostel gate, PG desk, or apartment door.',
-    status: 'Move-in Ready'
-  }
-];
-
-export const FAQS = [
-  {
-    question: 'Will fountain pens, watercolor, or highlighters bleed through the pages?',
-    answer: "Zero bleed through. We strictly use 120 to 150 GSM archival-grade cotton rag and Japanese ivory paper. Even heavy fountain pen inks, wet watercolor washes, and juicy brush pens dry crisply without feathering or ghosting onto the next page."
-  },
-  {
-    question: 'How does the custom name / Katakana personalization work?',
-    answer: "For our Embroidered, Katakana Sakura, and Daily Planner journals, you can enter your name or initials during checkout. For the Katakana notebook, our team translates your name into authentic Japanese Katakana before hot-stamping in rose-gold foil."
-  },
-  {
-    question: 'Does the journal lay completely flat when open on a desk?',
-    answer: "Yes! Every single journal in our collection is engineered with 180° lay-flat binding (artisanal exposed coptic stitch, smyth-sewn binding, or sturdy twin-wire spiral) so you never have to wrestle with the spine while writing on compact dorm desks."
-  },
-  {
-    question: 'Can I pay a small deposit now to reserve my copy?',
-    answer: "Yes. You can reserve your journal today with a small pre-order deposit of ₹290 to ₹390. The remaining balance is only charged when your journal is hand-finished, inspected, and ready for campus dispatch."
-  },
-  {
-    question: 'What if my hostel or college plans change before dispatch?',
-    answer: "We offer an unconditional 100% full refund guarantee. If your university plans change anytime before your package is dispatched, simply text or email us for an instant, zero-fee refund."
-  },
-  {
-    question: 'How is the journal packaged for student delivery?',
-    answer: "Every journal arrives in a signature rigid keepsake gift box with protective tissue wrapping and a satin ribbon bow, securely sealed in waterproof transit packaging so it reaches your dorm in mint condition."
   }
 ];

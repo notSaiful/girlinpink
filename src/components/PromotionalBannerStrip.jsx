@@ -11,8 +11,8 @@ const PROMO_ITEMS = [
   { icon: '🌿', text: 'Vegetable-Tanned Leather, Heirloom Lace & Linen', highlight: 'Artisanal Craft' },
   { icon: '🎀', text: 'Free Solid Antique Brass Bookmark Included', highlight: 'With Every Journal' },
   { icon: '✨', text: 'Strictly 150 Copies Per Edition', highlight: 'Limited Run' },
-  { icon: '📦', text: 'Free Campus Shipping Across India', highlight: 'Delivered to Your Hostel' },
-  { icon: '♡', text: '100% Unconditional Refund Prior to Dispatch', highlight: 'Hassle-Free Pre-Orders' }
+  { icon: '📦', text: 'Free Campus & Nationwide Express Shipping', highlight: 'Free Delivery' },
+  { icon: '♡', text: '100% Full Refund Guarantee Within 14 Days', highlight: 'Risk-Free Purchase' }
 ];
 
 /**
@@ -63,8 +63,8 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
           {/* Top Scrapbook Washi Tape Strip */}
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 sm:px-5 py-0.5 sm:py-1 bg-[#FADADD]/95 backdrop-blur-xs border border-dashed border-[#E5A8B4] rounded-xs shadow-2xs rotate-0.5 z-10 flex items-center justify-center max-w-[94%] text-center pointer-events-none">
             <span className="text-[10px] sm:text-[11px] font-hand text-[#8C3847] font-semibold tracking-wider whitespace-nowrap">
-              <span className="hidden sm:inline">batch 01 pre-launch • pre-orders open september 9th 8:00 pm ♡</span>
-              <span className="sm:hidden">batch 01 pre-launch • drops sept 9th 8 pm ♡</span>
+              <span className="hidden sm:inline">batch 01 studio drop • handcrafted stationery in stock ♡</span>
+              <span className="sm:hidden">batch 01 studio drop • in stock ♡</span>
             </span>
           </div>
 
@@ -73,28 +73,28 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
             {/* Left: Pre-Launch & ICP Context */}
             <div className="text-center lg:text-left space-y-1.5 max-w-lg">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#F5CCD6] text-[10px] sm:text-[11px] font-medium uppercase tracking-wider text-[#C2546A]">
-                <span className="w-2 h-2 rounded-full bg-[#DD6B80] animate-ping" />
-                <span>Pre-Launch: Orders Open Sept 9th, 8 PM</span>
+                <span className="w-2 h-2 rounded-full bg-[#DD6B80] animate-pulse" />
+                <span>Batch 01 Released: Ready for Immediate Dispatch</span>
               </div>
               
               <h3 className="font-serif text-2xl sm:text-3xl text-[#2D1C20] font-normal tracking-tight">
-                Batch 01 Stationery Drop Soon
+                Handcrafted Creative Journals Now Available
               </h3>
               
               <p className="text-xs sm:text-sm text-[#69464C] leading-relaxed font-sans">
-                We are currently in <strong>pre-launch</strong>! Handcrafted journal pre-orders unlock on <strong>September 9th at 8:00 PM IST</strong>. Strictly capped at 150 individually inspected copies per edition with custom name embroidery & foil options.
+                Crafted in strictly limited runs of 150 individually inspected copies per edition. Bound with 120–150 GSM archival bleedproof paper, heirloom lace, and bespoke personalization.
               </p>
 
               {/* Real-time remaining allocation pill */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 sm:gap-2 pt-1 text-xs font-sans">
                 <span className="px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium bg-white text-[#8C3847] border-[#F5CCD6]">
-                  🌿 Dragonfly Leather: 19 Sets Left
+                  🌿 Dragonfly Leather: 19 Copies Left
                 </span>
                 <span className="px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium bg-white text-[#8C3847] border-[#F5CCD6]">
-                  🎀 Vintage Lace: 14 Sets Left
+                  🎀 Vintage Lace: 14 Copies Left
                 </span>
                 <span className="px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] font-medium bg-white text-[#8C3847] border-[#F5CCD6]">
-                  🪡 Embroidered Linen: 22 Sets Left
+                  🪡 Embroidered Linen: 22 Copies Left
                 </span>
               </div>
             </div>
@@ -170,9 +170,9 @@ export const PreLaunchTimerSection = ({ onNavigate, onExplore }) => {
                   <span>Explore 6 Journal Editions</span>
                   <span className="text-xs">♡</span>
                 </button>
-                <span className="text-[10px] sm:text-[11px] text-[#8C5E68] font-sans flex items-center gap-1">
-                  <span>🔒</span>
-                  <span>Pre-orders unlock Sept 9th, 8:00 PM</span>
+                <span className="text-[10px] sm:text-[11px] text-[#2C6B3C] font-sans flex items-center gap-1 font-medium">
+                  <span>✓</span>
+                  <span>In Stock • Dispatches in 24 Hours in Keepsake Box</span>
                 </span>
               </div>
 

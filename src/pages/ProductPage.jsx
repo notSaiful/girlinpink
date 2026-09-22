@@ -133,8 +133,7 @@ export const ProductPage = ({ onNavigate }) => {
     if (setPersonalization) setPersonalization(val);
   };
 
-  const handleReserveClick = () => {
-    if (!timeLeft.isExpired) return; // Locked during pre-launch countdown
+  const handleBuyNow = () => {
     if (currentStats.isSoldOut) return;
     if (setSelectedPrint) setSelectedPrint(currentJournal);
     if (setSelectedSize) setSelectedSize(currentSize);
@@ -207,13 +206,26 @@ export const ProductPage = ({ onNavigate }) => {
           {/* ================= SECTION 1: PRODUCT IMAGES (TOP) ================= */}
           <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4">
             
-            {/* Featured Image Frame */}
-            <div className="relative group rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[16/11] bg-stone-100 border border-[#F8D2DA] shadow-sm">
-              <img
-                src={galleryImages[safeActiveIndex].src}
-                alt={galleryImages[safeActiveIndex].label || currentJournal.name}
-                className="w-full h-full object-cover object-center transition-all duration-300"
-              />
+            {/* Featured Image / Video Frame */}
+            <div className="relative group rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[16/11] bg-stone-900 border border-[#F8D2DA] shadow-sm flex items-center justify-center">
+              {galleryImages[safeActiveIndex].type === 'video' ? (
+                <video
+                  key={galleryImages[safeActiveIndex].src}
+                  src={galleryImages[safeActiveIndex].src}
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-contain bg-black/95 transition-all duration-300"
+                />
+              ) : (
+                <img
+                  src={galleryImages[safeActiveIndex].src}
+                  alt={galleryImages[safeActiveIndex].label || currentJournal.name}
+                  className="w-full h-full object-cover object-center transition-all duration-300 bg-stone-100"
+                />
+              )}
 
               {/* Prev / Next Image Navigation Buttons */}
               {galleryImages.length > 1 && (
@@ -221,36 +233,37 @@ export const ProductPage = ({ onNavigate }) => {
                   <button
                     onClick={handlePrevImage}
                     className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/85 hover:bg-white text-[#7E3846] flex items-center justify-center shadow-md border border-[#F8D2DA] transition z-20 opacity-80 group-hover:opacity-100 hover:scale-105 active:scale-95"
-                    aria-label="Previous photo"
+                    aria-label="Previous media"
                   >
                     <span className="text-base font-serif leading-none">‹</span>
                   </button>
                   <button
                     onClick={handleNextImage}
                     className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/85 hover:bg-white text-[#7E3846] flex items-center justify-center shadow-md border border-[#F8D2DA] transition z-20 opacity-80 group-hover:opacity-100 hover:scale-105 active:scale-95"
-                    aria-label="Next photo"
+                    aria-label="Next media"
                   >
                     <span className="text-base font-serif leading-none">›</span>
                   </button>
                 </>
               )}
 
-              {/* Photo Caption & Index Pill */}
+              {/* Photo / Video Caption & Index Pill */}
               <div className="absolute bottom-3.5 left-3.5 bg-[#FFF8F9]/95 backdrop-blur-md px-3 py-1 rounded-full border border-[#F7D5DC] text-xs font-sans text-[#7E3846] shadow-xs z-20 flex items-center gap-1.5">
                 <span className="font-semibold text-[#DD6B80]">{safeActiveIndex + 1}/{galleryImages.length}</span>
                 <span className="text-stone-300">•</span>
-                <span>{galleryImages[safeActiveIndex].label}</span>
+                <span className="flex items-center gap-1">
+                  {galleryImages[safeActiveIndex].type === 'video' && <span className="text-rose-500 font-bold text-[10px]">▶ VIDEO:</span>}
+                  <span>{galleryImages[safeActiveIndex].label}</span>
+                </span>
               </div>
 
-              {/* Batch Remaining Badge (Strict 150 Limit) */}
+              {/* Batch Remaining Badge */}
               <div className={`absolute top-3.5 right-3.5 backdrop-blur-md px-3 py-1 rounded-full text-xs font-sans tracking-wide z-20 ${
                 currentStats.isSoldOut ? 'bg-rose-950/95 font-semibold text-rose-100 shadow-sm' : 'bg-[#7A2A38]/85 text-white'
               }`}>
                 {currentStats.isSoldOut
                   ? 'Out of Stock'
-                  : !timeLeft.isExpired
-                    ? 'Drops Sept 9th'
-                    : `${currentJournal.availableSets} copies remaining`}
+                  : `${currentJournal.availableSets} copies available`}
               </div>
 
               {/* Out of Stock Photo Overlay */}
@@ -260,7 +273,7 @@ export const ProductPage = ({ onNavigate }) => {
                     Out of Stock
                   </span>
                   <span className="text-[11px] text-white/90 font-sans mt-1.5 font-medium">
-                    Batch 01 allocation full (150/150 reserved)
+                    Batch 01 allocation full
                   </span>
                 </div>
               )}
@@ -268,20 +281,29 @@ export const ProductPage = ({ onNavigate }) => {
 
             {/* Thumbnails Row */}
             <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 sm:gap-2.5">
-              {galleryImages.map((img, idx) => (
+              {galleryImages.map((item, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImageIndex(idx)}
-                  className={`relative rounded-xl overflow-hidden aspect-square border-2 transition-all duration-150 bg-stone-50 group/thumb ${
+                  className={`relative rounded-xl overflow-hidden aspect-square border-2 transition-all duration-150 bg-stone-100 group/thumb ${
                     safeActiveIndex === idx 
                       ? 'border-[#DD6B80] ring-2 ring-[#DD6B80]/40 shadow-xs scale-102' 
                       : 'border-[#F8D2DA] hover:border-[#E8B2BD] opacity-80 hover:opacity-100'
                   }`}
-                  title={img.label}
+                  title={item.label}
                 >
-                  <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
-                  <div className="absolute inset-x-0 bottom-0 bg-black/40 text-[8px] text-white text-center py-0.5 px-0.5 truncate backdrop-blur-2xs opacity-0 group-hover/thumb:opacity-100 transition">
-                    {img.label}
+                  {item.type === 'video' ? (
+                    <div className="w-full h-full bg-stone-900 flex items-center justify-center relative">
+                      <video src={item.src} className="w-full h-full object-cover opacity-60 pointer-events-none" muted />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="w-6 h-6 rounded-full bg-[#DD6B80] text-white text-[10px] flex items-center justify-center shadow-md">▶</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <img src={item.src} alt={item.label} className="w-full h-full object-cover" />
+                  )}
+                  <div className="absolute inset-x-0 bottom-0 bg-black/60 text-[8px] text-white text-center py-0.5 px-0.5 truncate backdrop-blur-2xs opacity-0 group-hover/thumb:opacity-100 transition">
+                    {item.type === 'video' ? `▶ ${item.label}` : item.label}
                   </div>
                 </button>
               ))}
@@ -315,27 +337,39 @@ export const ProductPage = ({ onNavigate }) => {
               </p>
             </div>
 
-            {/* Pre-Order Pricing Card */}
+            {/* Basic Retail Pricing Card */}
             <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
               <div>
                 <span className="text-[11px] text-[#8C5E68] block uppercase tracking-wider font-sans font-medium">
-                  Pre-Order Reservation Deposit
+                  Artisanal Keepsake Price
                 </span>
-                <div className="flex items-baseline gap-2 mt-0.5">
-                  <span className="font-serif text-3xl sm:text-4xl font-normal text-[#DD6B80]">
-                    ₹{depositPrice}
+                <div className="flex items-baseline gap-2.5 mt-0.5">
+                  <span className="font-serif text-3xl sm:text-4xl font-normal text-[#2D1C20]">
+                    ₹{currentJournal.price}
                   </span>
-                  <span className="text-xs text-[#8C5E68] font-sans">to reserve today</span>
+                  {currentJournal.originalPrice && (
+                    <span className="text-sm sm:text-base text-stone-400 line-through font-sans">
+                      ₹{currentJournal.originalPrice}
+                    </span>
+                  )}
+                  {currentJournal.originalPrice && (
+                    <span className="text-xs font-semibold text-[#DD6B80] bg-[#FFE8EE] px-2 py-0.5 rounded-full border border-[#F5CCD6]">
+                      Save {Math.round((1 - currentJournal.price / currentJournal.originalPrice) * 100)}%
+                    </span>
+                  )}
                 </div>
-                <div className="text-xs text-[#69464C] mt-1 font-sans">
-                  Total Journal Value: <strong className="text-[#2D1C20]">₹{basePrice}</strong> 
-                  <span className="text-stone-400 line-through ml-1.5">₹{currentJournal.originalPrice}</span>
+                <div className="text-xs text-[#69464C] mt-1.5 font-sans flex flex-wrap items-center gap-2">
+                  <span className="text-emerald-700 font-medium">✓ In Stock</span>
+                  <span className="text-stone-300">•</span>
+                  <span>Ready to Dispatch in 24 Hours</span>
+                  <span className="text-stone-300">•</span>
+                  <span>Free Nationwide Shipping</span>
                 </div>
               </div>
 
               <div className="w-full sm:w-auto p-3 sm:p-3.5 rounded-xl bg-[#FFE8EE] border border-[#F5CCD6] text-left sm:text-right text-xs font-sans text-[#7A2A38] space-y-0.5 sm:space-y-1">
-                <div className="font-medium">Remaining Balance: ₹{balanceDueLater}</div>
-                <div className="text-[11px] text-[#8C5E68]">Due upon campus dispatch in October 2026</div>
+                <div className="font-medium">Handcrafted Batch 01</div>
+                <div className="text-[11px] text-[#8C5E68]">Strictly limited release • Heirloom box included</div>
               </div>
             </div>
 
@@ -361,172 +395,51 @@ export const ProductPage = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Configuration Selectors */}
-            <div className="space-y-5">
-              
-              {/* 1. Choose Journal Edition */}
-              <div className="space-y-2">
-                <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
-                  <span>1. Select Journal Edition:</span>
-                  <span className="text-[#8C5E68] text-xs">{currentJournal.paletteName}</span>
+            {/* Bespoke Personalization Input (Only shown if current edition is personalized) */}
+            {currentJournal.isPersonalized && (
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF2F5] border border-[#F7CCD6] space-y-3">
+                <div className="flex items-center justify-between text-xs font-sans">
+                  <span className="font-medium text-[#2D1C20] flex items-center gap-1.5">
+                    <span>🪡</span>
+                    <span>{currentJournal.personalizationLabel || 'Custom Name Personalization:'}</span>
+                  </span>
+                  <span className="text-[11px] text-[#A85E5E] font-hand">included with journal ♡</span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {LAUNCH_PRINTS.map(p => {
-                    const pStats = getPrintStats ? getPrintStats(p.name) : { remaining: 150, isSoldOut: false };
-                    return (
-                      <button
-                        key={p.id}
-                        onClick={() => handleJournalChange(p.id)}
-                        className={`p-3 rounded-2xl border text-left transition flex items-center justify-between ${
-                          selectedPrintId === p.id 
-                            ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
-                            : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <img src={p.editorialImage} alt={p.name} className="w-7 h-7 rounded-lg object-cover shrink-0 border border-[#F6D5DC]" />
-                          <div className="flex flex-col">
-                            <span className="text-xs font-medium line-clamp-1">{p.name}</span>
-                            <span className="text-[10px] text-[#8C5E68]">₹{p.price}</span>
-                          </div>
-                        </div>
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans shrink-0 ${
-                          pStats.isSoldOut 
-                            ? 'bg-rose-100 text-rose-800 font-semibold border border-rose-300' 
-                            : 'bg-white/80 text-[#8C3847] border border-[#F5CCD6]'
-                        }`}>
-                          {p.badge || 'Batch 01'}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+                
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <input
+                    type="text"
+                    value={customName}
+                    onChange={handleNameChange}
+                    placeholder="e.g. Eleanor"
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-[#F5CCD6] text-xs sm:text-sm font-serif text-[#2D1C20] focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80] shadow-2xs"
+                    maxLength={16}
+                  />
 
-              {/* 2. Bespoke Personalization Input (if applicable) */}
-              {currentJournal.isPersonalized && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF2F5] border border-[#F7CCD6] space-y-3">
-                  <div className="flex items-center justify-between text-xs font-sans">
-                    <span className="font-medium text-[#2D1C20] flex items-center gap-1.5">
-                      <span>🪡</span>
-                      <span>{currentJournal.personalizationLabel || 'Custom Name Personalization:'}</span>
+                  {/* Live Metallic Foil Shimmer Preview Plaque */}
+                  <div className="px-4 py-2.5 rounded-xl bg-[#231A1E] border border-[#D4AF37]/50 shadow-sm shrink-0 flex items-center justify-center gap-2">
+                    <span className="text-[10px] uppercase tracking-wider text-amber-200/70 font-sans font-medium">
+                      {currentJournal.id.includes('katakana') ? 'Rose-Gold Foil:' : 'Gilded Foil:'}
                     </span>
-                    <span className="text-[11px] text-[#A85E5E] font-hand">included in edition ♡</span>
-                  </div>
-                  
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                    <input
-                      type="text"
-                      value={customName}
-                      onChange={handleNameChange}
-                      placeholder="e.g. Eleanor"
-                      className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-[#F5CCD6] text-xs sm:text-sm font-serif text-[#2D1C20] focus:outline-none focus:border-[#DD6B80] focus:ring-1 focus:ring-[#DD6B80] shadow-2xs"
-                      maxLength={16}
-                    />
-
-                    {/* Live Metallic Foil Shimmer Preview Plaque */}
-                    <div className="px-4 py-2.5 rounded-xl bg-[#231A1E] border border-[#D4AF37]/50 shadow-sm shrink-0 flex items-center justify-center gap-2">
-                      <span className="text-[10px] uppercase tracking-wider text-amber-200/70 font-sans font-medium">
-                        {currentJournal.id.includes('katakana') ? 'Rose-Gold Foil:' : 'Gilded Foil:'}
-                      </span>
-                      <span className={`${currentJournal.id.includes('katakana') ? 'foil-rose-shimmer' : 'foil-gold-shimmer'} font-serif text-sm tracking-widest font-semibold`}>
-                        {customName || 'Your Name'}
-                      </span>
-                      <span className="text-[10px] text-amber-300/80 animate-pulse">✨</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-[#8C5E68] font-sans">
-                    <span>
-                      {currentJournal.id.includes('katakana') 
-                        ? 'Our linguistic team will convert your name into authentic Japanese Katakana before hot-stamping in rose-gold foil.' 
-                        : 'Hand-embroidered in cursive thread and hot-stamped with metallic foil highlights across your journal cover.'}
+                    <span className={`${currentJournal.id.includes('katakana') ? 'foil-rose-shimmer' : 'foil-gold-shimmer'} font-serif text-sm tracking-widest font-semibold`}>
+                      {customName || 'Your Name'}
                     </span>
-                    <span className="shrink-0 text-[10px] font-hand text-[#B05063]">
-                      hand-stamped in batch 01 ♡
-                    </span>
+                    <span className="text-[10px] text-amber-300/80 animate-pulse">✨</span>
                   </div>
                 </div>
-              )}
 
-              {/* 3. Choose Format / Size */}
-              <div className="space-y-2">
-                <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
-                  <span>2. Format & Size:</span>
-                  <span className="text-[#8C5E68] text-xs">{currentSize.dimensions}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  {SIZES.map(s => (
-                    <button
-                      key={s.id}
-                      onClick={() => handleSizeChange(s.id)}
-                      className={`p-3 rounded-2xl border text-left text-xs transition ${
-                        selectedSizeId === s.id 
-                          ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
-                          : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
-                      }`}
-                    >
-                      <div className="font-serif text-xs sm:text-sm">{s.name}</div>
-                      <div className="text-[10px] text-[#8C5E68] mt-0.5">{s.dimensions}</div>
-                    </button>
-                  ))}
+                <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-[#8C5E68] font-sans">
+                  <span>
+                    {currentJournal.id.includes('katakana') 
+                      ? 'Our linguistic team will convert your name into authentic Japanese Katakana before hot-stamping in rose-gold foil.' 
+                      : 'Hand-embroidered in cursive thread and hot-stamped with metallic foil highlights across your journal cover.'}
+                  </span>
+                  <span className="shrink-0 text-[10px] font-hand text-[#B05063]">
+                    hand-crafted in batch 01 ♡
+                  </span>
                 </div>
               </div>
-
-              {/* 4. Choose Paper Ruling */}
-              <div className="space-y-2">
-                <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
-                  <span>3. Paper Ruling Style:</span>
-                  <span className="text-[#8C5E68] text-xs">{currentRuling.name}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  {RULINGS.map(r => (
-                    <button
-                      key={r.id}
-                      onClick={() => handleRulingChange(r.id)}
-                      className={`p-3 rounded-2xl border text-left text-xs transition ${
-                        selectedRulingId === r.id 
-                          ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
-                          : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
-                      }`}
-                    >
-                      <div className="font-serif text-xs sm:text-sm">{r.name}</div>
-                      <div className="text-[10px] text-[#8C5E68] mt-0.5 line-clamp-1">{r.description}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* 5. Bundle Tier Selection */}
-              <div className="space-y-2">
-                <div className="text-xs font-medium text-[#2D1C20] flex items-center justify-between font-sans">
-                  <span>4. Choose Bundle:</span>
-                  <span className="text-[#8C5E68] text-xs">{currentTier.name}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  {TIERS.map(t => (
-                    <button
-                      key={t.id}
-                      onClick={() => handleTierChange(t.id)}
-                      className={`p-3 rounded-2xl border text-left text-xs transition flex flex-col justify-between ${
-                        selectedTierId === t.id 
-                          ? 'border-[#DD6B80] bg-[#FFE8EE] font-medium text-[#9E2B42] shadow-xs ring-1 ring-[#DD6B80]/40' 
-                          : 'border-[#F3CCD5] bg-[#FFFBFC] text-[#69464C] hover:border-[#E8B2BD] hover:bg-[#FFF0F4]'
-                      }`}
-                    >
-                      <div>
-                        <div className="font-serif text-xs sm:text-sm">{t.name}</div>
-                        <div className="text-[10px] text-[#8C5E68] mt-0.5">{t.subtitle}</div>
-                      </div>
-                      <div className="text-[11px] font-semibold text-[#DD6B80] mt-2">
-                        {t.id === 'single-journal' ? 'Standard' : t.id === 'writer-bundle' ? '+₹300' : '+₹700'}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-            </div>
+            )}
 
             {/* Inclusions List */}
             <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF1F4] border border-[#FAD2DB] space-y-2 text-xs text-[#69464C]">
@@ -554,21 +467,13 @@ export const ProductPage = ({ onNavigate }) => {
                   <span>Batch 01 Sold Out</span>
                   <span>🔒</span>
                 </button>
-              ) : !timeLeft.isExpired ? (
-                <button
-                  onClick={handleReserveClick}
-                  className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_18px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_25px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-98 flex items-center justify-center gap-2"
-                >
-                  <span>Pre-Orders Unlock September 9th, 8:00 PM</span>
-                  <span className="text-xs">⏰</span>
-                </button>
               ) : (
                 <>
                   <button
-                    onClick={handleReserveClick}
+                    onClick={handleBuyNow}
                     className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_18px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_25px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-98 flex items-center justify-center gap-2"
                   >
-                    <span>Reserve with ₹{depositPrice} Deposit</span>
+                    <span>Buy Now — ₹{currentJournal.price}</span>
                     <span className="text-xs">♡</span>
                   </button>
 
@@ -576,10 +481,7 @@ export const ProductPage = ({ onNavigate }) => {
                     <a
                       href={generateShopifyCartPermalink({
                         quantity: 1,
-                        personalization: customName,
-                        size: currentSize.name,
-                        ruling: currentRuling.name,
-                        tier: currentTier.name
+                        personalization: customName
                       })}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -592,7 +494,7 @@ export const ProductPage = ({ onNavigate }) => {
                 </>
               )}
               <p className="text-center text-[11px] text-[#8C5E68] mt-2 font-sans">
-                100% unconditional refund anytime before dispatch • Free campus shipping
+                100% unconditional refund within 14 days of delivery • Free nationwide shipping
               </p>
             </div>
 

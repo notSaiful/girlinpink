@@ -5,7 +5,6 @@ import { ProductCarousel } from '../components/ProductCarousel';
 import { ArchivalPaperLab } from '../components/ArchivalPaperLab';
 import { UnboxingExperience } from '../components/UnboxingExperience';
 import { TestimonialsSection } from '../components/TestimonialsSection';
-import { FAQS } from '../data/preorderData';
 
 export const HomeStory = ({ onNavigate }) => {
   const scrollToCarousel = () => {

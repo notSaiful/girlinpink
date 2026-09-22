@@ -7,7 +7,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
   const blueStats = getPrintStats ? getPrintStats('blue') : { remaining: 150, isSoldOut: false };
 
   const getAnnouncementText = () => {
-    return 'Handcrafted Creative Journals & Notebooks • Pre-Orders Open September 9th, 8:00 PM ♡';
+    return 'Handcrafted Creative Journals & Notebooks • Free Nationwide Express Shipping ♡';
   };
 
   const handleNavClick = (targetId) => {
@@ -37,7 +37,7 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
     <header className="sticky top-0 z-40 bg-[#FFF6F8]/95 backdrop-blur-md border-b border-[#F7D5DC] shadow-[0_4px_20px_rgba(240,165,180,0.09)]">
       {/* Refined Girly Announcement Strip with comfortable padding */}
       <div className="bg-[#FFE8ED] border-b border-[#F5CCD6] text-[#8C3847] px-4 sm:px-6 py-2.5 text-center text-xs sm:text-[13px] font-medium tracking-wide">
-        <span className="font-serif italic font-medium">Batch 01 Pre-Launch Drop:</span>
+        <span className="font-serif italic font-medium">Batch 01 Studio Drop:</span>
         <span className="font-sans ml-2">
           {getAnnouncementText()}
         </span>
@@ -86,9 +86,9 @@ export const Header = ({ currentPage = 'home', onNavigate }) => {
               onClick={() => handleNavClick('products')}
               className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs sm:text-sm font-medium tracking-wide transition shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:shadow-[0_6px_22px_rgba(221,107,128,0.45)] hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0"
             >
-              <span className="hidden sm:inline">Pre-Orders Sept 9th, 8 PM</span>
-              <span className="sm:hidden">Drops Sept 9, 8 PM</span>
-              <span className="text-xs">⏰</span>
+              <span className="hidden sm:inline">Shop Collection</span>
+              <span className="sm:hidden">Shop Now</span>
+              <span className="text-xs">♡</span>
             </button>
           </div>
 

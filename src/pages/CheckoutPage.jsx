@@ -56,11 +56,6 @@ export const CheckoutPage = ({ onNavigate }) => {
     e.preventDefault();
     setErrorMessage('');
 
-    if (!timeLeft.isExpired) {
-      setErrorMessage('Pre-orders are currently locked during pre-launch. Checkout will officially open on September 9th at 8:00 PM IST.');
-      return;
-    }
-
     if (printStats.isSoldOut) {
       setErrorMessage(`Batch 01 allocation for ${selectedPrint?.name || 'this edition'} is full (150/150 reserved). Please select another edition.`);
       return;
@@ -71,14 +66,14 @@ export const CheckoutPage = ({ onNavigate }) => {
     const receipt = {
       orderId: `GP-${Math.floor(1000 + Math.random() * 9000)}`,
       journal: selectedPrint?.name || 'Dragonfly Botanical Leather Journal',
-      format: selectedSize?.name || 'Classic A5 Format',
-      ruling: selectedRuling?.name || '5mm Dot Grid (Cream)',
-      bundle: selectedTier?.name || 'Single Journal Edition',
+      format: selectedPrint?.specs?.paper || 'Classic Keepsake Edition',
+      ruling: selectedPrint?.specs?.finish || 'Archival Flat Opening',
+      bundle: 'Signature Keepsake Gift Box + Brass Bookmark Clip',
       personalization: selectedPrint?.isPersonalized ? (formData.personalizationText || personalization || 'Custom Name') : 'Standard Edition',
       amountPaid: amountToPayNow,
-      balanceDue: balanceDueLater,
+      balanceDue: 0,
       customer: formData,
-      deliveryWindow: 'October 05 – October 12, 2026',
+      deliveryWindow: 'Dispatched in 24 Hours • Free Tracked Delivery',
       allocationNumber: (printStats.reserved || 0) + 1
     };
 
@@ -177,12 +172,12 @@ export const CheckoutPage = ({ onNavigate }) => {
                 <span className="text-[#2D1C20]">{orderReceipt.bundle}</span>
               </div>
               <div className="flex items-center justify-between pt-3 border-t border-[#F8CCD6]">
-                <span className="font-medium text-[#2D1C20]">Deposit Paid:</span>
+                <span className="font-medium text-[#2D1C20]">Total Paid:</span>
                 <span className="font-serif text-lg font-bold text-[#DD6B80]">₹{orderReceipt.amountPaid}</span>
               </div>
               <div className="flex items-center justify-between text-xs text-[#8C5E68]">
-                <span>Remaining Balance at Dispatch:</span>
-                <span>₹{orderReceipt.balanceDue}</span>
+                <span>Status:</span>
+                <span className="text-emerald-700 font-medium">✓ Payment Confirmed • Dispatching within 24h</span>
               </div>
             </div>
 
@@ -200,7 +195,7 @@ export const CheckoutPage = ({ onNavigate }) => {
             
             {/* Top Washi Tape Strip */}
             <div className="absolute -top-3.5 left-6 sm:left-10 w-36 sm:w-44 h-5 bg-[#FADADD]/90 backdrop-blur-xs border border-dashed border-[#E8A5B2]/60 rounded-xs shadow-2xs -rotate-1 z-10 flex items-center justify-center pointer-events-none">
-              <span className="text-[10px] font-hand text-[#A85E5E] tracking-wider">batch 01 reservation desk ♡</span>
+              <span className="text-[10px] font-hand text-[#A85E5E] tracking-wider">batch 01 order desk ♡</span>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -210,34 +205,15 @@ export const CheckoutPage = ({ onNavigate }) => {
                 
                 <div>
                   <span className="text-xs font-medium tracking-widest uppercase text-[#DD6B80] font-sans block mb-1">
-                    Stationery Drop Allocation ♡
+                    Artisanal Stationery Order ♡
                   </span>
                   <h1 className="font-serif text-2xl sm:text-4xl text-[#2D1C20] font-normal tracking-tight">
-                    Secure Your Journal
+                    Complete Your Order
                   </h1>
                   <p className="text-sm text-[#69464C] mt-1 font-sans">
-                    Batch 01 is strictly limited to 150 handcrafted copies per journal edition. Pre-orders officially unlock on <strong>September 9th at 8:00 PM IST</strong>. Free campus dispatch across India in signature keepsake gift boxes.
+                    Handcrafted in small batches. Free tracked express delivery across India with signature keepsake gift box packaging.
                   </p>
                 </div>
-
-                {!timeLeft.isExpired && (
-                  <div className="p-3.5 sm:p-5 rounded-2xl bg-[#FFF5F7] border border-[#FAD2DB] text-xs text-[#8C3847] space-y-2.5 font-sans shadow-xs">
-                    <div className="font-semibold flex items-center gap-2 text-xs sm:text-sm text-[#9E2B42]">
-                      <span>⏰</span>
-                      <span>Pre-Launch Mode: Pre-Orders Open September 9th, 8:00 PM</span>
-                    </div>
-                    <p className="text-[#69464C] leading-relaxed">
-                      We are currently in pre-launch! Handcrafted journal reservations for Batch 01 will officially unlock on <strong>September 9th at 8:00 PM IST</strong>. Until then, you can explore the collection, customize your personal name, and select paper rulings.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => onNavigate && onNavigate('product')}
-                      className="mt-1 px-4 py-2 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white text-xs font-medium tracking-wide transition shadow-xs inline-flex items-center gap-2"
-                    >
-                      <span>Explore Collection & Personalize ←</span>
-                    </button>
-                  </div>
-                )}
 
                 {errorMessage && (
                   <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-700 font-sans shadow-xs flex items-start gap-2">
@@ -403,64 +379,54 @@ export const CheckoutPage = ({ onNavigate }) => {
                     </div>
                   </div>
 
-                  {/* Step 3: Reservation Deposit */}
+                  {/* Step 3: Order Payment */}
                   <div className="relative p-5 rounded-2xl bg-[#F2F7FB] border border-[#D3E3F0] space-y-3 pt-6">
                     {/* Washi Tag */}
                     <div className="absolute -top-2.5 left-6 px-3 py-0.5 bg-[#DDEBF5] border border-dashed border-[#99BDDA] rounded-xs shadow-2xs rotate-1 text-[10px] font-hand text-[#456885]">
-                      step 03 • deposit allocation ♡
+                      step 03 • order payment ♡
                     </div>
 
                     <div className="font-serif text-sm font-medium text-[#2D1C20] flex flex-wrap items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className="w-5 h-5 rounded-full bg-[#DDEBF5] text-[#456885] text-xs flex items-center justify-center font-sans font-bold shrink-0">3</span>
-                        <span>Pre-Order Deposit</span>
+                        <span>Payment & Dispatch</span>
                       </div>
                       <span className="text-xs font-semibold text-[#DD6B80] bg-[#FFE8EE] px-2.5 py-1 rounded-full border border-[#F5CCD6] shrink-0">
-                        ₹{amountToPayNow} Due Today
+                        ₹{amountToPayNow} Total
                       </span>
                     </div>
 
                     <p className="text-xs text-[#69464C] leading-relaxed font-sans">
-                      To reserve your copy in Batch 01, you only pay an initial deposit of <strong>₹{amountToPayNow}</strong> today. The balance of <strong>₹{balanceDueLater}</strong> is due upon campus dispatch in October 2026.
+                      Your journal will be individually inspected, placed into our rigid keepsake gift box with satin ribbon, and dispatched within 24 hours via tracked express courier.
                     </p>
 
                     <div className="p-3 rounded-xl bg-[#FFF8F9] border border-[#FAD2DB] flex items-center gap-2.5 text-xs text-[#8C5E68] font-sans">
                       <span className="text-[#DD6B80] text-sm">♡</span>
-                      <span>100% unconditional refund anytime prior to dispatch if your college plans change.</span>
+                      <span>100% unconditional refund within 14 days of delivery if you are not delighted with your keepsake.</span>
                     </div>
                   </div>
 
                   {/* Primary Checkout CTA */}
                   <div className="pt-2 space-y-3">
-                    {!timeLeft.isExpired ? (
-                      <button
-                        type="button"
-                        disabled
-                        className="w-full py-4 rounded-full bg-[#F6CCD5] text-[#8C3847] font-medium text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2 border border-[#EAA8B6]"
-                      >
-                        <span>Pre-Orders Unlock September 9th, 8:00 PM 🔒</span>
-                      </button>
-                    ) : (
-                      <button
-                        type="submit"
-                        disabled={step === 'processing'}
-                        className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:-translate-y-0.5 active:scale-[0.99] disabled:opacity-75 flex items-center justify-center gap-2"
-                      >
-                        {step === 'processing' ? (
-                          <span>Connecting to Razorpay...</span>
-                        ) : (
-                          <>
-                            <span>Pay ₹{amountToPayNow} Pre-Order Deposit via Razorpay</span>
-                            <span className="text-xs">♡</span>
-                          </>
-                        )}
-                      </button>
-                    )}
+                    <button
+                      type="submit"
+                      disabled={step === 'processing'}
+                      className="w-full py-4 rounded-full bg-[#DD6B80] hover:bg-[#CC5A6F] text-white font-medium text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(221,107,128,0.35)] hover:-translate-y-0.5 active:scale-[0.99] disabled:opacity-75 flex items-center justify-center gap-2"
+                    >
+                      {step === 'processing' ? (
+                        <span>Connecting to Razorpay...</span>
+                      ) : (
+                        <>
+                          <span>Pay ₹{amountToPayNow} via Razorpay</span>
+                          <span className="text-xs">♡</span>
+                        </>
+                      )}
+                    </button>
 
                     <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#8C5E68] text-center font-sans">
                       <span>100% Refund Guarantee</span>
                       <span>•</span>
-                      <span>Free Campus Delivery</span>
+                      <span>Free Nationwide Shipping</span>
                       <span>•</span>
                       <span>Secured by Razorpay</span>
                     </div>
@@ -506,7 +472,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                       {selectedPrint?.name}
                     </h3>
                     <p className="text-xs text-[#8C5E68] font-sans">
-                      {selectedSize?.name} • {selectedRuling?.name}
+                      {selectedPrint?.paletteName || 'Artisanal Keepsake'}
                     </p>
                     {selectedPrint?.isPersonalized && (
                       <p className="text-xs text-[#DD6B80] font-hand">
@@ -522,10 +488,6 @@ export const CheckoutPage = ({ onNavigate }) => {
                       <span className="font-medium text-[#2D1C20]">₹{basePrice}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Bundle: {selectedTier?.name}</span>
-                      <span className="text-[#8C5E68]">Included</span>
-                    </div>
-                    <div className="flex justify-between">
                       <span>Rigid Keepsake Gift Box & Ribbon</span>
                       <span className="text-emerald-700 font-medium">FREE</span>
                     </div>
@@ -534,7 +496,7 @@ export const CheckoutPage = ({ onNavigate }) => {
                       <span className="text-emerald-700 font-medium">FREE</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Campus Shipping</span>
+                      <span>Nationwide Express Shipping</span>
                       <span className="text-emerald-700 font-medium">FREE</span>
                     </div>
                   </div>
@@ -542,14 +504,14 @@ export const CheckoutPage = ({ onNavigate }) => {
                   {/* Totals */}
                   <div className="pt-3 space-y-2 font-sans">
                     <div className="flex justify-between items-baseline">
-                      <span className="text-xs font-medium text-[#2D1C20]">Deposit Due Today:</span>
+                      <span className="text-xs font-medium text-[#2D1C20]">Total Amount to Pay:</span>
                       <span className="font-serif text-xl sm:text-2xl font-bold text-[#DD6B80]">
                         ₹{amountToPayNow}
                       </span>
                     </div>
-                    <div className="flex justify-between text-xs text-[#8C5E68]">
-                      <span>Remaining Balance at Dispatch:</span>
-                      <span>₹{balanceDueLater}</span>
+                    <div className="flex justify-between text-xs text-emerald-700 font-medium">
+                      <span>Shipping & Taxes:</span>
+                      <span>Included (Zero extra charges)</span>
                     </div>
                   </div>
 
